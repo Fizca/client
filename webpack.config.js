@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    chunkFilename: 'vendors.bundle.js',
+    chunkFilename: '[id].[chunkhash].js'
   },
   optimization: {
     splitChunks: {
@@ -39,7 +39,10 @@ module.exports = {
       // Compile the CCSS files
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader'},
+        ],
       },
       // For all assets smaller than the limit, embed them in the bundle.js
       // Note: `file-loader` does the oposite. Keeps files as assets.
