@@ -37,16 +37,13 @@ brew install node@12
 There is no significan difference between Yarn and NPM for package management.
 There is a breakdown on how they operate here: https://www.sitepoint.com/yarn-vs-npm/.
 
-However the project right now is using Yarn 3 since it just is slightly better and makes
-running comands easier. It also allows for yarn to be configured by project.
 
 The Yarn documentation can be found here https://yarnpkg.com/getting-started
 
-Install Yarn base version 1.22 and then set the project to run on Yarn 2:
+Install Yarn base version 1.22
 
 ```bash
 npm install -g yarn
-yarn set version berry
 ```
 
 # Extensions
