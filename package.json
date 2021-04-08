@@ -22,8 +22,9 @@
     "webpack-manifest-plugin": "^2.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "watch": "webpack-dev-server --progress",
+    "start": "webpack-dev-server --config ./webpack.config.js",
+    "build": "webpack --mode production --config ./webpack.config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
