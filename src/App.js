@@ -1,24 +1,20 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+
+import Container from '@containers/Container'
+import Splash from '@containers/Splash'
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <main className="d-flex h-100 flex-column">
+        <BrowserRouter forceRefresh={false}>
+          <Switch>
+            <Route path='/' component={Splash} exact />
+            <Route path='/success' component={Container} exact />
+          </Switch>
+        </BrowserRouter>
+      </main>
   );
 }
 

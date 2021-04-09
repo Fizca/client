@@ -82,7 +82,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      '@components': path.resolve(__dirname, 'src/ui/components'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@containers': path.resolve(__dirname, 'src/containers'),
       '@models': path.resolve(__dirname, 'src/models'),
       '@services': path.resolve(__dirname, 'src/services'),
       '@public': path.resolve(__dirname, 'public'),
