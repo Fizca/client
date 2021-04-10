@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
   background-color: #0B0C10;
-  border-color: #66FCF1;
-  color: #66FCF1;
+  border-color: #45A29E;
+  color: #45A29E;
 
   &:hover, &:active {
-    background-color: #0B0C10;
-    border-color: #45A29E;
-    color: #45A29E;
+    background-color: #66FCF1;
+    border-color: #66FCF1;
+    color: var(--deepblue);
   }
 `;
 

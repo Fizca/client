@@ -14,6 +14,8 @@
   --lightgrey: #C5C6C7;
   --lightteal: #66FCF1;
   --greenteal: #45A29E;
+  --darkteal: #334B4A;
+  --brightfucsia: #9D0051;
 
   /* Fonts */
   --bungee: 'Bungee';
@@ -34,7 +36,7 @@
 
 html, body {
     height: 100%;
-    background-color: var(--lightgrey);
+    /* background-color: var(--lightgrey); */
     font-family: var(--open-sans), sans-serif;
 }
 
@@ -45,28 +47,31 @@ body {
   -ms-flex-pack: center;
   -webkit-box-pack: center;
   justify-content: center;
-  color: #fff;
+}
+
+body .screen {
   box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
 }
 
 h1, h2, h3{
   padding-bottom: 20px;
   font-family: var(--catamaran), cursive;
-  color: var(--lightteal);
-  font-weight: 900;
-}
-
-a {
-  color: #45A29E;
-}
-
-a:hover, a:active, a:visited {
-  color: #66FCF1;
+  color: var(--deepblue);
 }
 
 .content-lt {
   background-color: #FFFFFF;
 }
 
-.test1 {}
-.test2 {}
+.jumbotron {
+  background-color: var(--deepblue);
+  color: #FFFFFF;
+}
+
+.jumbotron h1 {
+  color: var(--lightteal);
+}
+
+.fz-nav {
+  background-color: var(--blackish);
+}
