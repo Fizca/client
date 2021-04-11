@@ -1,10 +1,11 @@
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const webpack = require('webpack');
 
 const env = process.env.NODE_ENV || 'local';
-const isProduction = env === 'production';
+console.log(`Starting Environment: ${env}`);
 
 module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
@@ -24,7 +25,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'assets'),
     port: process.env.PORT || 3000,
     historyApiFallback: true,
-    hot: !isProduction,
+    hot: env === 'production',
     publicPath: '/',
   },
   module: {
@@ -68,6 +69,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new Dotenv({
+      defaults: true,
+    }),
     new HtmlWebPackPlugin({
       template: './public/index.html',
       filename: './index.html',
@@ -77,7 +81,6 @@ module.exports = {
     }),
     new ManifestPlugin(),
     new webpack.DefinePlugin({
-
     })
   ],
   resolve: {

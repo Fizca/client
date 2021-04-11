@@ -75,3 +75,15 @@ h1, h2, h3{
 .fz-nav {
   background-color: var(--blackish);
 }
+
+.fz-btn-dark {
+  background-color: var(--blackish);
+  border-color: var(--greenteal);
+  color: var(--greenteal);
+}
+
+.fz-btn-dark:hover, .fz-btn-dark:active {
+  background-color: var(--lightteal);
+  border-color: var(--lightteal);
+  color: var(--deepblue);
+}

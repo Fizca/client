@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 import Button from '@components/Button';
 import Content from '@components/Content';
-import DarkLink from '@components/DarkLink';
 
 const Title = styled.h1`
   font-size: 600%;
 `;
+
+const ServerUrl = process.env.SERVER_URL;
 
 const Splash = (props) => (
   <>
@@ -15,8 +16,7 @@ const Splash = (props) => (
     <Content className="container jumbotron">
       <Title>FIZCA</Title>
       <p>It means soul in muisca!</p>
-      <p><Button>HELLO</Button></p>
-      <p><DarkLink href="/success">Success</DarkLink></p>
+      <p><a className='btn fz-btn-dark' href={`http://${ServerUrl}/google/oauth`}>Login</a></p>
     </Content>
     <footer className="mt-auto"></footer>
   </>
