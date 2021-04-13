@@ -87,3 +87,13 @@ h1, h2, h3{
   border-color: var(--lightteal);
   color: var(--deepblue);
 }
+
+.fz-btn-light {
+  border-color: var(--greenteal);
+  color: var(--greenteal);
+}
+
+.fz-btn-light:hover, .fz-btn-light:active {
+  border-color: var(--darkteal);
+  color: var(--darkteal);
+}

@@ -1,16 +1,13 @@
-import { Component } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-class PrivateComponent extends Component {
-
-  render() {
-    const { redirect = '/' } = this.props;
-    if (!this.props.isAllowed) {
-      return (<Redirect to={redirect} />)
-    }
-
-    return (this.props.children);
+const PrivateComponent = (props) => {
+  const { redirect = '/' } = props;
+  if (!props.isAllowed) {
+    return (<Redirect to={redirect} />)
   }
+
+  return (props.children);
 }
 
 export default PrivateComponent;

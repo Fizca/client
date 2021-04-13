@@ -36,7 +36,7 @@ class Navigation extends React.Component {
   render() {
     return (
       <header>
-        <nav className="navbar navbar-expand-md navbar-dark fz-nav">
+        <nav className="navbar navbar-expand-md navbar-dark fz-nav box-shadow mb-3">
           <DarkLink className="navbar-brand mr-auto" href="#">FIZCA</DarkLink>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
