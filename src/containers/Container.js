@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Link from '@components/Link';
+import Photo from '@components/Photo';
 import Navigation from '@containers/Navigation';
 
 const Title = styled.h1`
@@ -23,23 +24,28 @@ const Container = (props) => (
       </div>
 
       <div className="container">
-
         <div className="row">
-          <div className="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div className="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div className="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec <Link href="#">sed</Link> odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
+          {
+            [1,2,3,4,5,6,7,8].map((i) => {
+              return (
+                <div className="col-md-4" key={i + "row"} p={i+"row"}>
+                  <div className="card mb-4 box-shadow">
+                  <Photo className="card-img-top" src="2707f16843bff61726e269cb195bede8713764b52421f6d7111425c130a187c9.JPG"  style="height: 225px; width: 100%; display: block;" />
+                    <div className="card-body">
+                      <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div className="btn-group">
+                          <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
+                          <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                        </div>
+                        <small className="text-muted">9 mins</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          }
         </div>
 
         <hr/>
