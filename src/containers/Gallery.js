@@ -10,7 +10,7 @@ const Title = styled.h1`
   font-size: 400%;
 `;
 
-const Container = (props) => (
+const Gallery = (props) => (
   <>
     <Navigation />
     <main role="main">
@@ -60,4 +60,4 @@ const Container = (props) => (
   </>
 );
 
-export default Container;
+export default Gallery;
