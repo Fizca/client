@@ -1,32 +1,15 @@
+import { action, computed } from 'mobx';
+import { observer } from "mobx-react";
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { observer } from "mobx-react";
-import styled from 'styled-components';
-import { action, computed } from 'mobx';
 
 import DarkLink from '@components/DarkLink';
-
-const AppTitle = styled.h1`
-    color: purple;
-    text-align: center;
-`;
-
-const WelcomeText = styled.p`
-    font-size: 1.5em;
-    color: purple;
-    text-align: center;
-`;
-
-const NavBarImg = styled.img`
-  height: 30px;
-`;
+import Store from '@models/Store';
 
 @observer
 class Navigation extends React.Component {
   @computed get user() {
-    return {
-      name: 'Name'
-    };
+    return Store.user;
   }
 
   @action
@@ -43,29 +26,25 @@ class Navigation extends React.Component {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarCollapse">
-            <ul className="navbar-nav">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Home<span className="sr-only">(current)</span></Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled" href="#">Disabled</a>
+                <Link className="nav-link" to="/uploads">Uploads</Link>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div className="dropdown-menu" aria-labelledby="dropdown01">
-                  <a className="dropdown-item" href="#">Action</a>
-                  <a className="dropdown-item" href="#">Another action</a>
-                  <a className="dropdown-item" href="#">Something else here</a>
+                <a className="nav-link dropdown-toggle"
+                   href="#"
+                   id="dropdown01"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">{this.user.name}</a>
+                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                  <button onClick={() => this.logout()} className="dropdown-item" type="button">Log Out</button>
                 </div>
               </li>
             </ul>
-            <form className="form-inline mt-2 mt-md-0">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
           </div>
         </nav>
       </header>

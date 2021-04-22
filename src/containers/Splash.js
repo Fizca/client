@@ -16,7 +16,7 @@ const Splash = (props) => (
     <Content className="container jumbotron">
       <Title>FIZCA</Title>
       <p>It means soul in muisca!</p>
-      <p><a className='btn fz-btn-dark' href={`http://${ServerUrl}/google/oauth`}>Login</a></p>
+      <p><a className='btn fz-btn-dark' href={`${ServerUrl}/google/oauth`}>Login</a></p>
     </Content>
     <footer className="mt-auto"></footer>
   </>
