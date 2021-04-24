@@ -16,6 +16,7 @@
   --greenteal: #45A29E;
   --darkteal: #334B4A;
   --brightfucsia: #9D0051;
+  --darkfucsia: #57002d;
 
   /* Fonts */
   --bungee: 'Bungee';
@@ -55,7 +56,7 @@ body .screen {
 
 h1, h2, h3{
   padding-bottom: 20px;
-  font-family: var(--catamaran), cursive;
+  font-family: var(--catamaran), sans-serif;
   color: var(--deepblue);
 }
 
@@ -96,4 +97,15 @@ h1, h2, h3{
 .fz-btn-light:hover, .fz-btn-light:active {
   border-color: var(--darkteal);
   color: var(--darkteal);
+}
+
+.fz-btn-alert {
+  border-color: var(--darkfucsia);
+  color: var(--darkfucsia);
+}
+
+.fz-btn-alert:hover, .fz-btn-alert:active {
+  border-color: var(--brightfucsia);
+  color: #FFFFFF;
+  background-color: var(--brightfucsia);
 }

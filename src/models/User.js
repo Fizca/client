@@ -1,9 +1,5 @@
-import axios from "axios";
+import { http } from "@services/Backend";
 import { observable } from "mobx";
-
-const transport = axios.create({
-  withCredentials: true
-})
 
 class User {
   @observable id;
@@ -16,7 +12,7 @@ class User {
   }
 
   static FetchUser(userId) {
-    return transport(`${process.env.SERVER_URL}/users/${userId}`)
+    return http(`/users/${userId}`)
       .then((res) => {
         const { data } = res;
         return new User(data);

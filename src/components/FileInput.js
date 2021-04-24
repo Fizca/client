@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components'
-import { CloudUploadFill } from 'react-bootstrap-icons'
+import { CloudUploadFill, FileImage } from 'react-bootstrap-icons'
+
+import { http } from '@services/Backend';
+import PartialLoading from '@components/LoadingOverlay';
+
 
 const Sqr = styled.div`
   width: 150px;
@@ -37,56 +41,89 @@ const Input = styled.div`
   }
 `;
 
-
 class InputFile extends React.Component {
+
+  // Constructor for the component
   constructor(props) {
     super(props);
-    this.state = { files: {} };
-    this.handleChange = this.handleChange.bind(this)
+    this.state = { files: {},  uploading: false };
   }
 
-  handleChange(event) {
-    if (this.callback) {
-      this.callback(event);
-    }
-
+  handleAddFile = (event) => {
+    // Iterate over the files and load them up on the state
     const { files } = this.state;
     const length = event.target.files.length;
-    for (let i = 0; i < length; i += 1) {
-      files[event.target.files[i].name] = {
-        filename: event.target.files[i].name,
-        file: URL.createObjectURL(event.target.files[i]),
-        type: event.target.files[i].type.split('/')[0]
+    for (let i = 0; i < length; i++) {
+      const file = event.target.files[i];
+      files[file.name] = {
+        url: URL.createObjectURL(file),
+        type: file.type.split('/')[0],
+        file,
       };
-    };
+    }
 
     this.setState({ files });
   }
 
+  handleClick = (_event) => {
+    if (!Object.keys(this.state.files).length) {
+      return;
+    }
+
+    // Set the overlay to avoid double submissions
+    this.setState({ uploading: true });
+
+    // Create the form data, and load the image uploads
+    const formData = new FormData();
+    Object.values(this.state.files).forEach((entry) => {
+      formData.append("images", entry.file);
+    })
+
+    // Send the request upstream.
+    return http.post("/assets", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }).then(() => {
+      // Faking a quick 2 second delay to give a sense of working
+      // and reseting the state for more uploads.
+      setTimeout(() => this.setState({ files: [], uploading: false }), 2000);
+    });
+  }
+
   render() {
-    const { children, preview, onChange, name, ...rest } = this.props;
-    this.callback = onChange;
+    const { children, preview, name, ...rest } = this.props;
 
     // TODO: Add a remove button, or at least a way to clear images.
     return (
-      <div className="d-flex flex-wrap justify-content-start">
+      <div className="d-flex flex-wrap justify-content-start" style={{position: 'relative' }}>
+
+        {Object.values(this.state.files).map((file, index) => {
+          return (
+            <Sqr className="p-3"  key={index}>
+                <img src={file.url} />
+            </Sqr>
+          );
+        })}
 
         <Sqr className="p-3">
-          <Input {...rest} onChange={this.handleChange} className='btn fz-btn-light'>
-            <CloudUploadFill size={80}/>
+          <Input {...rest} onChange={this.handleAddFile} className='btn fz-btn-light'>
+            <FileImage size={80}/>
             <hr />
             Select files
             <input type='file' multiple name={name} />
           </Input>
         </Sqr>
 
-        {Object.values(this.state.files).map((file, index) => {
-          return (
-            <Sqr className="p-3"  key={index}>
-                <img src={file.file} />
-            </Sqr>
-          );
-        })}
+        <Sqr className="p-3">
+          <Input onClick={this.handleClick} className='btn fz-btn-alert'>
+            <CloudUploadFill size={80}/>
+            <hr />
+            Upload
+          </Input>
+        </Sqr>
+
+        <PartialLoading disabled={this.state.uploading} />
       </div>
     );
   }

@@ -1,17 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 
-import Link from '@components/Link';
 import Photo from '@components/Photo';
 import Navigation from '@containers/Navigation';
+import { http } from '@services/Backend';
 
-const Title = styled.h1`
-  color: #1F2833;
-  font-size: 400%;
-`;
+const Gallery = () => {
+  const [ assets, setAssets ] = useState([]);
 
-const Gallery = (props) => (
-  <>
+  useEffect(() => {
+    http(`/assets/list`)
+      .then((result) => {
+        setAssets(result.data);
+      });
+
+    // This check prevents an infinite loop. It's a known issue with react
+    // where the state change triggers the useEffect again.
+    // https://dmitripavlutin.com/react-useeffect-infinite-loop/
+    // https://css-tricks.com/run-useeffect-only-once/
+  }, []);
+
+  return (<>
     <Navigation />
     <main role="main">
 
@@ -26,11 +34,11 @@ const Gallery = (props) => (
       <div className="container">
         <div className="row">
           {
-            [1,2,3,4,5,6,7,8].map((i) => {
+            assets.map((asset, i) => {
               return (
                 <div className="col-md-4" key={i + "row"} p={i+"row"}>
                   <div className="card mb-4 box-shadow">
-                  <Photo className="card-img-top" src="2707f16843bff61726e269cb195bede8713764b52421f6d7111425c130a187c9.JPG"  style="height: 225px; width: 100%; display: block;" />
+                  <Photo className="card-img-top" src={asset.name} />
                     <div className="card-body">
                       <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                       <div className="d-flex justify-content-between align-items-center">
@@ -57,7 +65,7 @@ const Gallery = (props) => (
     <footer className="container">
       <p>&copy; Company 2021</p>
     </footer>
-  </>
-);
+  </>);
+};
 
 export default Gallery;
