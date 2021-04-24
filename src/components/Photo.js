@@ -1,22 +1,27 @@
-import axios from 'axios';
+import { http } from '@services/Backend';
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-const serverUrl = process.env.SERVER_URL;
+const Img = styled.img`
+  height: 225px;
+  width: 100%;
+  display: block;
+`;
 
 const Photo = (props) => {
   const [ src, setSrc ] = useState(null);
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    axios(`http://${serverUrl}/assets/${props.src}`)
+    http(`/assets/url/${props.src}`)
       .then((result) => {
         setSrc(result.data);
       });
-  });
+  }, []);
 
   return (
     <div>
-      <img src={src} />
+      <Img src={src} />
     </div>
   );
 }

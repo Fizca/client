@@ -12,9 +12,10 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = (props) => (
-  <StyledButton className="btn">
-    {props.children}
+const Button = ({children, ...props}) => (
+
+  <StyledButton className="btn" { ...props }>
+    {children}
   </StyledButton>
 );
 
