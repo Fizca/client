@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import PrivateRoute from '@components/PrivateRoute';
 import Landing from '@containers/Landing'
@@ -11,6 +12,7 @@ import MomentForm from '@containers/MomentForm';
 import Store from '@models/Store';
 
 import './App.css';
+import Moments from '@containers/Moments';
 
 const App = observer(() => {
   useEffect(() => {
