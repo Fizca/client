@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import PrivateRoute from '@components/PrivateRoute';
 import Landing from '@containers/Landing'
@@ -9,6 +10,7 @@ import Uploads from '@containers/Uploads'
 import Store from '@models/Store';
 
 import './App.css';
+import Moments from '@containers/Moments';
 
 const App = observer(() => {
   useEffect(() => {
@@ -34,6 +36,9 @@ const App = observer(() => {
           <Route path='/success' component={Landing} exact />
           <PrivateRoute path="/uploads" isAllowed={Store.user}>
             <Uploads />
+          </PrivateRoute>
+          <PrivateRoute path="/moments" isAllowed={Store.user}>
+            <Moments />
           </PrivateRoute>
         </Switch>
       </BrowserRouter>
