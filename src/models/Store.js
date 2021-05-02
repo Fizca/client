@@ -2,20 +2,30 @@ import { observable } from "mobx";
 
 import User from './User';
 
-export const checked = 'checked';
-export const empty = 'empty';
-export const loading = 'loading';
+const Empty = 'empty';
+const Loading = 'loading';
+const Ready = 'ready';
 
 class Store {
-  @observable status = 'empty';
+  @observable status = Empty;
   @observable user;
 
   async loadUser() {
-    this.status = 'loading';
+    this.status = Loading;
     this.user = await User.FetchUser('me').catch(() => {
       console.log('User not logged in.');
     });
-    this.status = 'checked';
+    this.status = Ready;
+  }
+
+  async clearUser() {
+    await User.Logout();
+    this.user = undefined;
+    return;
+  }
+
+  isReady() {
+    return this.status === Ready;
   }
 }
 
