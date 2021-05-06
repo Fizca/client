@@ -90,10 +90,6 @@ class Store {
   isReady() {
     return this.status === Ready;
   }
-
-  isReady() {
-    return this.status === 'checked';
-  }
 }
 
 export default new Store();
