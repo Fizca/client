@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Navigation from '@containers/Navigation';
 import { http } from '@services/Backend';
+import FileInput from '@components/FileInput';
 import Moment from '@components/Moment';
 
 const Moments = () => {
@@ -22,22 +23,11 @@ const Moments = () => {
   return (<>
     <Navigation />
     <main role="main">
-
       <div className="container">
-        <div className="row">
-          {
-            moments.map((moment, i) => {
-              return (
-                <Moment moment={moment} key={`m-${i}`}/>
-              );
-            })
-          }
-        </div>
-
-        <hr/>
-
+        { moments.map((moment, i) => {
+          return (<Moment moment={moment} key={`m-${i}`} />);
+        })}
       </div>
-
     </main>
 
     <footer className="container">
