@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import Photo from '@components/Photo';
-import Navigation from '@containers/Navigation';
 import { http } from '@services/Backend';
+import Main from './Main';
+import Store from '@models/Store';
+import { observer } from 'mobx-react';
 
 const Gallery = () => {
   const [ assets, setAssets ] = useState([]);
@@ -12,21 +14,20 @@ const Gallery = () => {
       .then((result) => {
         setAssets(result.data);
       });
-
-    // This check prevents an infinite loop. It's a known issue with react
-    // where the state change triggers the useEffect again.
-    // https://dmitripavlutin.com/react-useeffect-infinite-loop/
-    // https://css-tricks.com/run-useeffect-only-once/
   }, []);
 
-  return (<>
-    <Navigation />
-    <main role="main">
+  useEffect(() => {
+    if (!Store.profiles.length) {
+      Store.loadProfiles();
+    }
+  }, []);
 
+  return (
+    <Main>
       <div className="jumbotron">
         <div className="container">
-          <h1 className="display-3">Hello, world!</h1>
-          <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+          <h1 className="display-3">{Store.profile.nickname}</h1>
+          <p>An adventure starts...</p>
           <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
         </div>
       </div>
@@ -55,17 +56,9 @@ const Gallery = () => {
             })
           }
         </div>
-
-        <hr/>
-
       </div>
-
-    </main>
-
-    <footer className="container">
-      <p>&copy; Company 2021</p>
-    </footer>
-  </>);
+    </Main>
+  );
 };
 
-export default Gallery;
+export default observer(Gallery);
