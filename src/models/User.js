@@ -20,7 +20,7 @@ class User {
   }
 
   static Logout() {
-    Axios(`${process.env.SERVER_URL}/logout`);
+    return http(`/logout`);
   }
 }
 
