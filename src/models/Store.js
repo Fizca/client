@@ -1,4 +1,5 @@
-import { observable } from "mobx";
+import { computed, observable } from "mobx";
+import Profile from "./Profile";
 
 import User from './User';
 
@@ -9,6 +10,9 @@ const Ready = 'ready';
 class Store {
   @observable status = Empty;
   @observable user;
+  @observable profiles = [];
+  @observable selected = 0;
+  @observable profile = new Profile({nickname: 'loading...'});
 
   async loadUser() {
     this.status = Loading;
@@ -16,6 +20,13 @@ class Store {
       console.log('User not logged in.');
     });
     this.status = Ready;
+  }
+
+  async loadProfiles() {
+    this.profiles = await Profile.FetchProfiles();
+    if (this.profiles.length) {
+      this.profile = this.profiles[this.selected];
+    }
   }
 
   async clearUser() {
