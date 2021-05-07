@@ -1,5 +1,5 @@
 import FileInput from '@components/FileInput';
-import Main from '@containers/Main';
+import Main from '@components/Main';
 
 const Uploads = () => (
   <Main>
