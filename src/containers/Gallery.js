@@ -1,10 +1,10 @@
+import { observer } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
 
 import Photo from '@components/Photo';
-import { http } from '@services/Backend';
-import Main from './Main';
+import Main from '@components/Main';
 import Store from '@models/Store';
-import { observer } from 'mobx-react';
+import { http } from '@services/Backend';
 
 const Gallery = () => {
   const [ assets, setAssets ] = useState([]);
