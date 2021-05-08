@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { observer } from 'mobx-react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
-import { Bullseye, CloudUploadFill, FileImage } from 'react-bootstrap-icons'
 
-import { http } from '@services/Backend';
+import Main from '@components/Main';
 import PartialLoading from '@components/LoadingOverlay';
-import Navigation from '@containers/Navigation';
+import Store from '@models/Store';
+import { http } from '@services/Backend';
 
 const FilePreview = styled.div`
   display: flex;
@@ -92,6 +93,7 @@ const MomentForm = () => {
     })
     formData.append("title", title);
     formData.append("text", text);
+    formData.append("profile", Store.profile.id);
 
     // Send the request upstream.
     return http.post("/moments", formData, {
@@ -108,10 +110,9 @@ const MomentForm = () => {
     });
   }
 
-  return (<>
-    <Navigation />
-    <main role="main">
-      <div className="container row">
+  return (
+    <Main>
+      <div className="row">
         <div className="col-6">
           <div className="form-group row">
             {/* <label htmlFor="inputTitle" className="col-sm-2 col-form-label">Title</label> */}
@@ -137,7 +138,7 @@ const MomentForm = () => {
           </div>
           <div className="form-group row">
             <div className="col">
-              <button className="btn btn-primary col" onClick={handleClick}>Submit</button>
+              <button className="btn btn-primary col" onClick={handleClick}>Submit {Store.profile.id}</button>
             </div>
           </div>
         </div>
@@ -158,15 +159,10 @@ const MomentForm = () => {
             })}
           </FileBox>
         </div>
-        <hr/>
       </div>
       <PartialLoading disabled={uploading} />
-    </main>
-
-    <footer className="container">
-      <p>&copy; Company 2021</p>
-    </footer>
-  </>);
+    </Main>
+  );
 };
 
-export default MomentForm;
+export default observer(MomentForm);

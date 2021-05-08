@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import Navigation from '@containers/Navigation';
-import { http } from '@services/Backend';
-import FileInput from '@components/FileInput';
+import Main from '@components/Main';
 import Moment from '@components/Moment';
+import { http } from '@services/Backend';
 
 const Moments = () => {
   const [ moments, setMoments ] = useState([]);
@@ -20,20 +19,13 @@ const Moments = () => {
     // https://css-tricks.com/run-useeffect-only-once/
   }, []);
 
-  return (<>
-    <Navigation />
-    <main role="main">
-      <div className="container">
-        { moments.map((moment, i) => {
-          return (<Moment moment={moment} key={`m-${i}`} />);
-        })}
-      </div>
-    </main>
-
-    <footer className="container">
-      <p>&copy; Company 2021</p>
-    </footer>
-  </>);
+  return (
+    <Main>
+      { moments.map((moment, i) => {
+        return (<Moment moment={moment} key={`m-${i}`} />);
+      })}
+    </Main>
+  );
 };
 
 export default Moments;
