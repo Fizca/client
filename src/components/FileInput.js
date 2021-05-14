@@ -5,6 +5,14 @@ import { CloudUploadFill, FileImage } from 'react-bootstrap-icons'
 import { http } from '@services/Backend';
 import PartialLoading from '@components/LoadingOverlay';
 
+const Box = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 1rem;
+  gap: 1rem;
+`;
+
 const Sqr = styled.div`
   width: 150px;
   height: 200px;
@@ -92,7 +100,7 @@ const InputFile = (props) => {
 
   // TODO: Add a remove button, or at least a way to clear images.
   return (
-    <div className="d-flex flex-wrap justify-content-start" style={{position: 'relative' }}>
+    <Box>
       {Object.values(files).map((file, index) => {
         return (
           <Sqr className="p-3"  key={index}>
@@ -119,7 +127,7 @@ const InputFile = (props) => {
       </Sqr>
 
       <PartialLoading disabled={uploading} />
-    </div>
+    </Box>
   );
 };
 

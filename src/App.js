@@ -29,23 +29,21 @@ const App = observer(() => {
   }
 
   return (
-    <main className="d-flex h-100 flex-column">
-      <BrowserRouter forceRefresh={false}>
-        <Switch>
-          <Route path='/' component={Landing} exact />
-          <Route path='/success' component={Landing} exact />
-          <PrivateRoute path="/uploads" isAllowed={Store.user}>
-            <Uploads />
-          </PrivateRoute>
-          <PrivateRoute path="/moments" isAllowed={Store.user}>
-            <Moments />
-          </PrivateRoute>
-          <PrivateRoute path="/moments_add" isAllowed={Store.user}>
-            <MomentForm />
-          </PrivateRoute>
-        </Switch>
-      </BrowserRouter>
-    </main>
+    <BrowserRouter forceRefresh={false}>
+      <Switch>
+        <Route path='/' component={Landing} exact />
+        <Route path='/success' component={Landing} exact />
+        <PrivateRoute path="/uploads" isAllowed={Store.user}>
+          <Uploads />
+        </PrivateRoute>
+        <PrivateRoute path="/moments" isAllowed={Store.user}>
+          <Moments />
+        </PrivateRoute>
+        <PrivateRoute path="/moments_add" isAllowed={Store.user}>
+          <MomentForm />
+        </PrivateRoute>
+      </Switch>
+    </BrowserRouter>
   );
 });
 

@@ -82,8 +82,10 @@ class Store {
   }
 
   async clearUser() {
-    await User.Logout();
-    this.user = undefined;
+    await User.Logout()
+      .catch((e) => console.log(e));
+
+    this.clearSession();
     return;
   }
 
