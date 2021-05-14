@@ -6,14 +6,34 @@ import Main from '@components/Main';
 import PartialLoading from '@components/LoadingOverlay';
 import Store from '@models/Store';
 import { http } from '@services/Backend';
+import { Plus } from 'react-bootstrap-icons';
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+
+  & > * {
+    flex-grow: 1;
+  }
+`;
 
 const FilePreview = styled.div`
   display: flex;
   align-items:center;
   font-size: 0.8rem;
+  gap: 0.5rem;
+
+  & div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
-const Thumnail = styled.div`
+const Thumbnail = styled.div`
   width: 75px;
   height: 75px;
   text-align: center;
@@ -24,7 +44,7 @@ const Thumnail = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 50%;
     border-style: solid;
     border-width: 1px;
     border-color: var(--greenteal);
@@ -33,10 +53,24 @@ const Thumnail = styled.div`
 `;
 
 const Input = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border-color: var(--btn);
+  border-width: 2px;
+  border-style: solid;
+  background-color: var(--btn);
   position: relative;
   overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--btn-highlight);
+  }
 
   & input {
     width: 100%;
@@ -49,14 +83,16 @@ const Input = styled.div`
 `;
 
 const FileBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   position: relative;
-  border-color: var(--greenteal);
+  border-color: var(--bg-accent);
   border-style: solid;
   border-width: 1px;
   overflow: scroll;
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
   height: 100%;
 `;
 
@@ -112,54 +148,28 @@ const MomentForm = () => {
 
   return (
     <Main>
-      <div className="row">
-        <div className="col-6">
-          <div className="form-group row">
-            {/* <label htmlFor="inputTitle" className="col-sm-2 col-form-label">Title</label> */}
-            <div className="col-sm-12">
-              <input type="text" className="form-control" id="inputTitle" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
-            </div>
-          </div>
-          <div className="form-group row">
-            {/* <label htmlFor="inputText" className="col-sm-2 col-form-label"></label> */}
-            <div className="col-sm-12">
-              <textarea className="form-control" id="inputText" placeholder="A moment in time..." onChange={(e) => setText(e.target.value)}>
-              </textarea>
-            </div>
-          </div>
-          <div className="form-group row">
-            {/* <label htmlFor="inputText" className="col-sm-2 col-form-label"></label> */}
-            <div className="col-sm-12">
-              <Input onChange={handleAddFile} className='btn fz-btn-light col'>
-                Upload Images
-                <input type='file' multiple name={name} />
-              </Input>
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="col">
-              <button className="btn btn-primary col" onClick={handleClick}>Submit {Store.profile.id}</button>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-6">
-          <FileBox className="d-flex flex-wrap justify-content-start">
-            {Object.values(files).map((file, index) => {
-              return (
-                <FilePreview key={index}>
-                  <Thumnail className="p-3" >
-                    <img src={file.url} />
-                  </Thumnail>
-                  <div>
-                    {file.file.name}
-                  </div>
-                </FilePreview>
-              );
-            })}
-          </FileBox>
-        </div>
-      </div>
+      <Box>
+        <h3>Create a new moment {Store.profile.nickname}</h3>
+        <input type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
+        <textarea placeholder="A moment in time..." onChange={(e) => setText(e.target.value)}>
+        </textarea>
+        <FileBox>
+          {Object.values(files).map((file, index) => {
+            return (
+              <FilePreview key={index}>
+                <Thumbnail>
+                  <img src={file.url} />
+                </Thumbnail>
+              </FilePreview>
+            );
+          })}
+          <Input onChange={handleAddFile}>
+            <Plus size={60}/>
+            <input type='file' multiple />
+          </Input>
+        </FileBox>
+        <button className="btn" onClick={handleClick}>Submit</button>
+      </Box>
       <PartialLoading disabled={uploading} />
     </Main>
   );

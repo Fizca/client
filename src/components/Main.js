@@ -5,14 +5,12 @@ import Navigation from '@components/Navigation';
 const Main = (props) => (
   <>
     <Navigation />
-    <main role="main">
-      <div className="container">
+    <main className="content">
         {props.children}
-        <hr/>
-      </div>
     </main>
 
-    <footer className="container mt-auto">
+    <footer className="">
+      <hr/>
       <p>&copy; Company 2021</p>
     </footer>
   </>

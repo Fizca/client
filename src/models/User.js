@@ -6,9 +6,10 @@ class User {
   @observable name;
 
   constructor(obj = {}) {
-    const { _id, google: {displayName} } = obj;
+    const { _id, google: {displayName, avatar} } = obj;
     this.id = _id;
     this.name = displayName;
+    this.avatar = avatar;
   }
 
   static FetchUser(userId) {
@@ -20,7 +21,7 @@ class User {
   }
 
   static Logout() {
-    return http(`/logout`);
+    return http(`/auth/logout`);
   }
 }
 

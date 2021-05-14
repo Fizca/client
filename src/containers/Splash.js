@@ -2,13 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import GoogleLogin from 'react-google-login';
 
-import Button from '@components/Button';
-import Content from '@components/Content';
-import { http } from '@services/Backend';
 import Store from '@models/Store';
 
 const Title = styled.h1`
-  font-size: 600%;
+  font-size: 6rem;
 `;
 
 const ServerUrl = process.env.SERVER_URL;
@@ -22,20 +19,23 @@ const Splash = (props) => {
 
   return(
     <>
-      <header className="mb-auto"></header>
-      <Content className="container jumbotron">
-        <Title>FIZCA</Title>
-        <p>It means soul in muisca!</p>
-        <p><a className='btn fz-btn-dark' href={`${ServerUrl}/google/oauth`}>Login</a></p>
-        <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-            buttonText="Log in with Google"
-            onSuccess={handleLogin}
-            onFailure={handleLogin}
-            cookiePolicy={'single_host_origin'}
-        />
-      </Content>
-      <footer className="mt-auto"></footer>
+      <header></header>
+
+      <main className="splash">
+          <Title>FIZCA</Title>
+          <p>It means soul in muisca!</p>
+          <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              buttonText="Log in with Google"
+              onSuccess={handleLogin}
+              onFailure={handleLogin}
+              cookiePolicy={'single_host_origin'}
+          />
+      </main>
+
+      <footer className="">
+        <p>&copy; Company 2021</p>
+      </footer>
     </>
   );
 }
