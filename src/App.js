@@ -13,7 +13,7 @@ import './App.css';
 const App = observer(() => {
   useEffect(() => {
     if (!Store.isReady()) {
-      Store.loadUser();
+      Store.init();
     }
   }, []);
 
