@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import { CloudUploadFill, FileImage } from 'react-bootstrap-icons'
 
 import { http } from '@services/Backend';
 import PartialLoading from '@components/LoadingOverlay';
-
 
 const Sqr = styled.div`
   width: 150px;
@@ -41,41 +40,38 @@ const Input = styled.div`
   }
 `;
 
-class InputFile extends React.Component {
+const InputFile = (props) => {
+  const { children, preview, name, ...rest } = props;
+  const [ files, setFiles ] = useState({});
+  const [ uploading, setUploading ] = useState(false);
 
-  // Constructor for the component
-  constructor(props) {
-    super(props);
-    this.state = { files: {},  uploading: false };
-  }
-
-  handleAddFile = (event) => {
+  const handleAddFile = (event) => {
     // Iterate over the files and load them up on the state
-    const { files } = this.state;
     const length = event.target.files.length;
+    const f = {};
     for (let i = 0; i < length; i++) {
       const file = event.target.files[i];
-      files[file.name] = {
+      f[file.name] = {
         url: URL.createObjectURL(file),
         type: file.type.split('/')[0],
         file,
       };
     }
 
-    this.setState({ files });
+    setFiles({ ...files, ...f});
   }
 
-  handleClick = (_event) => {
-    if (!Object.keys(this.state.files).length) {
+  const handleClick = (_event) => {
+    if (!Object.keys(files).length) {
       return;
     }
 
     // Set the overlay to avoid double submissions
-    this.setState({ uploading: true });
+    setUploading(true);
 
     // Create the form data, and load the image uploads
     const formData = new FormData();
-    Object.values(this.state.files).forEach((entry) => {
+    Object.values(files).forEach((entry) => {
       formData.append("images", entry.file);
     })
 
@@ -87,46 +83,44 @@ class InputFile extends React.Component {
     }).then(() => {
       // Faking a quick 2 second delay to give a sense of working
       // and reseting the state for more uploads.
-      setTimeout(() => this.setState({ files: [], uploading: false }), 2000);
+      setTimeout(() => {
+        setFiles({});
+        setUploading(false);
+      }, 2000);
     });
   }
 
-  render() {
-    const { children, preview, name, ...rest } = this.props;
+  // TODO: Add a remove button, or at least a way to clear images.
+  return (
+    <div className="d-flex flex-wrap justify-content-start" style={{position: 'relative' }}>
+      {Object.values(files).map((file, index) => {
+        return (
+          <Sqr className="p-3"  key={index}>
+              <img src={file.url} />
+          </Sqr>
+        );
+      })}
 
-    // TODO: Add a remove button, or at least a way to clear images.
-    return (
-      <div className="d-flex flex-wrap justify-content-start" style={{position: 'relative' }}>
+      <Sqr className="p-3">
+        <Input {...rest} onChange={handleAddFile} className='btn fz-btn-light'>
+          <FileImage size={80}/>
+          <hr />
+          Select files
+          <input type='file' multiple name={name} />
+        </Input>
+      </Sqr>
 
-        {Object.values(this.state.files).map((file, index) => {
-          return (
-            <Sqr className="p-3"  key={index}>
-                <img src={file.url} />
-            </Sqr>
-          );
-        })}
+      <Sqr className="p-3">
+        <Input onClick={handleClick} className='btn fz-btn-alert'>
+          <CloudUploadFill size={80}/>
+          <hr />
+          Upload
+        </Input>
+      </Sqr>
 
-        <Sqr className="p-3">
-          <Input {...rest} onChange={this.handleAddFile} className='btn fz-btn-light'>
-            <FileImage size={80}/>
-            <hr />
-            Select files
-            <input type='file' multiple name={name} />
-          </Input>
-        </Sqr>
-
-        <Sqr className="p-3">
-          <Input onClick={this.handleClick} className='btn fz-btn-alert'>
-            <CloudUploadFill size={80}/>
-            <hr />
-            Upload
-          </Input>
-        </Sqr>
-
-        <PartialLoading disabled={this.state.uploading} />
-      </div>
-    );
-  }
-}
+      <PartialLoading disabled={uploading} />
+    </div>
+  );
+};
 
 export default InputFile;

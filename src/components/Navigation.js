@@ -30,6 +30,12 @@ const Navigation = observer((props) => {
             <li className="nav-item">
               <Link className="nav-link" to="/uploads">Uploads</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/moments">Moments</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/moments_add">Add Moment</Link>
+            </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle"
                   href="#"
