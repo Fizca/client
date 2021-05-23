@@ -327,6 +327,8 @@ textarea {
 
 textarea:focus {
   outline: none;
+  border-top: 1px solid var(--greenteal);
+  border-left: 1px solid var(--greenteal);
   border-bottom: 3px solid var(--greenteal);
   border-right: 3px solid var(--greenteal);
 }
@@ -358,4 +360,14 @@ input[type=password]:focus {
 
 .btn:hover {
   background-color: var(--btn-highlight);
+}
+
+.react-datetime-picker__wrapper {
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-bottom-color: var(--bg-accent);
+}
+
+.react-datetime-picker__wrapper input {
+  border-width: 0px;
 }

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
 import styled from 'styled-components'
+import DateTimePicker from 'react-datetime-picker';
 
 import Main from '@components/Main';
 import PartialLoading from '@components/LoadingOverlay';
@@ -11,7 +12,6 @@ import { Plus } from 'react-bootstrap-icons';
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
 
@@ -96,11 +96,13 @@ const FileBox = styled.div`
   height: 100%;
 `;
 
-const MomentForm = () => {
+const MomentForm = (props) => {
+  const { moment = {} } = props;
   const [ files, setFiles ] = useState({});
   const [ uploading, setUploading ] = useState(false);
-  const [ title, setTitle ] = useState('');
-  const [ text, setText ] = useState('');
+  const [ title, setTitle ] = useState(moment.title);
+  const [ text, setText ] = useState(moment.text);
+  const [ takenAt, setTakenAt ] = useState(moment.takenAt || new Date())
 
   const handleAddFile = (event) => {
     // Iterate over the files and load them up on the state
@@ -168,6 +170,11 @@ const MomentForm = () => {
             <input type='file' multiple />
           </Input>
         </FileBox>
+        <DateTimePicker
+          disableClock={true}
+          onChange={setTakenAt}
+          value={takenAt}
+        />
         <button className="btn" onClick={handleClick}>Submit</button>
       </Box>
       <PartialLoading disabled={uploading} />
