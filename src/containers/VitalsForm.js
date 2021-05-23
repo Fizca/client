@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
 import styled from 'styled-components'
+import DateTimePicker from 'react-datetime-picker';
 
 import Main from '@components/Main';
 import PartialLoading from '@components/LoadingOverlay';
@@ -18,12 +19,15 @@ const Box = styled.div`
   }
 `;
 
-const MomentForm = () => {
+const MomentForm = (props) => {
+  const { vitals = {} } = props;
   const [ uploading, setUploading ] = useState(false);
-  const [ weight, setWeight ] = useState(0);
-  const [ temp, setTemp ] = useState(0);
-  const [ height, setHeight ] = useState(0);
-  const [ head, setHead ] = useState(0);
+  const [ weight, setWeight ] = useState(vitals.weight);
+  const [ temp, setTemp ] = useState(vitals.temp);
+  const [ height, setHeight ] = useState(vitals.height);
+  const [ head, setHead ] = useState(vitals.head);
+  const [ takenAt, setTakenAt ] = useState(vitals.takenAt || new Date())
+  const [ id, setId ] = useState(vitals.id);
 
   const handleClick = () => {
     // Set the overlay to avoid double submissions
@@ -35,15 +39,17 @@ const MomentForm = () => {
       temp,
       height,
       head,
+      takenAt,
     }
 
     // Send the request upstream.
     return http.post("/vitals", data)
-      .then(() => {
+      .then((res) => {
         // Faking a quick 2 second delay to give a sense of working
         // and reseting the state for more uploads.
+        console.log(res);
+        setId(res.id)
         setTimeout(() => {
-          setFiles({});
           setUploading(false);
         }, 2000);
       });
@@ -54,7 +60,7 @@ const MomentForm = () => {
       <Box>
         <h3>Add some vitals to {Store.profile.nickname}</h3>
         <div>
-          <i class="las la-weight" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
+          <i className="las la-weight" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
           <input type="number" placeholder="Weight" onChange={(e) => setWeight(e.target.value)} />
           <span>Kg</span>
         </div>
@@ -73,7 +79,14 @@ const MomentForm = () => {
           <input type="number" placeholder="Head" onChange={(e) => setHead(e.target.value)} />
           <span>cm</span>
         </div>
-        <button className="btn" onClick={handleClick}>Submit</button>
+        <div>
+        <DateTimePicker
+          disableClock={true}
+          onChange={setTakenAt}
+          value={takenAt}
+        />
+      </div>
+      <button className="btn" onClick={handleClick}>Submit { id } </button>
       </Box>
       <PartialLoading disabled={uploading} />
     </Main>
