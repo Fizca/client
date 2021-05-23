@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import { useEffect, useRef, useState } from "react";
-import { CloudUploadFill, Bookmarks, PersonFill, BookmarkPlus, XSquare } from "react-bootstrap-icons";
+import { CloudUploadFill, Bookmarks, BookmarkPlus, XSquare, Heart, BookmarkHeart } from "react-bootstrap-icons";
 import { Link, useHistory } from 'react-router-dom';
 
 import Store from '@models/Store';
@@ -115,6 +115,8 @@ const Navigation = observer((props) => {
         <NavItem icon={<CloudUploadFill />} to="/uploads" />
         <NavItem icon={<Bookmarks />} to="/moments" />
         <NavItem icon={<BookmarkPlus />} to="/moments_add" />
+        <NavItem icon={<BookmarkHeart />} to="/vitals" />
+        <NavItem icon={<Heart />} to="/vitals_add" />
         <NavDropdown icon={<div><img src={`${Store.user.avatar}`} /></div>}>
             <DropdownItem onClick={(() => logout())} leftIcon={<XSquare />}>
               Logout

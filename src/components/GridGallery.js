@@ -78,18 +78,28 @@ const Fives = styled(GridContainer)`
   grid-template-columns: repeat(12, 1fr);
 
   & :first-child {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 8;
     grid-row: 1 / span 6;
   }
 
   & :nth-child(2) {
-    grid-column: auto / span 6;
+    grid-column: auto / span 8;
     grid-row: auto / span 6;
   }
 
+  & :nth-child(3) {
+    grid-column: 9 / span 4;
+    grid-row: 1 / span 4;
+  }
+
+  & :nth-child(4) {
+    grid-column: 9 / span 4;
+    grid-row: 5 / span 4;
+  }
+
   & > * {
-    grid-column: auto / span 3;
-    grid-row: auto / span 3;
+    grid-column: auto / span 4;
+    grid-row: auto / span 4;
   }
 `;
 
@@ -147,6 +157,15 @@ const GridGallery = (props) => {
     );
   }
 
+
+  if (children.length === 5) {
+    const arr = children.slice(0, 4);
+    return(
+      <Fives>
+        {arr}
+      </Fives>
+    );
+  }
 
   if (children.length > 5) {
     const arr = children.slice(0, 4);

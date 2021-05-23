@@ -310,14 +310,43 @@ a:hover {
   color: var(--text-highlight);
 }
 
-input[type=text], textarea {
+input,
+textarea {
   font-family: var(--open-sans);
   font-weight: 400;
-  height: calc(1.5em + .75rem + 2px);;
-  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
   padding: 0.5rem 1rem;
-  border: var(--border);
-  border-radius: var(--border-radius);
+  background-color: var(--bg-primary);
+}
+
+textarea {
+  border: 0px;
+  border-bottom: 2px solid var(--bg-accent);
+  border-right: 2px solid var(--bg-accent);
+}
+
+textarea:focus {
+  outline: none;
+  border-bottom: 3px solid var(--greenteal);
+  border-right: 3px solid var(--greenteal);
+}
+
+input[type=text],
+input[type=number],
+input[type=password] {
+  border-style: solid;
+  border-width: 0;
+  border-radius: 0;
+  border-bottom-color: var(--bg-accent);
+  border-bottom-width: 2px;
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=password]:focus {
+  outline: none;
+  border-bottom-color: var(--greenteal);
+  border-bottom-width: 3px;
 }
 
 .btn {

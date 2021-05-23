@@ -8,6 +8,7 @@ import Loading from '@containers/Loading'
 import Moments from '@containers/Moments';
 import Uploads from '@containers/Uploads'
 import MomentForm from '@containers/MomentForm';
+import VitalsForm from '@containers/VitalsForm';
 import Store from '@models/Store';
 
 import './App.css';
@@ -41,6 +42,9 @@ const App = observer(() => {
         </PrivateRoute>
         <PrivateRoute path="/moments_add" isAllowed={Store.user}>
           <MomentForm />
+        </PrivateRoute>
+        <PrivateRoute path="/vitals_add" isAllowed={Store.user}>
+          <VitalsForm />
         </PrivateRoute>
       </Switch>
     </BrowserRouter>
