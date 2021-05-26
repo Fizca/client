@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { CloudUploadFill, FileImage } from 'react-bootstrap-icons'
 
 import { http } from '@services/Backend';
-import PartialLoading from '@components/LoadingOverlay';
+import Loading from '@components/Loading';
 
 const Box = styled.div`
   display: flex;
@@ -126,7 +126,7 @@ const InputFile = (props) => {
         </Input>
       </Sqr>
 
-      <PartialLoading disabled={uploading} />
+      <Loading isLoading={uploading} />
     </Box>
   );
 };

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import DateTimePicker from 'react-datetime-picker';
 
 import Main from '@components/Main';
-import PartialLoading from '@components/LoadingOverlay';
+import Loading from '@components/Loading';
 import Store from '@models/Store';
 import { http } from '@services/Backend';
 import { Plus } from 'react-bootstrap-icons';
@@ -177,7 +177,7 @@ const MomentForm = (props) => {
         />
         <button className="btn" onClick={handleClick}>Submit</button>
       </Box>
-      <PartialLoading disabled={uploading} />
+      <Loading isLoading={uploading} />
     </Main>
   );
 };
