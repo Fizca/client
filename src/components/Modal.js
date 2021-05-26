@@ -1,76 +1,72 @@
 import React, { useRef } from 'react';
-import { motion, AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import styled from 'styled-components';
 
 const Background = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: rgba(0, 0, 0, .8);
-  // background: var(--deepblue);
-  z-index: 1000;
 `;
 
-export const ModalWrapper = styled.div`
-  opacity: 1;
-  width: 800px;
-  height: 500px;
-  overflow-y: scroll;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #FFFFFF;
-  color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1001;
-  border-radius: var(--border-radius);
-`;
-
-export const ModalBox = ({showModal}) => {
-  <motion.div
-    initial={{opacity: 0, y:-100}}
-    exit={{opacity: 0, y:-100}}
-    animate={{opacity: showModal ? 1 : 0, y: showModal ? 0 : -100}}
-    transition={{duration: .3}}
-    >
-    {/* do not close modal if anything inside modal content is clicked */}
-    <ModalWrapper onClick={e => e.stopPropagation() }>
+export const ModalWrapper = ({children, ...rest}) => {
+  return (
+    <div onClick={e => e.stopPropagation()} {...rest}>
       {children}
-    </ModalWrapper>
-  </motion.div>
+    </div>
+  );
 }
 
 const Modal = ({ showModal, setShowModal, children }) => {
   const modalRef = useRef();
 
-  const renderModal = () => {
-    if (!showModal) {
-      return null;
-    }
-    return(
-      <Background onClick={() => setShowModal && setShowModal(false)} ref={modalRef}>
-        <div >{children}</div>
-      </Background>
-    );
-  }
-
-  // return  ReactDom.createPortal(
-  //   <AnimatePresence >
-  //     {renderModal()}
-  //   </AnimatePresence>,
-  //   document.getElementById('modal-root')
-  // );
+  // const renderModal = () => {
+  //   if (!showModal) {
+  //     return null;
+  //   }
+  //   return(
+  //     <motion.div
+  //       initial={{opacity: 0, y:-100}}
+  //       enter={{opacity: 1, y: 0}}
+  //       exit={{opacity: 0, y:-100}}
+  //       transition={{duration: .3}}
+  //       >
+  //       <Background onClick={() => setShowModal && setShowModal(false)} ref={modalRef}>
+  //         <div onClick={e => e.stopPropagation()}>{children}</div>
+  //       </Background>
+  //     </motion.div>
+  //   );
+  // }
 
   return (
     <AnimatePresence >
-      {renderModal()}
+      {
+        showModal &&
+        (<motion.div
+          initial={{
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            zIndex: 1000,
+            scale: 1.2,
+            opacity: 0,
+            position: "fixed",
+            backgroundColor: 'rgba(0, 0, 0, .8)',
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          exit={{opacity: 0, scale: 1.2}}
+          transition={{duration: .3}}
+        >
+          <Background onClick={() => setShowModal && setShowModal(false)} ref={modalRef}>
+            {children}
+          </Background>
+        </motion.div>)
+      }
     </AnimatePresence>
   );
 };
