@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
 
-import Photo from '@components/Photo';
+import Image from '@components/Image';
 import Main from '@components/Main';
 import Store from '@models/Store';
 import { http } from '@services/Backend';
@@ -23,12 +23,16 @@ const Gallery = () => {
         <p>An adventure starts...</p>
       </div>
 
-      <div className="flex-box">
+      <div className="masonry-grid-wrapper">
         {
           assets.map((asset, i) => {
+            let c = ''
+            if (i % 5 === 0) c = 'tall';
+            if (i % 11 === 0) c = 'big';
+            if (i % 13 === 0) c = 'wide';
             return (
-              <div key={`asset-${i}`}>
-                <Photo src={asset.name} />
+              <div key={`asset-${i}`} className={`${c} masonry-item`}>
+                <Image src={asset.name} className='masonry-img'/>
               </div>
             );
           })
