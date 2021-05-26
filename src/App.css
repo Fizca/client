@@ -193,6 +193,7 @@ nav {
   align-items: center;
   justify-content: center;
   transition: filter 300ms;
+  background-color: inherit;
 }
 
 .icon-button:hover {
@@ -218,18 +219,13 @@ nav {
   height: 0px;
   position: absolute;
   top: 58px;
-  width: 300px;
-  transform: translateX(-45%);
+  width: 200px;
+  transform: translateX(-40%);
   background-color: var(--bg);
   border: var(--border);
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: height var(--speed) ease;
-}
-
-.dropdown:focus {
-  background-color: red;
-
 }
 
 .menu {
@@ -238,14 +234,18 @@ nav {
 
 .menu-item {
   height: 50px;
+  width: 100%;
   display: flex;
   align-items: center;
-  border-radius: var(--border-radius);
-  transition: background var(--speed);
-  padding: 0.5rem;
 }
 
-.menu-item .icon-button {
+.menu-btn {
+  border-width: 0;
+  background-color: var(--bg);
+  cursor: pointer;
+}
+
+/* .menu-item .icon-button {
   margin-right: 0.5rem;
   width: 16px;
   height: 16px;
@@ -254,7 +254,7 @@ nav {
 
 .menu-item .icon-button:hover {
   filter: none;
-}
+} */
 
 .menu-item:hover {
   background-color: var(--bg-accent);
@@ -295,6 +295,12 @@ h2 {
 
 h3 {
   font-size: 1.75rem;
+}
+
+.las {
+  font-size: 1.5rem;
+  vertical-align: middle;
+  padding: 5px;
 }
 
 /* =============== *
