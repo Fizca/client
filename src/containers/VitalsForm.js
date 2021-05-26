@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import DateTimePicker from 'react-datetime-picker';
 
 import Main from '@components/Main';
-import PartialLoading from '@components/LoadingOverlay';
+import Loading from '@components/Loading';
 import Store from '@models/Store';
 import { http } from '@services/Backend';
 
@@ -65,30 +65,30 @@ const MomentForm = (props) => {
           <span>Kg</span>
         </div>
         <div>
-          <i class="las la-ruler-vertical" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
+          <i className="las la-ruler-vertical" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
           <input type="number" placeholder="Height" onChange={(e) => setHeight(e.target.value)} />
           <span>cm</span>
         </div>
         <div>
-          <i class="las la-temperature-low" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
+          <i className="las la-temperature-low" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
           <input type="number" placeholder="Temperature" onChange={(e) => setTemp(e.target.value)} />
           <span>c</span>
         </div>
         <div>
-          <i class="las la-user" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
+          <i className="las la-user" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
           <input type="number" placeholder="Head" onChange={(e) => setHead(e.target.value)} />
           <span>cm</span>
         </div>
         <div>
-        <DateTimePicker
-          disableClock={true}
-          onChange={setTakenAt}
-          value={takenAt}
-        />
-      </div>
-      <button className="btn" onClick={handleClick}>Submit { id } </button>
+          <DateTimePicker
+            disableClock={true}
+            onChange={setTakenAt}
+            value={takenAt}
+          />
+        </div>
+        <button className="btn" onClick={handleClick}>Submit { id } </button>
       </Box>
-      <PartialLoading disabled={uploading} />
+      <Loading isLoading={uploading} />
     </Main>
   );
 };
