@@ -1,46 +1,92 @@
-import { motion } from "framer-motion";
 import styled from 'styled-components';
 
 import Image from '@components/Image';
 import Modal, {ModalWrapper} from '@components/Modal';
 
-const Box = styled(ModalWrapper)`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 90%;
-  height: 500px;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  color: var(--greenteal);
-  background-color: #000000;
-  border-radius: var(--border-radius);
-
-  & div {
-    display: flex;
+const ArrowDiv = styled(ModalWrapper)`
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 50%;
+  background-color: var(--deepblue);
+  ${
+    (props) => props.active ? 'color: var(--btn);' : 'color: var(--btn-disabled);'
   }
-
-  & img {
-    object-fit: contain;
+  & .las {
+    font-size: 3rem;
   }
 `;
 
-const Lightbox = ({display, asset}) => (
-  // <motion.div
-  //   initial={{opacity: 0, y:-100}}
-  //   exit={{opacity: 0, y:-100}}
-  //   animate={{opacity: display ? 1 : 0, y: display ? 0 : -100}}
-  //   transition={{duration: .3}}
-  //   >
-    <Box>
-      {/* do not close modal if anything inside modal content is clicked */}
-      <div>
-        <Image src={asset?.name} />
-      </div>
-      <div>
-        <h2>{asset?.takenAt}</h2>
-      </div>
-    </Box>
-  // </motion.div>
-)
+const Box = styled(ModalWrapper)`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  gap: 8px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  color: var(--greenteal);
+  background-color: rgb(0, 0, 0, 0.3);
+  border-radius: var(--border-radius);
+  padding: 5px;
+
+  & div {
+    flex: 1;
+    display: flex;
+  }
+
+  & .description {
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  & .image-box {
+    justify-content: center;
+  }
+
+  & img {
+    width: 600px;
+    max-height: 100vh;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+  }
+`;
+
+const Arrow = ({onClick, active, icon}) => {
+  return (
+    <ArrowDiv active={active}>
+      <div onClick={onClick}><i className={`las ${icon}`}></i></div>
+    </ArrowDiv>
+  );
+}
+
+const Lightbox = ({display, close, asset, prev, next}) => {
+  if (!asset) {
+    return null;
+  }
+
+  const previousItem = (e) => {
+    if(prev) {
+      prev();
+    }
+  }
+
+  const nextItem = (e) => {
+    if (next) {
+      next();
+    }
+  }
+
+  return (
+    <Modal showModal={display} setShowModal={close} backgroundClose>
+      <Arrow active={prev ? 'true' : undefined} onClick={previousItem} icon='la-arrow-circle-left' />
+      <Box className='test'>
+        {/* do not close modal if anything inside modal content is clicked */}
+        <div className='image-box'>
+          <Image src={asset.name} />
+        </div>
+      </Box>
+      <Arrow active={next ? 'true' : undefined} onClick={nextItem} icon='la-arrow-circle-right' />
+    </Modal>
+  );
+}
 
 export default Lightbox;

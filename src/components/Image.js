@@ -11,7 +11,7 @@ const Image = (props) => {
       .then((result) => {
         setSource(result.data);
       });
-  }, []);
+  }, [src]);
 
   return (<img src={source} {...rest}/>);
 }
