@@ -13,6 +13,20 @@ const Gallery = () => {
   const [ showcase, setShowcase ] = useState(false);
   const [ assets, setAssets ] = useState([]);
 
+  const previous = () => {
+    if (pickImg > 0) {
+      return () => setPickImg(currImg => currImg - 1);
+    };
+    return undefined;
+  }
+
+  const next = () =>{
+    if (pickImg < assets.length - 1) {
+      return () => setPickImg(currImg => currImg + 1);
+    };
+    return undefined;
+  }
+
   useEffect(() => {
     http(`/assets/list`)
       .then((result) => {
@@ -43,10 +57,13 @@ const Gallery = () => {
           })
         }
       </div>
-
-      <Modal showModal={showcase} setShowModal={setShowcase} backgroundClose>
-        <Lightbox display={showcase} asset={assets[pickImg]} />
-      </Modal>
+      <Lightbox
+        display={showcase}
+        asset={assets[pickImg]}
+        close={setShowcase}
+        prev={previous()}
+        next={next()}
+      />
     </Main>
   );
 };
