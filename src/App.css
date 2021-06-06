@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400|Playfair+Display:400,700,400italic|Libre+Baskerville:400,700,400italic|Muli:300,400|Open+Sans:400,300,700|Oswald:400,700|Raleway:400,100,300,700|Montserrat:400,700|Merriweather:400,300,300italic,400italic,700|Bree+Serif|Vollkorn:400italic,400,700|Abril+Fatface|Cardo:400,400italic');;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee&family=Bungee+Outline&family=Bungee+Shade&family=Cabin+Sketch&family=Catamaran:wght@100;400;500;600;700;800;900&family=Dela+Gothic+One&family=Finger+Paint&family=Monoton&family=Open+Sans&family=Vast+Shadow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lemonada&family=Lobster&display=swap');
+
 :root {
   --fucsia: #9C2750;
   --pink: #FB4B6F;
@@ -32,6 +37,7 @@
   --catamaran: 'Catamaran';
   --Lemonada: 'Lemonada';
   --Lobster: 'Lobster';
+  --Raleway: 'Raleway';
 
   /**
    * Primary Vars
@@ -116,11 +122,6 @@ header {
   gap: 1rem;
   max-width: 800px;
   width: 100%;
-}
-
-.jumbotron {
-  width: 100%;
-  padding: 1rem;
 }
 
 .flex-box {
@@ -317,6 +318,11 @@ nav {
 /* =============== *
  * Typography
  * =============== */
+
+h1, h2, h3 {
+  font-family: var(--Raleway);
+  font-weight: 400;
+}
 
 h1 {
   font-size: 2.5rem;

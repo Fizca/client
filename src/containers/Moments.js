@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Main from '@components/Main';
 import Moment from '@components/Moment';
+import { HeroBox, Subtitle, HeroTitle } from '@components/Headings';
 import { http } from '@services/Backend';
 import Store from '@models/Store';
 
@@ -17,10 +18,12 @@ const Moments = () => {
 
   return (
     <Main>
-      <div className="jumbotron">
-        <h1>Hello, I am {Store.profile.nickname}</h1>
-        And this are all the adventures I've had...
-      </div>
+      <HeroBox>
+        <div>{Store.profile.nickname}'s</div>
+        <HeroTitle>Moments</HeroTitle>
+        <Subtitle>All things I've done!</Subtitle>
+      </HeroBox>
+
       { moments.map((moment, i) => {
         return (<Moment moment={moment} key={`m-${i}`} />);
       })}

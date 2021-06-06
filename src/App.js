@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Loading from '@components/Loading'
+import Navigation from '@components/Navigation';
 import PrivateRoute from '@components/PrivateRoute';
 import Landing from '@containers/Landing'
 import Moments from '@containers/Moments';
@@ -31,7 +32,8 @@ const App = observer(() => {
 
   return (
     <BrowserRouter forceRefresh={false}>
-      <Switch>
+      <Navigation />
+      <Switch className="hello">
         <Route path='/' component={Landing} exact />
         <Route path='/success' component={Landing} exact />
         <PrivateRoute path="/uploads" isAllowed={Store.user}>
@@ -47,6 +49,10 @@ const App = observer(() => {
           <VitalsForm />
         </PrivateRoute>
       </Switch>
+      <footer>
+        <hr/>
+        <p>&copy; Company 2021</p>
+      </footer>
     </BrowserRouter>
   );
 });
