@@ -81,7 +81,7 @@ const Lightbox = ({display, close, asset, prev, next}) => {
       <Box className='test'>
         {/* do not close modal if anything inside modal content is clicked */}
         <div className='image-box'>
-          <Image src={asset.name} />
+          <Image src={asset.name} size="large" />
         </div>
       </Box>
       <Arrow active={next ? 'true' : undefined} onClick={nextItem} icon='la-arrow-circle-right' />
