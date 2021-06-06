@@ -1,17 +1,38 @@
 import { observer } from 'mobx-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 
 import Image from '@components/Image';
 import Main from '@components/Main';
 import Store from '@models/Store';
-import { http } from '@services/Backend';
-import Modal from '@components/Modal';
 import Lightbox from '@components/Lightbox';
+import useAssetFetch from '@components/useAssetFetch';
+import Spinner from '@components/Spinner';
 
 const Gallery = () => {
   const [ pickImg, setPickImg ] = useState(false);
   const [ showcase, setShowcase ] = useState(false);
-  const [ assets, setAssets ] = useState([]);
+  // const [ assets, setAssets ] = useState([]);
+
+  const [profile, setProfile] = useState(Store.profile.id);
+  const [pageNumber, setPageNumber] = useState(0);
+  const {
+    assets,
+    hasMore,
+    loading,
+    error
+  } = useAssetFetch(profile, pageNumber);
+
+  const observer = useRef()
+  const lastAssetElementRef = useCallback(node => {
+    if (loading) return
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPageNumber(prevPageNumber => prevPageNumber + 1)
+      }
+    })
+    if (node) observer.current.observe(node)
+  }, [loading, hasMore])
 
   const previous = () => {
     if (pickImg > 0) {
@@ -27,13 +48,6 @@ const Gallery = () => {
     return undefined;
   }
 
-  useEffect(() => {
-    http(`/assets/list`)
-      .then((result) => {
-        setAssets(result.data);
-      });
-  }, []);
-
   const showchaseImage = (index) => {
     setPickImg(index);
     setShowcase(true);
@@ -48,15 +62,34 @@ const Gallery = () => {
 
       <div className="masonry">
         {
-          assets.map((asset, i) => {
-            return (
-              <div key={`asset-${i}`} className={`masonry-brick`} onClick={() => showchaseImage(i)}>
-                <Image src={asset.name} className='masonry-img'/>
-              </div>
-            );
+          assets.map((asset, index) => {
+            if (assets.length === index + 1) {
+              return (
+                <div
+                  key={`asset-${index}`}
+                  className={`masonry-brick`}
+                  onClick={() => showchaseImage(index)}
+                  ref={lastAssetElementRef}
+                >
+                  <Image src={asset.name} className='masonry-img'/>
+                </div>
+              );
+            } else {
+              return (
+                <div
+                  key={`asset-${index}`}
+                  className={`masonry-brick`}
+                  onClick={() => showchaseImage(index)}
+                >
+                  <Image src={asset.name} className='masonry-img'/>
+                </div>
+              );
+            }
           })
         }
       </div>
+      <div>{loading && <Spinner />}</div>
+      <div>{error && 'Error'}</div>
       <Lightbox
         display={showcase}
         asset={assets[pickImg]}
