@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 
 import Image from '@components/Image';
 import Main from '@components/Main';
@@ -11,9 +11,8 @@ import Spinner from '@components/Spinner';
 const Gallery = () => {
   const [ pickImg, setPickImg ] = useState(false);
   const [ showcase, setShowcase ] = useState(false);
-  // const [ assets, setAssets ] = useState([]);
 
-  const [profile, setProfile] = useState(Store.profile.id);
+  const [profile] = useState(Store.profile.id);
   const [pageNumber, setPageNumber] = useState(0);
   const {
     assets,
@@ -22,6 +21,9 @@ const Gallery = () => {
     error
   } = useAssetFetch(profile, pageNumber);
 
+  /**
+   * Fire the useAssetFetch only when the last object enters the page.
+   */
   const observer = useRef()
   const lastAssetElementRef = useCallback(node => {
     if (loading) return
@@ -81,7 +83,7 @@ const Gallery = () => {
                   className={`masonry-brick`}
                   onClick={() => showchaseImage(index)}
                 >
-                  <Image src={asset.name} className='masonry-img'/>
+                  <Image src={asset.name} className='masonry-img' size="medium" />
                 </div>
               );
             }
