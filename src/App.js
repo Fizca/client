@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Loading from '@components/Loading'
 import PrivateRoute from '@components/PrivateRoute';
 import Landing from '@containers/Landing'
-import Loading from '@containers/Loading'
 import Moments from '@containers/Moments';
 import Uploads from '@containers/Uploads'
 import MomentForm from '@containers/MomentForm';
@@ -23,8 +23,8 @@ const App = observer(() => {
   // Display a loading screen while data loads.
   if (!Store.isReady()) {
     return (
-      <main className="d-flex h-100 flex-column">
-        <Loading />;
+      <main>
+        <Loading isLoading={true} />
       </main>
     );
   }
