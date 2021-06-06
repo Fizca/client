@@ -4,6 +4,7 @@ import { CloudUploadFill, FileImage } from 'react-bootstrap-icons'
 
 import { http } from '@services/Backend';
 import Loading from '@components/Loading';
+import Store from '@models/Store';
 
 const Box = styled.div`
   display: flex;
@@ -75,27 +76,28 @@ const InputFile = (props) => {
     }
 
     // Set the overlay to avoid double submissions
-    setUploading(true);
+    setUploading(Object.values(files).length);
 
     // Create the form data, and load the image uploads
-    const formData = new FormData();
-    Object.values(files).forEach((entry) => {
-      formData.append("images", entry.file);
+    Object.values(files).map(async (entry) => {
+      const formData = new FormData();
+      formData.append("image", entry.file);
+      formData.append("profile", Store.profile.id);
+
+      http.post("/assets", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .catch((e) => console.log(e))
+        .then(() => setUploading(prev => prev - 1));
     })
 
-    // Send the request upstream.
-    return http.post("/assets", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }).then(() => {
-      // Faking a quick 2 second delay to give a sense of working
-      // and reseting the state for more uploads.
-      setTimeout(() => {
-        setFiles({});
-        setUploading(false);
-      }, 2000);
-    });
+    // Faking a quick 2 second delay to give a sense of working
+    // and reseting the state for more uploads.
+    setTimeout(() => {
+      setFiles({});
+    }, 2000);
   }
 
   // TODO: Add a remove button, or at least a way to clear images.
@@ -103,13 +105,13 @@ const InputFile = (props) => {
     <Box>
       {Object.values(files).map((file, index) => {
         return (
-          <Sqr className="p-3"  key={index}>
+          <Sqr key={index}>
               <img src={file.url} />
           </Sqr>
         );
       })}
 
-      <Sqr className="p-3">
+      <Sqr>
         <Input {...rest} onChange={handleAddFile} className='btn fz-btn-light'>
           <FileImage size={80}/>
           <hr />
@@ -118,7 +120,7 @@ const InputFile = (props) => {
         </Input>
       </Sqr>
 
-      <Sqr className="p-3">
+      <Sqr>
         <Input onClick={handleClick} className='btn fz-btn-alert'>
           <CloudUploadFill size={80}/>
           <hr />
@@ -126,7 +128,7 @@ const InputFile = (props) => {
         </Input>
       </Sqr>
 
-      <Loading isLoading={uploading} />
+      <Loading isLoading={(uploading > 0)} />
     </Box>
   );
 };
