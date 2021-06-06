@@ -7,6 +7,7 @@ import Store from '@models/Store';
 import Lightbox from '@components/Lightbox';
 import useAssetFetch from '@components/useAssetFetch';
 import Spinner from '@components/Spinner';
+import { HeroBox, Subtitle, HeroTitle } from '@components/Headings';
 
 const Gallery = () => {
   const [ pickImg, setPickImg ] = useState(false);
@@ -57,10 +58,11 @@ const Gallery = () => {
 
   return (
     <Main>
-      <div className="jumbotron">
-        <h1>{Store.profile.nickname}</h1>
-        <p>An adventure starts...</p>
-      </div>
+      <HeroBox>
+        <div>{Store.profile.nickname}'s</div>
+        <HeroTitle>Gallery</HeroTitle>
+        <Subtitle>All the adventures I've had!</Subtitle>
+      </HeroBox>
 
       <div className="masonry">
         {
