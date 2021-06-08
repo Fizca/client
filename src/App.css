@@ -242,9 +242,17 @@ nav {
 }
 
 .menu-btn {
+  font-size: 0.8rem;
   border-width: 0;
   background-color: var(--bg);
   cursor: pointer;
+}
+
+.menu-btn a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .menu-item:hover {
@@ -336,7 +344,8 @@ h3 {
   font-size: 1.75rem;
 }
 
-.las {
+i.las {
+  display: inline;
   font-size: 1.5rem;
   vertical-align: middle;
   padding: 5px;

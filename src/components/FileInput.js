@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
-import { CloudUploadFill, FileImage } from 'react-bootstrap-icons'
 
 import { http } from '@services/Backend';
 import Loading from '@components/Loading';
@@ -113,7 +112,7 @@ const InputFile = (props) => {
 
       <Sqr>
         <Input {...rest} onChange={handleAddFile} className='btn fz-btn-light'>
-          <FileImage size={80}/>
+          <i className="las la-file-image" style={{fontSize:'6rem'}}></i>
           <hr />
           Select files
           <input type='file' multiple name={name} />
@@ -122,7 +121,7 @@ const InputFile = (props) => {
 
       <Sqr>
         <Input onClick={handleClick} className='btn fz-btn-alert'>
-          <CloudUploadFill size={80}/>
+          <i class="las la-cloud-upload-alt" style={{fontSize:'6rem'}}></i>
           <hr />
           Upload
         </Input>
