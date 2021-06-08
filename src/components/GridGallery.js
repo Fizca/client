@@ -1,4 +1,3 @@
-import { Image } from "react-bootstrap-icons";
 import styled from "styled-components";
 
 const Counter = styled.div`
@@ -179,7 +178,7 @@ const GridGallery = (props) => {
 
   return (
     <GridContainer>
-      <Image height="auto" />
+      <i className="las la-image" style={{height: auto}}></i>
     </GridContainer>
   );
 }

@@ -7,7 +7,6 @@ import Main from '@components/Main';
 import Loading from '@components/Loading';
 import Store from '@models/Store';
 import { http } from '@services/Backend';
-import { Plus } from 'react-bootstrap-icons';
 
 const Box = styled.div`
   display: flex;
@@ -166,7 +165,7 @@ const MomentForm = (props) => {
             );
           })}
           <Input onChange={handleAddFile}>
-            <Plus size={60}/>
+            <i className="las la-plus" style={{size:60}}></i>
             <input type='file' multiple />
           </Input>
         </FileBox>

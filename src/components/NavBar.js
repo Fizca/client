@@ -67,19 +67,10 @@ export const NavDropdown = (props) => {
 }
 
 export const DropdownItem = (props) => {
-  const { children } = props;
+  const { children, ...rest } = props;
   return (
-    <div className="menu-item">
+    <div className="menu-item menu-btn" {...rest}>
       {children}
     </div>
-  );
-}
-
-export const DropdownButton = (props) => {
-  const { children, onClick } = props;
-  return (
-    <button className="menu-item menu-btn" onClick={() => onClick()}>
-      {children}
-    </button>
   );
 }
