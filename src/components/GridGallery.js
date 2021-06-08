@@ -178,7 +178,7 @@ const GridGallery = (props) => {
 
   return (
     <GridContainer>
-      <i className="las la-image" style={{height: auto}}></i>
+      <i className="las la-image" style={{fontSize: '6rem'}}></i>
     </GridContainer>
   );
 }
