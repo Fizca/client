@@ -121,7 +121,7 @@ const InputFile = (props) => {
 
       <Sqr>
         <Input onClick={handleClick} className='btn fz-btn-alert'>
-          <i class="las la-cloud-upload-alt" style={{fontSize:'6rem'}}></i>
+          <i className="las la-cloud-upload-alt" style={{fontSize:'6rem'}}></i>
           <hr />
           Upload
         </Input>
