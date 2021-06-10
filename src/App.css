@@ -425,3 +425,30 @@ input[type=password]:focus {
 .react-datetime-picker__wrapper input {
   border-width: 0px;
 }
+
+/* =============== *
+ * React Select rs
+ * =============== */
+
+.rs__control {
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  border-bottom: 2px solid var(--bg-accent) !important;
+}
+
+.rs__control--is-focused {
+  outline: none;
+  border-bottom: 2px solid var(--greenteal) !important;
+  box-shadow: none !important;
+}
+
+.rs__multi-value {
+  border: 1px solid var(--bg-accent);
+  background-color: var(--bg) !important;
+}
+
+.rs__multi-value__remove:hover {
+  color: var(--bg) !important;
+  background-color: var(--brightfucsia) !important;
+}
+
