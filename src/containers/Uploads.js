@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import CreatableSelect from 'react-select/creatable';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import FileBox from '@components/FileBox';
 import Progress from '@components/Progress';
@@ -15,6 +17,8 @@ const Uploads = () => {
   const [ uploading, setUploading ] = useState(0);
   const [ options, setOptions ] = useState(opts)
   const [ tags, setTags ] = useState([]);
+
+  const toastId = useRef(null);
 
   /**
    * Sanitizes and creates and object for the selection dropdown.
@@ -45,21 +49,39 @@ const Uploads = () => {
    * @returns
    */
   const handleSubmit = (_event) => {
-    console.log(files);
+
     if (!files.length) {
       return;
     }
 
     // Set the overlay to avoid double submissions
     setUploading(files.length);
+    toastId.current = toast("Saving...", { autoClose: false });
 
     // Create the form data, and load the image uploads
     files.forEach((entry) => {
-        uploadAsset(entry.file, tags, Store.profile.id)
-          .catch((e) => console.log(e))
-          .then(() => setUploading(prev => prev - 1));
+      uploadAsset(entry.file, tags, Store.profile.id)
+      .catch((e) => console.log(e))
+      .then(() => {
+        setUploading(prev => prev - 1)
+      });
     })
   }
+
+  useEffect(() => {
+    const body = {
+      render: `Uploading: ${files.length - uploading}/${files.length}`,
+      type: toast.TYPE.INFO,
+      autoClose: false,
+    }
+
+    if (!uploading) {
+      body.type = toast.TYPE.SUCCESS;
+      body.autoClose = 5000;
+    }
+
+    toast.update(toastId.current, body);
+  }, [uploading])
 
   return (
     <Main>
@@ -85,12 +107,6 @@ const Uploads = () => {
 
         <button className="btn" onClick={handleSubmit}>Submit</button>
       </div>
-
-
-      <Progress show={uploading}>
-        <div>Uploading</div>
-        <div>{files.length - uploading}/{files.length}</div>
-      </Progress>
     </Main>
   );
 }

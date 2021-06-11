@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Loading from '@components/Loading'
 import Navigation from '@components/Navigation';
@@ -49,6 +51,14 @@ const App = observer(() => {
           <VitalsForm />
         </PrivateRoute>
       </Switch>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        newestOnTop={false}
+        closeOnClick
+        transition={Zoom}
+        pauseOnHover
+      />
       <footer>
         <hr/>
         <p>&copy; Company 2021</p>
