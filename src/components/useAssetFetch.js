@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {http, cancelToken} from '@services/Backend';
+import { http } from '@services/Backend';
 import axios from 'axios';
 
 export default function useAssetFetch(profile, pageNumber) {
