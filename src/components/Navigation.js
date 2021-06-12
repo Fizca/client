@@ -3,8 +3,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { NavBar, NavItem, NavDropdown, DropdownItem } from '@components/NavBar';
 
 import Store from '@models/Store';
+import Uploads from "@containers/Uploads";
+import { useState } from "react";
 
 const Navigation = observer((props) => {
+  const [ active, setActive ] = useState(null);
   const history = useHistory();
 
   const logout = () => {
@@ -38,8 +41,9 @@ const Navigation = observer((props) => {
             <DropdownItem>
               <Link to="/vitals_add"><i className="las la-file-medical"></i>Add Vitals</Link>
             </DropdownItem>
-            <DropdownItem>
-              <Link to="/uploads"><i className="las la-file-upload"></i>Upload Images</Link>
+            <DropdownItem onClick={() => setActive('uploads')}>
+              {/* <Link to="/uploads"><i className="las la-file-upload"></i>Upload Images</Link> */}
+              <i className="las la-file-upload"></i>Upload Images
             </DropdownItem>
             <DropdownItem onClick={logout}>
               <i className="las la-sign-out-alt"></i>
@@ -47,6 +51,7 @@ const Navigation = observer((props) => {
             </DropdownItem>
         </NavDropdown>
       </NavBar>
+      <Uploads active={active == 'uploads'} onClose={() => setActive(null)} />
     </header>
   );
 });
