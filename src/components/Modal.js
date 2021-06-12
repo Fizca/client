@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from "framer-motion"
 import styled from 'styled-components';
 
@@ -30,6 +30,11 @@ const Modal = ({ showModal, setShowModal, children }) => {
     scale: 1.2,
     opacity: 0,
   }
+
+  useEffect(() => {
+    const overflow = showModal ? 'hidden' : 'unset';
+    document.body.style.overflow = overflow;
+  }, [showModal]);
 
   return (
     <AnimatePresence >

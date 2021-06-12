@@ -128,12 +128,16 @@ header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .flex-box::after {
   content: "";
   flex: auto;
+}
+
+.flex-column {
+  flex-direction: column;
 }
 
 .card {

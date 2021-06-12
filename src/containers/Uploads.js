@@ -1,18 +1,29 @@
 import { useState, useRef, useEffect } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styled from 'styled-components';
 
 import FileBox from '@components/FileBox';
-import Progress from '@components/Progress';
 import { HeroBox, Subtitle } from '@components/Headings';
 import Main from '@components/Main';
+import Modal, { ModalWrapper } from '@components/Modal';
 import Store from '@models/Store';
-import { http, uploadAsset } from '@services/Backend';
+import { uploadAsset } from '@services/Backend';
+
+const Box = styled(ModalWrapper)`
+  background-color: var(--bg);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  width: 500px;
+  gap: 15px;
+`;
 
 const opts = [{value: 'alpha', label: 'alpha'}, {value: 'bravo', label: 'bravo'}, {value: 'delta', label: 'delta'}]
 
-const Uploads = () => {
+const Uploads = (props) => {
+  const { active, onClose } = props;
+
   const [ files, setFiles ] = useState([]);
   const [ uploading, setUploading ] = useState(0);
   const [ options, setOptions ] = useState(opts)
@@ -84,30 +95,32 @@ const Uploads = () => {
   }, [uploading])
 
   return (
-    <Main>
-      <HeroBox>
-        <div>Upload</div>
-        <Subtitle>Add to {Store.profile.nickname}'s adventures</Subtitle>
-      </HeroBox>
+    <Modal showModal={active} setShowModal={onClose} backgroundClose>
+      <Box>
+        <HeroBox>
+          <div>Upload</div>
+          <Subtitle>Add to {Store.profile.nickname}'s adventures</Subtitle>
+        </HeroBox>
 
-      <div>
-        <FileBox onChange={setFiles} />
+        <div className="flex-box flex-column">
+          <FileBox onChange={setFiles} />
 
-        <CreatableSelect
-          isMulti
-          isClearable
-          onChange={setTags}
-          onCreateOption={handleTagCreate}
+          <CreatableSelect
+            isMulti
+            isClearable
+            onChange={setTags}
+            onCreateOption={handleTagCreate}
 
-          options={options}
-          classNamePrefix='rs'
-          placeholder="Tags..."
-          value={tags}
-        />
+            options={options}
+            classNamePrefix='rs'
+            placeholder="Tags..."
+            value={tags}
+          />
 
-        <button className="btn" onClick={handleSubmit}>Submit</button>
-      </div>
-    </Main>
+          <button className="btn" onClick={handleSubmit}>Submit</button>
+        </div>
+      </Box>
+    </Modal>
   );
 }
 
