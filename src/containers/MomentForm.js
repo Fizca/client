@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import DateTimePicker from 'react-datetime-picker';
+import { toast } from 'react-toastify';
 
 import { HeroBox, Subtitle } from '@components/Headings';
 import { ModalContentBox} from '@components/Boxes';
@@ -16,31 +17,58 @@ const MomentForm = (props) => {
   const [ text, setText ] = useState(moment.text);
   const [ tags, setTags ] = useState([]);
   const [ takenAt, setTakenAt ] = useState(moment.takenAt || new Date())
+  const [ uploading, setUploading ] = useState(0);
 
-  const handleClick = () => {
+  const toastId = useRef(null);
+
+  useEffect(() => {
+    const body = {
+      render: `Uploading: ${files.length - uploading}/${files.length}`,
+      type: toast.TYPE.INFO,
+      autoClose: false,
+    }
+
+    if (!uploading) {
+      body.render = `Succesfully uploaded ${uploading} items!`,
+      body.type = toast.TYPE.SUCCESS;
+      body.autoClose = 3000;
+    }
+
+    toast.update(toastId.current, body);
+  }, [uploading])
+
+  const handleSubmit = () => {
     // Set the overlay to avoid double submissions
-    setUploading(true);
+    setUploading(files.length);
+    toastId.current = toast("Saving...", { autoClose: false });
 
     // Create the form data, and load the image uploads
+    const tagMap = tags.map((entry) => entry.value);
     const moment = {
-      title: title,
-      text: text,
+      title,
+      text,
+      tags: tagMap,
       profile: Store.profile.id,
     }
 
     // Send the request upstream.
     http.post("/moments", moment)
       .then(() => {
-        // Faking a quick 2 second delay to give a sense of working
-        // and reseting the state for more uploads.
-        setTimeout(() => {
-          setFiles({});
-          setUploading(false);
-        }, 2000);
+        toast(
+          `Created a new moment for ${Store.profile.nickname}!`,
+          {
+            type: toast.TYPE.SUCCESS,
+            autoClose: 3000,
+          }
+        );
       });
 
     files.forEach((entry) => {
-      uploadAsset(entry.file, tags, profile);
+      uploadAsset(entry.file, tags, Store.profile.id)
+        .catch((e) => e)
+        .then(() => {
+          setUploading(prev => prev - 1)
+        });
     })
   }
 
@@ -66,7 +94,7 @@ const MomentForm = (props) => {
         value={takenAt}
       />
 
-      <button className="btn" onClick={handleClick}>Submit</button>
+      <button className="btn" onClick={handleSubmit}>Submit</button>
     </ModalContentBox>
   );
 };
