@@ -1,45 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
-import CreatableSelect from 'react-select/creatable';
 import { toast } from 'react-toastify';
 
 import { ModalContentBox } from '@components/Boxes';
 import FileBox from '@components/FileBox';
 import { HeroBox, Subtitle } from '@components/Headings';
 import Store from '@models/Store';
+import TagSelector from '@components/TagSelector';
 import { uploadAsset } from '@services/Backend';
-
-const opts = [{value: 'alpha', label: 'alpha'}, {value: 'bravo', label: 'bravo'}, {value: 'delta', label: 'delta'}]
 
 const Uploads = (props) => {
   const [ files, setFiles ] = useState([]);
   const [ uploading, setUploading ] = useState(0);
-  const [ options, setOptions ] = useState(opts)
   const [ tags, setTags ] = useState([]);
 
   const toastId = useRef(null);
-
-  /**
-   * Sanitizes and creates and object for the selection dropdown.
-   * @param {string} label
-   * @returns
-   */
-  const createOption = (label) => {
-    const tag = label.toLowerCase().replace(/\W|\ /g, '')
-    return {
-      label: tag,
-      value: tag,
-    }
-  };
-
-  /**
-   * The value of the tag to be created.
-   * @param {string} inputValue
-   */
-  const handleTagCreate = (inputValue) => {
-    const newValue = createOption(inputValue);
-    setOptions((prev) => [...prev, newValue]);
-    setTags(prev => [...prev, newValue]);
-  };
 
   /**
    * Submit the files to the backend
@@ -90,17 +64,7 @@ const Uploads = (props) => {
 
         <FileBox onChange={setFiles} />
 
-        <CreatableSelect
-          isMulti
-          isClearable
-          onChange={setTags}
-          onCreateOption={handleTagCreate}
-
-          options={options}
-          classNamePrefix='rs'
-          placeholder="Tags..."
-          value={tags}
-        />
+        <TagSelector tags={tags} setTags={setTags} />
 
         <button className="btn" onClick={handleSubmit}>Submit</button>
       </ModalContentBox>
