@@ -5,6 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 import { HeroBox, Subtitle } from '@components/Headings';
 import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
+import TagSelector from '@components/TagSelector';
 import Store from '@models/Store';
 import { http, uploadAsset } from '@services/Backend';
 
@@ -13,6 +14,7 @@ const MomentForm = (props) => {
   const [ files, setFiles ] = useState([]);
   const [ title, setTitle ] = useState(moment.title);
   const [ text, setText ] = useState(moment.text);
+  const [ tags, setTags ] = useState([]);
   const [ takenAt, setTakenAt ] = useState(moment.takenAt || new Date())
 
   const handleClick = () => {
@@ -55,6 +57,8 @@ const MomentForm = (props) => {
       </textarea>
 
       <FileBox onChange={setFiles} />
+
+      <TagSelector tags={tags} setTags={setTags} />
 
       <DateTimePicker
         disableClock={true}
