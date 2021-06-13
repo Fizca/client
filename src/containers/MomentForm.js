@@ -1,29 +1,16 @@
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
-import styled from 'styled-components'
 import DateTimePicker from 'react-datetime-picker';
 
-import Main from '@components/Main';
-import Progress from '@components/Progress';
+import { HeroBox, Subtitle } from '@components/Headings';
+import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
 import Store from '@models/Store';
 import { http, uploadAsset } from '@services/Backend';
 
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-
-  & > * {
-    flex-grow: 1;
-  }
-`;
-
 const MomentForm = (props) => {
   const { moment = {} } = props;
   const [ files, setFiles ] = useState([]);
-  const [ uploading, setUploading ] = useState(false);
   const [ title, setTitle ] = useState(moment.title);
   const [ text, setText ] = useState(moment.text);
   const [ takenAt, setTakenAt ] = useState(moment.takenAt || new Date())
@@ -56,28 +43,27 @@ const MomentForm = (props) => {
   }
 
   return (
-    <Main>
-      <Box>
-        <h3>Create a new moment {Store.profile.nickname}</h3>
-        <input type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
-        <textarea placeholder="A moment in time..." onChange={(e) => setText(e.target.value)}>
-        </textarea>
+    <ModalContentBox className="flex-box flex-column">
+      <HeroBox>
+        <div>Moments</div>
+        <Subtitle>Add to the memories of {Store.profile.nickname}</Subtitle>
+      </HeroBox>
 
-        <FileBox onChange={setFiles} />
+      <input type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
 
-        <DateTimePicker
-          disableClock={true}
-          onChange={setTakenAt}
-          value={takenAt}
-        />
-        <button className="btn" onClick={handleClick}>Submit</button>
-      </Box>
+      <textarea placeholder="A moment in time..." onChange={(e) => setText(e.target.value)}>
+      </textarea>
 
-      <Progress show={uploading}>
-        <div>Saving your moment...</div>
-        {files && <div>Uploading Images...</div>}
-      </Progress>
-    </Main>
+      <FileBox onChange={setFiles} />
+
+      <DateTimePicker
+        disableClock={true}
+        onChange={setTakenAt}
+        value={takenAt}
+      />
+
+      <button className="btn" onClick={handleClick}>Submit</button>
+    </ModalContentBox>
   );
 };
 

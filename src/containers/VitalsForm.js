@@ -1,23 +1,11 @@
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
-import styled from 'styled-components'
 import DateTimePicker from 'react-datetime-picker';
 
-import Main from '@components/Main';
-import Loading from '@components/Loading';
+import { ModalContentBox } from '@components/Boxes';
+import { HeroBox, Subtitle } from '@components/Headings';
 import Store from '@models/Store';
 import { http } from '@services/Backend';
-
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem;
-  & > * {
-    flex-grow: 1;
-  }
-`;
 
 const MomentForm = (props) => {
   const { vitals = {} } = props;
@@ -56,9 +44,11 @@ const MomentForm = (props) => {
   }
 
   return (
-    <Main>
-      <Box>
-        <h3>Add some vitals to {Store.profile.nickname}</h3>
+    <ModalContentBox className='flex-box flex-column'>
+        <HeroBox>
+          <div>Vitals</div>
+          <Subtitle>How has {Store.profile.nickname} grown?</Subtitle>
+        </HeroBox>
         <div>
           <i className="las la-weight" style={{fontSize: '1.5rem', verticalAlign: 'middle'}}></i>
           <input type="number" placeholder="Weight" onChange={(e) => setWeight(e.target.value)} />
@@ -87,9 +77,7 @@ const MomentForm = (props) => {
           />
         </div>
         <button className="btn" onClick={handleClick}>Submit { id } </button>
-      </Box>
-      <Loading isLoading={uploading} />
-    </Main>
+    </ModalContentBox>
   );
 };
 
