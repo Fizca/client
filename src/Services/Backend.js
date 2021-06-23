@@ -12,10 +12,11 @@ const _transport = axios.create({
  * @param {string} profile
  * @returns
  */
-const _uploadAsset = (file, tags, profile) => {
+const _uploadAsset = (file, tags, profile, moment) => {
   const formData = new FormData();
   formData.append("image", file);
   formData.append("profile", profile);
+  formData.append("moment", moment);
 
   tags.forEach((tag) => {
     formData.append('tags[]', tag.value);

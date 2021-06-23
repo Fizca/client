@@ -5,22 +5,20 @@ import Image from '@components/Image';
 import Main from '@components/Main';
 import Store from '@models/Store';
 import Lightbox from '@components/Lightbox';
-import useAssetFetch from '@components/useAssetFetch';
+import usePageFetch from '@components/usePageFetch';
 import Spinner from '@components/Spinner';
 import { HeroBox, Subtitle, HeroTitle } from '@components/Headings';
 
 const Gallery = () => {
   const [ pickImg, setPickImg ] = useState(false);
   const [ showcase, setShowcase ] = useState(false);
-
-  const [profile] = useState(Store.profile.id);
   const [pageNumber, setPageNumber] = useState(0);
   const {
-    assets,
+    objects: assets,
     hasMore,
     loading,
     error
-  } = useAssetFetch(profile, pageNumber);
+  } = usePageFetch(`/assets/profile/${Store.profile.id}`, pageNumber);
 
   /**
    * Fire the useAssetFetch only when the last object enters the page.
@@ -67,28 +65,16 @@ const Gallery = () => {
       <div className="masonry">
         {
           assets.map((asset, index) => {
-            if (assets.length === index + 1) {
-              return (
-                <div
-                  key={`asset-${index}`}
-                  className={`masonry-brick`}
-                  onClick={() => showchaseImage(index)}
-                  ref={lastAssetElementRef}
-                >
-                  <Image src={asset.name} className='masonry-img'/>
-                </div>
-              );
-            } else {
-              return (
-                <div
-                  key={`asset-${index}`}
-                  className={`masonry-brick`}
-                  onClick={() => showchaseImage(index)}
-                >
-                  <Image src={asset.name} className='masonry-img' size="medium" />
-                </div>
-              );
-            }
+            return (
+              <div
+                key={`asset-${index}`}
+                className={`masonry-brick`}
+                onClick={() => showchaseImage(index)}
+                ref={index + 1 == assets.length ? lastAssetElementRef : null}
+              >
+                <Image src={asset.name} className='masonry-img'/>
+              </div>
+            );
           })
         }
       </div>
