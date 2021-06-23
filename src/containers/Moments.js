@@ -1,20 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 
 import Main from '@components/Main';
-import Moment from '@components/Moment';
+import MomentCard from '@components/MomentCard';
 import { HeroBox, Subtitle, HeroTitle } from '@components/Headings';
-import { http } from '@services/Backend';
+import usePageFetch from '@components/usePageFetch';
+import Spinner from '@components/Spinner';
 import Store from '@models/Store';
 
 const Moments = () => {
-  const [ moments, setMoments ] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const {
+    objects: moments,
+    hasMore,
+    loading,
+    error
+  } = usePageFetch(`/moments/profile/${Store.profile.id}`, pageNumber);
 
-  useEffect(() => {
-    http(`/moments/profile/${Store.profile.id}?include=assets&include=profile`)
-      .then((result) => {
-        setMoments(result.data);
-      });
-  }, []);
+  /**
+   * Fire the useAssetFetch only when the last object enters the page.
+   */
+   const observer = useRef()
+   const lastAssetElementRef = useCallback(node => {
+     if (loading) return
+     if (observer.current) observer.current.disconnect()
+     observer.current = new IntersectionObserver(entries => {
+       if (entries[0].isIntersecting && hasMore) {
+         setPageNumber(prevPageNumber => prevPageNumber + 1)
+       }
+     })
+     if (node) observer.current.observe(node)
+   }, [loading, hasMore])
 
   return (
     <Main>
@@ -24,9 +39,20 @@ const Moments = () => {
         <Subtitle>All things I've done!</Subtitle>
       </HeroBox>
 
-      { moments.map((moment, i) => {
-        return (<Moment moment={moment} key={`m-${i}`} />);
-      })}
+      <div className='flex-box'>
+        { moments.map((moment, i) => {
+          return (
+            <MomentCard
+              moment={moment}
+              key={`m-${i}`}
+              direction={i%2 ? 'right' : 'left'}
+              innerRef={i + 1 == moments.length ? lastAssetElementRef : null}
+            />
+          );
+        })}
+      </div>
+      <div>{loading && <Spinner />}</div>
+      <div>{error && 'Error'}</div>
     </Main>
   );
 };

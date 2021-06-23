@@ -7,7 +7,7 @@ const Counter = styled.div`
 
 const GridContainer = styled.div`
   width: 300px;
-  height: 300px;
+  height: 200px;
 
   display: grid;
   grid-template-rows: repeat(10, 1fr);
@@ -124,14 +124,6 @@ const GridGallery = (props) => {
     return (<Counter>+{n}</Counter>);
   }
 
-  if (children.length === 1) {
-    return(
-      <GridContainer>
-        {children[0]}
-      </GridContainer>
-    );
-  }
-
   if (children.length === 2) {
     return(
       <Twins>
@@ -173,6 +165,14 @@ const GridGallery = (props) => {
         {arr}
         {counter(children.length - 5)}
       </Fives>
+    );
+  }
+
+  if (children) {
+    return(
+      <GridContainer>
+        {children}
+      </GridContainer>
     );
   }
 

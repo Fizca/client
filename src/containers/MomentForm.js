@@ -29,7 +29,7 @@ const MomentForm = (props) => {
     }
 
     if (!uploading) {
-      body.render = `Succesfully uploaded ${uploading} items!`,
+      body.render = `Succesfully uploaded ${files.length} items!`,
       body.type = toast.TYPE.SUCCESS;
       body.autoClose = 3000;
     }
@@ -37,7 +37,7 @@ const MomentForm = (props) => {
     toast.update(toastId.current, body);
   }, [uploading])
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Set the overlay to avoid double submissions
     setUploading(files.length);
     toastId.current = toast("Saving...", { autoClose: false });
@@ -52,8 +52,8 @@ const MomentForm = (props) => {
     }
 
     // Send the request upstream.
-    http.post("/moments", moment)
-      .then(() => {
+    const newMoment = await http.post("/moments", moment)
+      .then((response) => {
         toast(
           `Created a new moment for ${Store.profile.nickname}!`,
           {
@@ -61,10 +61,12 @@ const MomentForm = (props) => {
             autoClose: 3000,
           }
         );
+        return response.data;
       });
 
+    console.log(newMoment)
     files.forEach((entry) => {
-      uploadAsset(entry.file, tags, Store.profile.id)
+      uploadAsset(entry.file, tags, Store.profile.id, newMoment._id)
         .catch((e) => e)
         .then(() => {
           setUploading(prev => prev - 1)
