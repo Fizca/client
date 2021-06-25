@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Card } from "@components/Boxes";
 import Image from "@components/Image";
 import TagLink from "@components/TagLink";
+import { Link } from "react-router-dom";
 
 const Text = styled.div`
   display: flex;
@@ -65,7 +66,7 @@ const MomentCard = (props) => {
       <Text>
         <Heading>
           <Em>{new Date(moment.createdAt).toLocaleString()}</Em>
-          <H3>{moment.title}</H3>
+          <H3><Link to={`/moments/${moment.id}`}>{moment.title}</Link></H3>
         </Heading>
 
         <div>{moment.text}</div>

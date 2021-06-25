@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState } from 'react';
 
 import Main from '@components/Main';
 import MomentCard from '@components/MomentCard';
-import { HeroBox, Subtitle, HeroTitle } from '@components/Headings';
+import { HeroBox, Subtitle, HeroTitle, Title } from '@components/Headings';
 import usePageFetch from '@components/usePageFetch';
 import Spinner from '@components/Spinner';
 import Store from '@models/Store';
@@ -34,7 +34,7 @@ const Moments = () => {
   return (
     <Main>
       <HeroBox>
-        <div>{Store.profile.nickname}'s</div>
+        <Title>{Store.profile.nickname}'s</Title>
         <HeroTitle>Moments</HeroTitle>
         <Subtitle>All things I've done!</Subtitle>
       </HeroBox>

@@ -32,10 +32,6 @@ const Splash = (props) => {
               cookiePolicy={'single_host_origin'}
           />
       </main>
-
-      <footer className="">
-        <p>&copy; Company 2021</p>
-      </footer>
     </>
   );
 }

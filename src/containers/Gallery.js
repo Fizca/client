@@ -7,7 +7,7 @@ import Store from '@models/Store';
 import Lightbox from '@components/Lightbox';
 import usePageFetch from '@components/usePageFetch';
 import Spinner from '@components/Spinner';
-import { HeroBox, Subtitle, HeroTitle } from '@components/Headings';
+import { HeroBox, Subtitle, HeroTitle, Title } from '@components/Headings';
 
 const Gallery = () => {
   const [ pickImg, setPickImg ] = useState(false);
@@ -57,7 +57,7 @@ const Gallery = () => {
   return (
     <Main>
       <HeroBox>
-        <div>{Store.profile.nickname}'s</div>
+        <Title>{Store.profile.nickname}'s</Title>
         <HeroTitle>Gallery</HeroTitle>
         <Subtitle>All the adventures I've had!</Subtitle>
       </HeroBox>
@@ -72,7 +72,7 @@ const Gallery = () => {
                 onClick={() => showchaseImage(index)}
                 ref={index + 1 == assets.length ? lastAssetElementRef : null}
               >
-                <Image src={asset.name} className='masonry-img'/>
+                <Image src={asset.name} className='masonry-img' size='small' />
               </div>
             );
           })
