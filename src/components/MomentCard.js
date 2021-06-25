@@ -1,6 +1,8 @@
-import Image from "@components/Image";
 import styled from "styled-components";
-import { Card } from "./Boxes";
+
+import { Card } from "@components/Boxes";
+import Image from "@components/Image";
+import TagLink from "@components/TagLink";
 
 const Text = styled.div`
   display: flex;
@@ -28,10 +30,6 @@ const Tags = styled.div`
   align-items: end;
   color: var(--brightfucsia);
   font-size: 1rem;
-`;
-
-const Tag = styled.span`
-  padding-left: 0.5rem;
 `;
 
 const H3 = styled.h3`
@@ -72,7 +70,7 @@ const MomentCard = (props) => {
 
         <div>{moment.text}</div>
 
-        <Tags>{moment.tags && moment.tags.map((tag, i) => <Tag key={`t-${i}`}>#{tag.name}</Tag>)}</Tags>
+        <Tags>{moment.tags && moment.tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.name} />)}</Tags>
       </Text>
     </Card>
   );
