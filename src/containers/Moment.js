@@ -1,36 +1,22 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { HeroBox, Title, Subtitle } from '@components/Headings';
+import { HeroBox, Title, Subtitle, Hr } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
-import Store from '@models/Store';
 import { http } from '@services/Backend';
+import TagLink from '@components/TagLink';
 
-const Hr = styled.hr`
-  border: 0;
-  height: 1px;
-  width: 20%;
-  position: relative;
-  margin: 30px auto;
-  background: var(--brightfucsia);
-  overflow: visible;
+const Tags = styled.div`
+  align-self: flex-end;
 
-  &::before {
-    content: " ";
-    width: 10px;
-    height: 10px;
-    background: var(--brightfucsia);
-    display: inline-block;
-    border: 2px solid var(--brightfucsia);
-    border-radius: 50%;
-    position: absolute;
-    top: -4px;
-    left: 50%;
-    margin: 0 0 0 -3px;
-  }
+  display: flex;
+  align-items: end;
+  color: var(--brightfucsia);
+  font-size: 1rem;
+  letter-spacing: initial;
 `;
 
 const Moment = () => {
@@ -73,6 +59,8 @@ const Moment = () => {
         <Title>{moment.title}</Title>
         <Hr />
         <Subtitle text>{moment.text}</Subtitle>
+
+        <Tags>{moment.tags && moment.tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.name} />)}</Tags>
       </HeroBox>
 
       <div className="masonry">
