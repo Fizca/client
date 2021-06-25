@@ -8,7 +8,7 @@ import Loading from '@components/Loading'
 import Navigation from '@components/Navigation';
 import PrivateRoute from '@components/PrivateRoute';
 import Landing from '@containers/Landing'
-import Moments from '@containers/Moments';
+import Gallery from '@containers/Gallery';
 import Moment from '@containers/Moment';
 import Timeline from '@containers/Timeline';
 import Store from '@models/Store';
@@ -37,8 +37,8 @@ const App = observer(() => {
       <Switch className="hello">
         <Route path='/' component={Landing} exact />
         <Route path='/success' component={Landing} exact />
-        <PrivateRoute path="/moments" isAllowed={Store.user} exact>
-          <Moments />
+        <PrivateRoute path="/gallery" isAllowed={Store.user} exact>
+          <Gallery />
         </PrivateRoute>
         <PrivateRoute path="/timeline/:tag" isAllowed={Store.user}>
           <Timeline />
@@ -57,7 +57,7 @@ const App = observer(() => {
       />
       <footer>
         <hr/>
-        <p>&copy; Company 2021</p>
+        <p>&copy; Roloenusa 2021</p>
       </footer>
     </BrowserRouter>
   );
