@@ -9,6 +9,7 @@ import Navigation from '@components/Navigation';
 import PrivateRoute from '@components/PrivateRoute';
 import Landing from '@containers/Landing'
 import Moments from '@containers/Moments';
+import Moment from '@containers/Moment';
 import Timeline from '@containers/Timeline';
 import Store from '@models/Store';
 
@@ -36,12 +37,15 @@ const App = observer(() => {
       <Switch className="hello">
         <Route path='/' component={Landing} exact />
         <Route path='/success' component={Landing} exact />
-        <PrivateRoute path="/moments" isAllowed={Store.user}>
+        <PrivateRoute path="/moments" isAllowed={Store.user} exact>
           <Moments />
         </PrivateRoute>
-        <Route path="/timeline/:tag" isAllowed={Store.user}>
+        <PrivateRoute path="/timeline/:tag" isAllowed={Store.user}>
           <Timeline />
-        </Route>
+        </PrivateRoute>
+        <PrivateRoute path="/moments/:id" isAllowed={Store.user}>
+          <Moment />
+        </PrivateRoute>
       </Switch>
       <ToastContainer
         position="bottom-right"

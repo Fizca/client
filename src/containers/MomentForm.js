@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import { toast } from 'react-toastify';
 
-import { HeroBox, Subtitle } from '@components/Headings';
+import { HeroBox, Subtitle, Title } from '@components/Headings';
 import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
 import TagSelector from '@components/TagSelector';
@@ -77,7 +77,7 @@ const MomentForm = (props) => {
   return (
     <ModalContentBox className="flex-box flex-column">
       <HeroBox>
-        <div>Moments</div>
+        <Title>Moments</Title>
         <Subtitle>Add to the memories of {Store.profile.nickname}</Subtitle>
       </HeroBox>
 

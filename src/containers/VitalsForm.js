@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 
 import { ModalContentBox } from '@components/Boxes';
-import { HeroBox, Subtitle } from '@components/Headings';
+import { HeroBox, Subtitle, Title } from '@components/Headings';
 import Store from '@models/Store';
 import { http } from '@services/Backend';
 
@@ -46,7 +46,7 @@ const MomentForm = (props) => {
   return (
     <ModalContentBox className='flex-box flex-column'>
         <HeroBox>
-          <div>Vitals</div>
+          <Title>Vitals</Title>
           <Subtitle>How has {Store.profile.nickname} grown?</Subtitle>
         </HeroBox>
         <div>

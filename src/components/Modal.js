@@ -11,6 +11,7 @@ const Background = styled(motion.div)`
   bottom: 0;
   right: 0;
   position: fixed;
+  overflow: auto;
   background-color: rgba(0, 0, 0, .8);
   z-index: 1000;
 `;
@@ -43,6 +44,8 @@ const Modal = ({ showModal, setShowModal, children }) => {
         (
           <Background
             onClick={() => setShowModal && setShowModal(false)} ref={modalRef}
+            // onKeyDown={(e) => e.stopPropagation()}
+            // onKeyPress={(e) => e.stopPropagation()}
             key='modal'
             initial={baseTrasition}
             animate={{

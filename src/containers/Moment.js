@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { HeroBox, HeroTitle, Subtitle } from '@components/Headings';
+import { HeroBox, Title, Subtitle } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
@@ -70,7 +70,7 @@ const Moment = () => {
   return (
     <Main>
       <HeroBox>
-        <span>{moment.title}</span>
+        <Title>{moment.title}</Title>
         <Hr />
         <Subtitle text>{moment.text}</Subtitle>
       </HeroBox>

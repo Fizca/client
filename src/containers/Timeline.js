@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { HeroBox, HeroTitle, Subtitle } from '@components/Headings';
+import { HeroBox, HeroTitle, Subtitle, Title } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
@@ -99,7 +99,7 @@ const Timeline = () => {
           onClick={() => showchaseImage(assets.findIndex((entry) => entry._id == asset._id))}
           ref={ref}
         >
-          <Image src={asset.name} className='masonry-img'/>
+          <Image src={asset.name} className='masonry-img' size='small'/>
         </div>
       );
     }
@@ -110,7 +110,7 @@ const Timeline = () => {
         className={`masonry-brick-100`}
         ref={ref}
       >
-        <div>{moment.title}</div>
+        <Title>{moment.title}</Title>
         <Hr />
         <Subtitle>{moment.text}</Subtitle>
 
@@ -121,7 +121,7 @@ const Timeline = () => {
   return (
     <Main>
       <HeroBox>
-        <div>{Store.profile.nickname}'s</div>
+        <Title>{Store.profile.nickname}'s</Title>
         <HeroTitle>#{tag}</HeroTitle>
       </HeroBox>
 

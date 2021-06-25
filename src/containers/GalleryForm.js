@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import { ModalContentBox } from '@components/Boxes';
 import FileBox from '@components/FileBox';
-import { HeroBox, Subtitle } from '@components/Headings';
+import { HeroBox, Subtitle, Title } from '@components/Headings';
 import Store from '@models/Store';
 import TagSelector from '@components/TagSelector';
 import { uploadAsset } from '@services/Backend';
@@ -58,7 +58,7 @@ const Uploads = (props) => {
   return (
       <ModalContentBox className="flex-box flex-column">
         <HeroBox>
-          <div>Upload</div>
+          <Title>Upload</Title>
           <Subtitle>Add to {Store.profile.nickname}'s adventures</Subtitle>
         </HeroBox>
 
