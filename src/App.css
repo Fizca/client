@@ -328,6 +328,16 @@ nav {
   width: 380px;
 }
 
+.masonry-brick-100 {
+  padding: 2rem 1rem;
+  text-align: center;
+  min-height: 200px;
+  width: 100%;
+  border-radius: var(--border-radius);
+  background-color: var(--bg-primary);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
 /* =============== *
  * Typography
  * =============== */
@@ -367,6 +377,15 @@ a {
 
 a:hover {
   color: var(--text-highlight);
+}
+
+a.link {
+  color: var(--brightfucsia);
+  text-decoration: none;
+}
+
+a.link:hover {
+  text-decoration: outline;
 }
 
 input,

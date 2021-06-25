@@ -9,6 +9,7 @@ import Navigation from '@components/Navigation';
 import PrivateRoute from '@components/PrivateRoute';
 import Landing from '@containers/Landing'
 import Moments from '@containers/Moments';
+import Timeline from '@containers/Timeline';
 import Store from '@models/Store';
 
 import './App.css';
@@ -38,6 +39,9 @@ const App = observer(() => {
         <PrivateRoute path="/moments" isAllowed={Store.user}>
           <Moments />
         </PrivateRoute>
+        <Route path="/timeline/:tag" isAllowed={Store.user}>
+          <Timeline />
+        </Route>
       </Switch>
       <ToastContainer
         position="bottom-right"

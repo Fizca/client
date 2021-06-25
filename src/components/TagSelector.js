@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
 
+import Store from '@models/Store';
 import { http } from '@services/Backend';
 
 const TagSelector = (props) => {
@@ -8,7 +9,7 @@ const TagSelector = (props) => {
   const [ options, setOptions ] = useState([]);
 
   useEffect(() => {
-    http('/tags/list')
+    http(`/tags/profile/${Store.profile.id}`)
       .then((response) => {
         const entries = response.data.tags.map((tag) => {
           return createOption(tag.name);
