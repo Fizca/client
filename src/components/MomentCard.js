@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { Card } from "@components/Boxes";
 import Image from "@components/Image";
-import TagLink from "@components/TagLink";
+import TagLink, { Tags } from "@components/TagLink";
 import { Link } from "react-router-dom";
 
 const Text = styled.div`
@@ -22,15 +22,6 @@ const Em = styled.div`
   color: #505050;
   font-size: 0.9rem;
   align-self: end;
-`;
-
-const Tags = styled.div`
-  align-self: end;
-
-  display: flex;
-  align-items: end;
-  color: var(--brightfucsia);
-  font-size: 1rem;
 `;
 
 const H3 = styled.h3`

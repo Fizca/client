@@ -33,7 +33,10 @@ const Navigation = observer((props) => {
           <Link className='nav-item' to='/'>FIZCA</Link>
         </NavItem>
         <NavItem>
-          <Link className='nav-item icon-button' to="/moments"><i className="las la-book-open"></i></Link>
+          <Link className='nav-item icon-button' to="/"><i className="las la-book-open"></i></Link>
+        </NavItem>
+        <NavItem>
+          <Link className='nav-item icon-button' to="/gallery"><i className="las la-images"></i></Link>
         </NavItem>
         <NavItem>
           <Link className='nav-item icon-button' to="/vitals"><i className="las la-file-medical-alt"></i></Link>

@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export const Tags = styled.div`
+  align-self: flex-end;
+
+  display: flex;
+  align-items: end;
+  font-size: 1rem;
+  // text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: 300;
+  text-transform: uppercase;
+`;
+
 const Tag = styled(Link)`
   padding-left: 1rem;
 

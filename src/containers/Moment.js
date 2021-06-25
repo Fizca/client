@@ -7,17 +7,7 @@ import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
 import { http } from '@services/Backend';
-import TagLink from '@components/TagLink';
-
-const Tags = styled.div`
-  align-self: flex-end;
-
-  display: flex;
-  align-items: end;
-  color: var(--brightfucsia);
-  font-size: 1rem;
-  letter-spacing: initial;
-`;
+import TagLink, { Tags }from '@components/TagLink';
 
 const Moment = () => {
   const { id } = useParams();
