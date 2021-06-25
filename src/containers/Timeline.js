@@ -2,37 +2,13 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { HeroBox, HeroTitle, Subtitle, Title } from '@components/Headings';
+import { HeroBox, HeroTitle, Subtitle, Title, Hr } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
 import usePageFetch from '@components/usePageFetch';
 import Spinner from '@components/Spinner';
 import Store from '@models/Store';
-
-const Hr = styled.hr`
-  border: 0;
-  height: 1px;
-  width: 20%;
-  position: relative;
-  margin: 30px auto;
-  background: var(--brightfucsia);
-  overflow: visible;
-
-  &::before {
-    content: " ";
-    width: 10px;
-    height: 10px;
-    background: var(--brightfucsia);
-    display: inline-block;
-    border: 2px solid var(--brightfucsia);
-    border-radius: 50%;
-    position: absolute;
-    top: -4px;
-    left: 50%;
-    margin: 0 0 0 -3px;
-  }
-`;
 
 const Timeline = () => {
   const { tag } = useParams();

@@ -41,3 +41,28 @@ export const Subtitle = styled.span`
   letter-spacing: 4px;
   ${({text}) => text ? 'color: black;' : null}
 `;
+
+
+export const Hr = styled.hr`
+  border: 0;
+  height: 1px;
+  width: 20%;
+  position: relative;
+  margin: 30px auto;
+  background: var(--brightfucsia);
+  overflow: visible;
+
+  &::before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    background: var(--brightfucsia);
+    display: inline-block;
+    border: 2px solid var(--brightfucsia);
+    border-radius: 50%;
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    margin: 0 0 0 -3px;
+  }
+`;
