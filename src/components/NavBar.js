@@ -48,7 +48,7 @@ export const NavDropdown = (props) => {
 
   function openDropdown() {
     return(
-      <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
+      <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef} onClick={() => setOpen(false)}>
         <div className="menu">
           {children}
         </div>
