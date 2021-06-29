@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import DateTimePicker from 'react-datetime-picker';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { HeroBox, Title, Subtitle, Hr } from '@components/Headings';
+import { HeroBox, Title, Subtitle, Hr, Em } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
-import { http } from '@services/Backend';
 import TagLink, { Tags }from '@components/TagLink';
+import TagSelector from '@components/TagSelector';
+import { http } from '@services/Backend';
+import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 
 const IconRow = styled.div`
   display: flex;
@@ -41,34 +45,115 @@ const IconBtn = styled.i`
   ${
     ({primary, danger}) => {
       if (primary || danger) {
-        return `&:hover {
-          background-color: var(--color);
-          color: var(--bg);
-        }`;
+        return `
+          color: var(--color);
+          &:hover {
+            background-color: var(--color);
+            color: var(--bg);
+          }
+        `;
       }
     }
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-contents: space-between;
+  width: 100%;
+  gap: 1rem;
+`;
+
+const ImgContainer = styled.div`
+  width: 225px;
+  height: 300px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+
+  & img {
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+`;
+
+const Img = styled(motion.img)`
+
+`;
+
 const Moment = () => {
   const { id } = useParams();
 
-  const [moment, setMoment] = useState({});
   const [title, setTitle] = useState();
+  const [takenAt, setTakenAt] = useState();
+  const [tags, setTags] = useState([]);
   const [text, setText] = useState();
   const [assets, setAssets] = useState([]);
   const [pickImg, setPickImg] = useState(false);
   const [showcase, setShowcase] = useState(false);
   const [edit, setEdit] = useState(false);
 
+  const originalMoment = useRef();
+
   useEffect(async () => {
     const response = await http.get(`/moments/${id}`);
 
-    setMoment(response.data);
-    setTitle(response.data.title);
-    setText(response.data.text);
-    setAssets(response.data.assets || []);
+    // Load moment, and referrence for current moment.
+    loadMoment(response.data);
+    originalMoment.current = response.data;
   }, []);
+
+  const loadMoment = (data) => {
+    setTakenAt(new Date(data.takenAt));
+    setTitle(data.title);
+    setText(data.text);
+
+    const t = data.tags || [];
+    setTags(t.map((entry) => createOption(entry.name)))
+    setAssets(data.assets || []);
+  }
+
+  const onCancel = () => {
+    loadMoment(originalMoment.current);
+    setEdit(false);
+  }
+
+  const onSave = async () => {
+    await http.put(`/moments/${id}`, {
+      title,
+      text,
+      tags: tags.map((entry) => entry.value),
+      takenAt,
+    });
+
+    const response = await http.get(`/moments/${id}`);
+
+    assets.map(async (asset) => {
+      await http.put(`/assets/${asset._id}`, {
+        tags: tags.map((entry) => entry.value),
+      });
+    });
+
+    // Load moment, and referrence for current moment.
+    loadMoment(response.data);
+    originalMoment.current = response.data;
+    setEdit(false);
+
+    toast(
+      'Updated this moment!',
+      { type: toast.TYPE.SUCCESS, autoClose: 3000, }
+    );
+  }
 
   const showchaseImage = (index) => {
     setPickImg(index);
@@ -93,8 +178,8 @@ const Moment = () => {
     if (edit) {
       return (
         <IconRow>
-          <IconBtn className="la la-save" onClick={() => setEdit(false)} primary/>
-          <IconBtn className="la la-times" onClick={() => setEdit(false)} danger/>
+          <IconBtn className="la la-save" onClick={onSave} primary/>
+          <IconBtn className="la la-times" onClick={onCancel} danger/>
         </IconRow>
       )
     }
@@ -105,10 +190,19 @@ const Moment = () => {
     );
   }
 
+  const createOption = (label) => {
+    const tag = label.toLowerCase().replace(/\W|\ /g, '')
+    return {
+      label: `#${tag}`,
+      value: tag,
+    }
+  };
+
   return (
     <Main>
       { isEditing() }
       <HeroBox>
+        <Em>{edit ? <DateTimePicker disableClock={true} onChange={setTakenAt} value={takenAt} /> : new Date(takenAt).toLocaleString()}</Em>
         <Title
           contentEditable={edit}
           role="textbox"
@@ -131,24 +225,27 @@ const Moment = () => {
           {text}
         </Subtitle>
 
-        <Tags>{moment.tags && moment.tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.name} />)}</Tags>
+        <Tags>
+          {
+            edit ? <TagSelector tags={tags} setTags={setTags} /> : tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.value} />)
+          }
+        </Tags>
       </HeroBox>
 
-      <div className="masonry">
+      <Container>
         {
           assets.map((object, index) => {
             return (
-              <div
-                className="masonry-brick"
+              <ImgContainer
                 key={object._id}
                 onClick={() => showchaseImage(index)}
               >
-                <Image src={object.name} className="masonry-img" size="small" />
-              </div>
+                <Image src={object.name} size="small" />
+              </ImgContainer>
             );
           })
         }
-      </div>
+      </Container>
 
       <Lightbox
         display={showcase}

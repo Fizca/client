@@ -64,7 +64,6 @@ export const Subtitle = styled.span`
   ${editable}
 `;
 
-
 export const Hr = styled.hr`
   border: 0;
   height: 1px;
@@ -87,4 +86,11 @@ export const Hr = styled.hr`
     left: 50%;
     margin: 0 0 0 -3px;
   }
+`;
+
+export const Em = styled.div`
+  align-self: flex-end;
+  color: #505050;
+  font-size: 0.9rem;
+  letter-spacing: initial;
 `;
