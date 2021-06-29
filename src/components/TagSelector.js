@@ -27,7 +27,7 @@ const TagSelector = (props) => {
   const createOption = (label) => {
     const tag = label.toLowerCase().replace(/\W|\ /g, '')
     return {
-      label: tag,
+      label: `#${tag}`,
       value: tag,
     }
   };

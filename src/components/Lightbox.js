@@ -58,7 +58,7 @@ const Arrow = ({onClick, active, icon}) => {
   );
 }
 
-const Lightbox = ({display, close, asset, prev, next}) => {
+const Lightbox = ({display, close, asset, prev, next,}) => {
   if (!asset) {
     return null;
   }

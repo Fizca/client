@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Em } from "@components/Headings";
 import { Card } from "@components/Boxes";
 import Image from "@components/Image";
 import TagLink, { Tags } from "@components/TagLink";
@@ -15,13 +16,6 @@ const Text = styled.div`
 
   min-height: 300px;
   max-width: 370px;
-`;
-
-const Em = styled.div`
-  align-self: end;
-  color: #505050;
-  font-size: 0.9rem;
-  align-self: end;
 `;
 
 const H3 = styled.h3`
@@ -56,7 +50,7 @@ const MomentCard = (props) => {
       </HeroImage>
       <Text>
         <Heading>
-          <Em>{new Date(moment.createdAt).toLocaleString()}</Em>
+          <Em>{new Date(moment.takenAt).toLocaleString()}</Em>
           <H3><Link to={`/moments/${moment.id}`}>{moment.title}</Link></H3>
         </Heading>
 
