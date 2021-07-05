@@ -1,90 +1,113 @@
 import styled from 'styled-components';
+import { AnimatePresence } from "framer-motion"
 
 import Image from '@components/Image';
 import Modal, {ModalWrapper} from '@components/Modal';
+import { useEffect, useState } from 'react';
+
+const Img = styled(Image)`
+  max-width: 600px;
+  min-width: 400px;
+  max-height: 100vh;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  position: absolute;
+`;
 
 const ArrowDiv = styled(ModalWrapper)`
-  margin-right: auto;
-  margin-left: auto;
+  display: flex;
+  align-content: flex-end;
+  z-index: 2;
   border-radius: 50%;
   background-color: var(--deepblue);
+  margin: 1rem;
   ${
     (props) => props.active ? 'color: var(--btn);' : 'color: var(--btn-disabled);'
   }
+  ${
+    (props) => props.right ? 'margin-left: auto;' : 'margin-right: auto;'
+  }
+
   & .las {
     font-size: 3rem;
   }
 `;
-
-const Box = styled(ModalWrapper)`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap-reverse;
-  gap: 8px;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  color: var(--greenteal);
-  background-color: rgb(0, 0, 0, 0.3);
-  border-radius: var(--border-radius);
-  padding: 5px;
-
-  & div {
-    flex: 1;
-    display: flex;
-  }
-
-  & .description {
-    align-items: center;
-    flex-direction: row;
-    gap: 5px;
-  }
-
-  & .image-box {
-    justify-content: center;
-  }
-
-  & img {
-    width: 600px;
-    max-height: 100vh;
-    object-fit: contain;
-    border-radius: var(--border-radius);
-  }
-`;
-
-const Arrow = ({onClick, active, icon}) => {
+const Arrow = ({onClick, active, icon, right}) => {
   return (
-    <ArrowDiv active={active}>
-      <div onClick={onClick}><i className={`las ${icon}`}></i></div>
+    <ArrowDiv active={active} onClick={onClick} right={right}>
+      <i className={`las ${icon}`}></i>
     </ArrowDiv>
   );
 }
 
-const Lightbox = ({display, close, asset, prev, next,}) => {
-  if (!asset) {
+const variants = {
+  enter: (direction) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  }
+};
+
+const Lightbox = ({display, close, index, assets}) => {
+  const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  useEffect(() => {
+    setPage(index);
+  }, [index, display]);
+
+  const activeDirection = (direction) => {
+    if (direction > 0 && page < assets.length -1) return 'true';
+    if (direction < 0 && page > 0) return 'true';
+    return undefined;
+  }
+
+  const paginate = (newDirection) => {
+    if (!activeDirection(newDirection)) return;
+    setPage((prev) => prev + newDirection);
+    setDirection(newDirection);
+  };
+
+  if (!assets || !assets.length) {
     return null;
-  }
-
-  const previousItem = (e) => {
-    if(prev) {
-      prev();
-    }
-  }
-
-  const nextItem = (e) => {
-    if (next) {
-      next();
-    }
   }
 
   return (
     <Modal showModal={display} setShowModal={close} backgroundClose>
-      <Arrow active={prev ? 'true' : undefined} onClick={previousItem} icon='la-arrow-circle-left' />
-      <Box className='test'>
-        {/* do not close modal if anything inside modal content is clicked */}
-        <div className='image-box'>
-          <Image src={asset.name} size="large" />
-        </div>
-      </Box>
-      <Arrow active={next ? 'true' : undefined} onClick={nextItem} icon='la-arrow-circle-right' />
+        <Arrow active={activeDirection(-1)} onClick={() => paginate(-1)} icon='la-arrow-circle-left' />
+        <AnimatePresence initial={false} custom={direction}>
+          <Img
+            onClick={(e) => e.stopPropagation()}
+
+            key={`lighbox-asset-${page}`}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 }
+            }}
+
+            src={assets[page]?.name}
+            size="large"
+          />
+        </AnimatePresence>
+        <Arrow active={activeDirection(1)} onClick={() => paginate(1)} icon='la-arrow-circle-right' right='true'/>
     </Modal>
   );
 }

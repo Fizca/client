@@ -17,8 +17,12 @@ const Background = styled(motion.div)`
 `;
 
 export const ModalWrapper = ({children, onClick, ...rest}) => {
+  const clickEvent = (e) => {
+    if (onClick) onClick(e);
+    e.stopPropagation()
+  }
   return (
-    <div onClick={e => e.stopPropagation()} {...rest}>
+    <div onClick={clickEvent} {...rest}>
       {children}
     </div>
   );

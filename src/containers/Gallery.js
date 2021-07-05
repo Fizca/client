@@ -33,21 +33,7 @@ const Gallery = () => {
       }
     })
     if (node) observer.current.observe(node)
-  }, [loading, hasMore])
-
-  const previous = () => {
-    if (pickImg > 0) {
-      return () => setPickImg(currImg => currImg - 1);
-    };
-    return undefined;
-  }
-
-  const next = () =>{
-    if (pickImg < assets.length - 1) {
-      return () => setPickImg(currImg => currImg + 1);
-    };
-    return undefined;
-  }
+  }, [loading, hasMore]);
 
   const showchaseImage = (index) => {
     setPickImg(index);
@@ -82,10 +68,9 @@ const Gallery = () => {
       <div>{error && 'Error'}</div>
       <Lightbox
         display={showcase}
-        asset={assets[pickImg]}
+        assets={assets || []}
+        index={pickImg}
         close={setShowcase}
-        prev={previous()}
-        next={next()}
       />
     </Main>
   );
