@@ -99,7 +99,7 @@ const Moment = () => {
   const [tags, setTags] = useState([]);
   const [text, setText] = useState();
   const [assets, setAssets] = useState([]);
-  const [pickImg, setPickImg] = useState(false);
+  const [pickImg, setPickImg] = useState(0);
   const [showcase, setShowcase] = useState(false);
   const [edit, setEdit] = useState(false);
 
@@ -249,10 +249,9 @@ const Moment = () => {
 
       <Lightbox
         display={showcase}
-        asset={assets[pickImg]}
+        assets={assets || []}
+        index={pickImg}
         close={setShowcase}
-        prev={previous()}
-        next={next()}
       />
     </Main>
   );
