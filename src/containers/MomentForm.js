@@ -64,7 +64,6 @@ const MomentForm = (props) => {
         return response.data;
       });
 
-    console.log(newMoment)
     files.forEach((entry) => {
       uploadAsset(entry.file, tags, Store.profile.id, newMoment._id)
         .catch((e) => e)
