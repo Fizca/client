@@ -6,10 +6,15 @@ class User {
   @observable name;
 
   constructor(obj = {}) {
-    const { _id, google: {displayName, avatar} } = obj;
+    const { _id, google: {displayName, avatar}, role } = obj;
     this.id = _id;
     this.name = displayName;
     this.avatar = avatar;
+    this.role = role;
+  }
+
+  canContribute() {
+    return (this.role == 'contributor' || this.role === 'admin');
   }
 
   static FetchUser(userId) {

@@ -22,6 +22,26 @@ const Navigation = observer((props) => {
       });
   }
 
+  const navByRole = () => {
+    if (!Store.user.canContribute()) {
+      return null;
+    }
+
+    return (
+      <>
+        <DropdownItem onClick={() => setActiveComponent(<MomentForm />)}>
+          <i className="las la-book-medical"></i>Add A Moment
+        </DropdownItem>
+        {/* <DropdownItem onClick={() => setActiveComponent(<VitalsForm />)}>
+          <i className="las la-file-medical"></i>Add Vitals
+        </DropdownItem> */}
+        <DropdownItem onClick={() => setActiveComponent(<GalleryForm />)}>
+          <i className="las la-file-upload"></i>Upload Images
+        </DropdownItem>
+      </>
+    );
+  }
+
   if (!Store.user) {
     return null;
   }
@@ -42,15 +62,7 @@ const Navigation = observer((props) => {
           <Link className='nav-item icon-button' to="/vitals"><i className="las la-file-medical-alt"></i></Link>
         </NavItem>
         <NavDropdown icon={<div><img src={`${Store.user.avatar}`} /></div>}>
-            <DropdownItem onClick={() => setActiveComponent(<MomentForm />)}>
-              <i className="las la-book-medical"></i>Add A Moment
-            </DropdownItem>
-            <DropdownItem onClick={() => setActiveComponent(<VitalsForm />)}>
-              <i className="las la-file-medical"></i>Add Vitals
-            </DropdownItem>
-            <DropdownItem onClick={() => setActiveComponent(<GalleryForm />)}>
-              <i className="las la-file-upload"></i>Upload Images
-            </DropdownItem>
+            {navByRole()}
             <DropdownItem onClick={logout}>
               <i className="las la-sign-out-alt"></i>Logout
             </DropdownItem>
