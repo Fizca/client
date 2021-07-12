@@ -58,9 +58,9 @@ const Navigation = observer((props) => {
         <NavItem>
           <Link className='nav-item icon-button' to="/gallery"><i className="las la-images"></i></Link>
         </NavItem>
-        <NavItem>
+        {/* <NavItem>
           <Link className='nav-item icon-button' to="/vitals"><i className="las la-file-medical-alt"></i></Link>
-        </NavItem>
+        </NavItem> */}
         <NavDropdown icon={<div><img src={`${Store.user.avatar}`} /></div>}>
             {navByRole()}
             <DropdownItem onClick={logout}>
