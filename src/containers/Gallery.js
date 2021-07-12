@@ -58,7 +58,7 @@ const Gallery = () => {
                 onClick={() => showchaseImage(index)}
                 ref={index + 1 == assets.length ? lastAssetElementRef : null}
               >
-                <Image src={asset.name} className='masonry-img' size='small' />
+                <Image src={asset.name} className='masonry-img scale-img' size='small' />
               </div>
             );
           })

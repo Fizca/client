@@ -15,7 +15,7 @@ export const ModalContentBox = styled(ModalWrapper)`
 
 export const Card = styled.div`
   display: flex;
-  flex-direction: ${({direction}) => direction === 'right' ? 'row-reverse' : 'row'};
+  flex-direction: column;
   flex-wrap: wrap;
   flex: 1 1;
   flex-wrap: wrap;
@@ -26,11 +26,4 @@ export const Card = styled.div`
   border-color: var(--bg-accent);
   border-style: solid;
   border-width: 1px;
-
-  transition: box-shadow 300ms;
-
-  :hover {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-    transition: box-shadow 300ms;
-  }
 `;

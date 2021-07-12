@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 import { Em } from "@components/Headings";
 import { Card } from "@components/Boxes";
-import Image from "@components/Image";
 import TagLink, { Tags } from "@components/TagLink";
 import { Link } from "react-router-dom";
+import GridGallery from "./GridGallery";
 
 const Text = styled.div`
   display: flex;
@@ -14,8 +14,8 @@ const Text = styled.div`
   padding: 1rem;
   gap: 1rem;
 
-  min-height: 300px;
-  max-width: 370px;
+  min-height: 250px;
+  width: calc(var(--width) - 1rem);
 `;
 
 const H3 = styled.h3`
@@ -23,8 +23,8 @@ const H3 = styled.h3`
 `;
 
 const HeroImage = styled.div`
-  width: 370px;
-  height: 300px;
+  width: 100%;
+  height: 350px;
 
   & img {
     width: 100%;
@@ -39,14 +39,14 @@ const Heading = styled.div`
 `;
 
 const MomentCard = (props) => {
-  const { moment, direction, innerRef } = props;
+  const { moment, innerRef } = props;
 
   const { assets = [] } = moment;
 
   return (
-    <Card direction={direction} ref={innerRef}>
+    <Card ref={innerRef}>
       <HeroImage>
-        <Image src={assets[0]?.name} />
+        <GridGallery assets={assets} />
       </HeroImage>
       <Text>
         <Heading>
