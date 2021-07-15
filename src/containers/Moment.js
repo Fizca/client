@@ -3,15 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { HeroBox, Title, Subtitle, Hr, Em } from '@components/Headings';
+import { Title, Em, Hr } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
+import Quote from '@components/Quote';
 import TagLink, { Tags }from '@components/TagLink';
 import TagSelector from '@components/TagSelector';
 import { http } from '@services/Backend';
 import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
 
 const IconRow = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ const IconBtn = styled.i`
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 
   ${ ({primary}) => primary && `--color: var(--darkteal);` }
-  ${ ({danger}) => danger && `--color: var(--brightfucsia);` }
+  ${ ({danger}) => danger && `--color: var(--highlight);` }
 
   ${
     ({primary, danger}) => {
@@ -66,8 +66,8 @@ const Container = styled.div`
 `;
 
 const ImgContainer = styled.div`
-  width: 225px;
-  height: 300px;
+  width: 125px;
+  height: 200px;
   flex-grow: 1;
   flex-shrink: 1;
   overflow: hidden;
@@ -87,8 +87,36 @@ const ImgContainer = styled.div`
   }
 `;
 
-const Img = styled(motion.img)`
+const Bubble = styled(Quote)`
+  flex-direction: column;
+  padding: 0 10px;
+  width: 100%;
 
+  /* Blockquote main style */
+  .blockquote {
+    width: 100%;
+    margin: 0px auto 80px auto;
+  }
+
+  /* Blockquote header */
+  .blockquote h1 {
+    text-align: left;
+    white-space: pre-line;
+
+    font-size: 1rem;
+    text-transform: none;
+    letter-spacing: initial;
+
+    margin: 0;
+    border-width: 0;
+    border-bottom-width: 1px;
+  }
+
+  /* Blockquote right double quotes */
+  .blockquote h1:after {
+    border-width: 1px;
+    z-index: 3;
+  }
 `;
 
 const Moment = () => {
@@ -160,20 +188,6 @@ const Moment = () => {
     setShowcase(true);
   }
 
-  const previous = () => {
-    if (pickImg > 0) {
-      return () => setPickImg(currImg => currImg - 1);
-    };
-    return undefined;
-  }
-
-  const next = () =>{
-    if (pickImg < assets.length - 1) {
-      return () => setPickImg(currImg => currImg + 1);
-    };
-    return undefined;
-  }
-
   const isEditing = () => {
     if (edit) {
       return (
@@ -201,8 +215,9 @@ const Moment = () => {
   return (
     <Main>
       { isEditing() }
-      <HeroBox>
-        <Em>{edit ? <DateTimePicker disableClock={true} onChange={setTakenAt} value={takenAt} /> : new Date(takenAt).toLocaleString()}</Em>
+      <Em>{edit ? <DateTimePicker disableClock={true} onChange={setTakenAt} value={takenAt} /> : new Date(takenAt).toLocaleString()}</Em>
+
+      <Bubble>
         <Title
           contentEditable={edit}
           role="textbox"
@@ -212,25 +227,26 @@ const Moment = () => {
         >
           {title}
         </Title>
-
         <Hr />
-        <Subtitle
-          text
-          contentEditable={edit}
-          role="textbox"
-          style={{maxWidht: '100%'}}
-          onBlur={(e) => setText(e.target.innerText)}
-          suppressContentEditableWarning={true}
-        >
-          {text}
-        </Subtitle>
+        <div className='blockquote'>
+          <h1
+            text
+            contentEditable={edit}
+            role="textbox"
+            style={{maxWidht: '100%'}}
+            onBlur={(e) => setText(e.target.innerText)}
+            suppressContentEditableWarning={true}
+          >
+            {text}
+          </h1>
+        </div>
+      </Bubble>
 
-        <Tags>
-          {
-            edit ? <TagSelector tags={tags} setTags={setTags} /> : tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.value} />)
-          }
-        </Tags>
-      </HeroBox>
+      <Tags>
+        {
+          edit ? <TagSelector tags={tags} setTags={setTags} /> : tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.value} />)
+        }
+      </Tags>
 
       <Container>
         {

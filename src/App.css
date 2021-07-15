@@ -39,11 +39,20 @@
   --Lobster: 'Lobster';
   --Raleway: 'Raleway';
 
+  --fox-color-highlight: #ffac34;
+  --fox-color-primary: #ff8c35;
+  --fox-color-shadow: #d6601f;
+  --fox-color-white-primary: #e7ddce;
+  --fox-color-white-secondary: #fff5e5;
+
   /**
    * Primary Vars
    */
   --text-primary: var(--blackish);
   --text-highlight: var(--deepblue);
+
+  --highlight: var(--brightfucsia);
+  --accent: var(--fox-color-shadow);
 
   --bg: #FFFFFF;
   --bg-accent: #1f283325;
@@ -53,7 +62,6 @@
   --btn-highlight: #e2e6ea;
   --btn-disabled: #6c757d;
 
-  --text-color: #dadce1;
   --nav-size: 60px;
   --border: 1px solid var(--bg-accent);
   --border-radius: 8px;
@@ -102,10 +110,11 @@ header {
   justify-content: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: fixed;
-  z-index: 2;
+  z-index: 10;
 }
 
 .splash {
+  position: relative;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -400,7 +409,7 @@ a:hover {
 }
 
 a.link {
-  color: var(--brightfucsia);
+  color: var(--highlight);
   text-decoration: none;
 }
 
@@ -495,12 +504,12 @@ input[type=password]:focus {
   text-transform: uppercase;
 }
 .rs__multi-value__label {
-  color: var(--brightfucsia) !important;
+  color: var(--highlight) !important;
 }
 
 .rs__multi-value__remove:hover {
   color: var(--bg) !important;
-  background-color: var(--brightfucsia) !important;
+  background-color: var(--highlight) !important;
 }
 
 .rs__value-container--is-multi {

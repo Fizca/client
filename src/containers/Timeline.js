@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { HeroBox, HeroTitle, Subtitle, Title, Hr } from '@components/Headings';
 import Image from "@components/Image";
@@ -85,6 +84,7 @@ const Timeline = () => {
         key={object.id}
         className={`masonry-brick-100`}
         ref={ref}
+        style={{color: 'var(--text)', whiteSpace: 'pre-line'}}
       >
         <Title>{moment.title}</Title>
         <Hr />

@@ -32,7 +32,7 @@ export const HeroBox = styled.h1`
   letter-spacing: 12px;
   text-align: center;
 
-  color: var(--brightfucsia);
+  color: var(--highlight);
 `;
 
 export const Title = styled.div`
@@ -69,17 +69,17 @@ export const Hr = styled.hr`
   height: 1px;
   width: 20%;
   position: relative;
-  margin: 30px auto;
-  background: var(--brightfucsia);
+  margin: 20px auto;
+  background: var(--accent);
   overflow: visible;
 
   &::before {
     content: " ";
     width: 10px;
     height: 10px;
-    background: var(--brightfucsia);
+    background: var(--accent);
     display: inline-block;
-    border: 2px solid var(--brightfucsia);
+    border: 2px solid var(--accent);
     border-radius: 50%;
     position: absolute;
     top: -4px;

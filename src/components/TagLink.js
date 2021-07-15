@@ -7,7 +7,6 @@ export const Tags = styled.div`
   display: flex;
   align-items: end;
   font-size: 1rem;
-  // text-transform: uppercase;
   letter-spacing: 0.2rem;
   font-weight: 300;
   text-transform: uppercase;
@@ -19,15 +18,15 @@ const Tag = styled(Link)`
   transition: background-size 0.4s ease;
   background: linear-gradient(to bottom, transparent 42%, rgba(157, 0, 81, .1) 0) center center/0% 75% no-repeat;
   padding: 0 6px 2px 6px;
-  color: var(--brightfucsia);
+  color: var(--highlight);
 
   &:hover {
-    color: var(--brightfucsia);
+    color: var(--highlight);
     background-size: 100% 100%;
   }
 
   &:active {
-    color: var(--brightfucsia);
+    color: var(--highlight);
     background-size: 80% 100%;
   }
 `;
