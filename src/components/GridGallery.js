@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { Link, useHistory } from 'react-router-dom';
 import { useState } from "react";
 
 import Image from "@components/Image";
 import Lightbox from "@components/Lightbox";
 
-const Counter = styled.div`
+const Counter = styled(Link)`
   position: absolute;
   top: 0;
   left: 0;
@@ -20,6 +21,10 @@ const Counter = styled.div`
 
   font-size: 2.5rem;
   font-weight: bold;
+
+  &:hover {
+    color: var(--btn-highlight);
+  }
 `;
 
 const GridContainer = styled.div`
@@ -124,10 +129,14 @@ const GridGallery = (props) => {
     )
   }
 
-  const counter = (isLast) => {
+  const counter = (isLast, asset) => {
     const count = Math.max(assets.length - items.length, 0)
     if (isLast && count) {
-      return (<Counter><span>+{count}</span></Counter>);
+      return (
+        <Counter to={`/moments/${asset.moment}`}>
+          <span>+{count}</span>
+        </Counter>
+      );
     }
     return null;
   }
@@ -147,7 +156,7 @@ const GridGallery = (props) => {
           return (
             <div key={item._id} className={`${c}`} onClick={() => showcaseImage(index)}>
               <Image src={item.name} size="medium" className='scale-img' />
-              { counter(c) }
+              { counter(c, item) }
             </div>
           )
         })

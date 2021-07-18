@@ -8,8 +8,9 @@ export const ModalContentBox = styled(ModalWrapper)`
   background-color: var(--bg);
   border-radius: var(--border-radius);
   padding: 20px;
-  width: 500px;
-  max-height: 200%;
+  width: var(--width);
+  max-height: 95%;
+  overflow: scroll;
   gap: 1rem;
 `;
 

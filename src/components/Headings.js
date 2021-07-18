@@ -1,21 +1,5 @@
 import styled, {css} from 'styled-components';
 
-const editable = css`
-  ${({contentEditable}) => {
-    const css = `
-      outline: none;
-      background-color: var(--bg-primary);
-      border-bottom: 2px solid var(--bg-accent);
-      max-width: 100%;
-
-      &:focus {
-        border-color: var(--greenteal);
-      }
-    `;
-    return contentEditable && css;
-  }}
-`;
-
 export const HeroBox = styled.h1`
   display: flex;
   flex-direction: column;
@@ -41,8 +25,6 @@ export const Title = styled.div`
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 12px;
-
-  ${editable}
 `;
 
 export const HeroTitle = styled.span`
@@ -51,17 +33,12 @@ export const HeroTitle = styled.span`
   font-weight: 500;
   color: #000;
   text-align: center;
-
-  ${editable}
 `;
 
 export const Subtitle = styled.span`
   font-size: 1.16667rem; /* 21 / 18 = 1.1667 */
   margin-bottom: 1.41429rem;
   letter-spacing: 4px;
-  ${({text}) => text ? 'color: black;' : null}
-
-  ${editable}
 `;
 
 export const Hr = styled.hr`

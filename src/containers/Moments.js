@@ -39,13 +39,12 @@ const Moments = () => {
         <Subtitle>All things I've done!</Subtitle>
       </HeroBox>
 
-      <div className='flex-box'>
+      <div className='flex-box gap-3'>
         { moments.map((moment, i) => {
           return (
             <MomentCard
               moment={moment}
               key={`m-${i}`}
-              direction={i%2 ? 'right' : 'left'}
               innerRef={i + 1 == moments.length ? lastAssetElementRef : null}
             />
           );

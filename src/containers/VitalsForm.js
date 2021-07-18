@@ -44,7 +44,7 @@ const MomentForm = (props) => {
   }
 
   return (
-    <ModalContentBox className='flex-box flex-column'>
+    <ModalContentBox className='flex-box flex-column gap-1'>
         <HeroBox>
           <Title>Vitals</Title>
           <Subtitle>How has {Store.profile.nickname} grown?</Subtitle>

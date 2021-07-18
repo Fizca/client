@@ -14,6 +14,10 @@ const Quote = styled.div`
 
   /* Blockquote header */
   .blockquote h1 {
+    overflow-wrap: break-word;
+    // word-wrap: break-word;
+    hyphens: auto;
+
     position: relative; /* for pseudos */
     color: var(--text);
     font-size: 2.8rem;
@@ -74,6 +78,37 @@ const Quote = styled.div`
 
   .blockquote h4:first-letter {
     margin-left:-12px;
+  }
+`;
+
+export const Bubble = styled(Quote)`
+  padding: 0 10px;
+  width: 100%;
+
+  /* Blockquote main style */
+  .blockquote {
+    width: 100%;
+    margin: 0px auto 80px auto;
+  }
+
+  /* Blockquote header */
+  .blockquote h1 {
+    text-align: left;
+    white-space: pre-line;
+
+    font-size: 2rem;
+    text-transform: none;
+    letter-spacing: initial;
+
+    margin: 0;
+    border-width: 0;
+    border-bottom-width: 1px;
+  }
+
+  /* Blockquote right double quotes */
+  .blockquote h1:after {
+    border-width: 1px;
+    z-index: 3;
   }
 `;
 

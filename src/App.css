@@ -139,7 +139,6 @@ header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
 }
 
 .flex-box::after {
@@ -151,13 +150,24 @@ header {
   flex-direction: column;
 }
 
-.card {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  border-color: var(--bg-accent);
-  border-style: solid;
-  border-width: 1px;
+.gap-quarter {
+  gap: 0.25rem;
+}
+
+.gap-half {
+  gap: 0.5rem;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.gap-3 {
+  gap: 3rem;
 }
 
 /* =============== *
@@ -321,7 +331,7 @@ nav {
 .masonry {
   display: flex;
   flex-flow: row wrap;
-  gap: 8px;
+  gap: 0.25rem;
   width: 100%;
 }
 
@@ -329,7 +339,6 @@ nav {
   flex: auto;
   height: 200px;
   min-width: 150px;
-  border-radius: var(--border-radius);
   overflow: hidden;
   border-width: 0px;
   border-style: solid;
@@ -352,9 +361,8 @@ nav {
   width: 100px;
 }
 .masonry-brick:hover {
-  border-width: 1px;
   border-color:rgba(0, 0, 0, .5);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 4px 8px 0 rgba(59, 36, 36, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .masonry-brick-100 {
@@ -364,7 +372,6 @@ nav {
   width: 100%;
   border-radius: var(--border-radius);
   background-color: var(--bg-primary);
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 /* =============== *
@@ -421,28 +428,26 @@ input,
 textarea {
   font-family: var(--open-sans);
   font-weight: 400;
-  height: calc(1.5em + .75rem + 2px);
+  height: 2rem;
   padding: 0.5rem 1rem;
   background-color: var(--bg-primary);
 }
 
 textarea {
+  resize: none;
+  width: 100%;
   border: 0px;
-  border-bottom: 2px solid var(--bg-accent);
-  border-right: 2px solid var(--bg-accent);
 }
 
-textarea:focus {
-  outline: none;
-  border-top: 1px solid var(--greenteal);
-  border-left: 1px solid var(--greenteal);
-  border-bottom: 3px solid var(--greenteal);
-  border-right: 3px solid var(--greenteal);
+textarea::-webkit-scrollbar,
+textarea::-webkit-scrollbar-thumb {
+  background-color: var(--bg-primary);
 }
 
 input[type=text],
 input[type=number],
-input[type=password] {
+input[type=password],
+textarea {
   border-style: solid;
   border-width: 0;
   border-radius: 0;
@@ -452,7 +457,8 @@ input[type=password] {
 
 input[type=text]:focus,
 input[type=number]:focus,
-input[type=password]:focus {
+input[type=password]:focus,
+textarea:focus {
   outline: none;
   border-bottom-color: var(--greenteal);
   border-bottom-width: 3px;

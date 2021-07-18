@@ -9,7 +9,6 @@ const Box = styled.div`
   border-color: var(--bg-accent);
   border-style: solid;
   border-width: 1px;
-  overflow: scroll;
   padding: 0.5rem;
   border-radius: var(--border-radius);
   height: 100%;

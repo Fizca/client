@@ -56,7 +56,7 @@ const Uploads = (props) => {
   }, [uploading])
 
   return (
-      <ModalContentBox className="flex-box flex-column">
+      <ModalContentBox className="flex-box flex-column gap-1">
         <HeroBox>
           <Title>Upload</Title>
           <Subtitle>Add to {Store.profile.nickname}'s adventures</Subtitle>

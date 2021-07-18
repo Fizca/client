@@ -3,11 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Title, Em, Hr } from '@components/Headings';
+import { Em } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
-import Quote from '@components/Quote';
+import { Bubble } from '@components/Quote';
 import TagLink, { Tags }from '@components/TagLink';
 import TagSelector from '@components/TagSelector';
 import { http } from '@services/Backend';
@@ -77,45 +77,6 @@ const ImgContainer = styled.div`
     object-fit: cover;
     width: 100%;
     height: 300px;
-    object-fit: cover;
-    transform: scale(1);
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-`;
-
-const Bubble = styled(Quote)`
-  flex-direction: column;
-  padding: 0 10px;
-  width: 100%;
-
-  /* Blockquote main style */
-  .blockquote {
-    width: 100%;
-    margin: 0px auto 80px auto;
-  }
-
-  /* Blockquote header */
-  .blockquote h1 {
-    text-align: left;
-    white-space: pre-line;
-
-    font-size: 1rem;
-    text-transform: none;
-    letter-spacing: initial;
-
-    margin: 0;
-    border-width: 0;
-    border-bottom-width: 1px;
-  }
-
-  /* Blockquote right double quotes */
-  .blockquote h1:after {
-    border-width: 1px;
-    z-index: 3;
   }
 `;
 
@@ -218,24 +179,9 @@ const Moment = () => {
       <Em>{edit ? <DateTimePicker disableClock={true} onChange={setTakenAt} value={takenAt} /> : new Date(takenAt).toLocaleString()}</Em>
 
       <Bubble>
-        <Title
-          contentEditable={edit}
-          role="textbox"
-          style={{maxWidht: '100%'}}
-          onBlur={(e) => setTitle(e.target.innerText)}
-          suppressContentEditableWarning={true}
-        >
-          {title}
-        </Title>
-        <Hr />
         <div className='blockquote'>
           <h1
-            text
-            contentEditable={edit}
-            role="textbox"
-            style={{maxWidht: '100%'}}
-            onBlur={(e) => setText(e.target.innerText)}
-            suppressContentEditableWarning={true}
+            style={{fontSize: `${text?.length < 80 ? '2rem' : '1.25rem'}`}}
           >
             {text}
           </h1>
@@ -256,7 +202,10 @@ const Moment = () => {
                 key={object._id}
                 onClick={() => showchaseImage(index)}
               >
-                <Image src={object.name} size="small" />
+                <Image
+                  className="scale-img"
+                  src={object.name} size="small"
+                />
               </ImgContainer>
             );
           })

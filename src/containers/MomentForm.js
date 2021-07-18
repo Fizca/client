@@ -2,13 +2,54 @@ import { observer } from 'mobx-react';
 import React, { useState, useRef, useEffect } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
 
+import AutoTextArea from '@components/AutoTextArea';
 import { HeroBox, Subtitle, Title } from '@components/Headings';
 import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
 import TagSelector from '@components/TagSelector';
 import Store from '@models/Store';
 import { http, uploadAsset } from '@services/Backend';
+
+const Textarea = styled.textarea`
+  height: ${(props) => `${props.height}rem;`}
+  resize: none;
+  outline: none;
+  cursor: text;
+  padding: 1rem 1rem;
+  border-bottom: 2px solid var(--bg-accent);
+  overflow-wrap: break-word;
+  overflow-y: scroll;
+
+  &:focus {
+    border-color: var(--accent);
+  }
+`;
+
+const clamp = (min, middle, max) => {
+  return Math.max(Math.min(max, middle), min);
+}
+
+const TArea = (props) => {
+  const {onChange, value, height, maxHeight} = props;
+
+  const textAreaRef = useRef(null);
+  const [calcHeight, setCalcHeight] = useState(height);
+
+
+  useEffect(() => {
+    const currentHeight = textAreaRef.current.scrollHeight;
+    const desireHeight = clamp(height, currentHeight/16, maxHeight);
+    console.log(textAreaRef);
+    console.log('--- ', currentHeight, height, maxHeight, 'chosen:', desireHeight);
+    setCalcHeight(desireHeight);
+  }, [value]);
+
+  return (
+    <Textarea onChange={onChange} value={value} height={calcHeight} ref={textAreaRef}/>
+  );
+}
 
 const MomentForm = (props) => {
   const { moment = {} } = props;
@@ -74,16 +115,16 @@ const MomentForm = (props) => {
   }
 
   return (
-    <ModalContentBox className="flex-box flex-column">
+    <ModalContentBox className="flex-box flex-column gap-1">
       <HeroBox>
-        <Title>Moments</Title>
         <Subtitle>Add to the memories of {Store.profile.nickname}</Subtitle>
       </HeroBox>
 
-      <input type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
-
-      <textarea placeholder="A moment in time..." onChange={(e) => setText(e.target.value)}>
-      </textarea>
+      <AutoTextArea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="What adventures I had!"
+      />
 
       <FileBox onChange={setFiles} />
 

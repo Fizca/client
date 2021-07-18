@@ -35,20 +35,6 @@ const Timeline = () => {
     setShowcase(true);
   }
 
-  const previous = () => {
-    if (pickImg > 0) {
-      return () => setPickImg(currImg => currImg - 1);
-    };
-    return undefined;
-  }
-
-  const next = () =>{
-    if (pickImg < assets.length - 1) {
-      return () => setPickImg(currImg => currImg + 1);
-    };
-    return undefined;
-  }
-
   /**
    * Fire the useAssetFetch only when the last object enters the page.
    */
@@ -74,23 +60,19 @@ const Timeline = () => {
           onClick={() => showchaseImage(assets.findIndex((entry) => entry._id == asset._id))}
           ref={ref}
         >
-          <Image src={asset.name} className='masonry-img' size='small'/>
+          <Image src={asset.name} className='masonry-img scale-img' size='small'/>
         </div>
       );
     }
 
     return (
-      <HeroBox
-        key={object.id}
-        className={`masonry-brick-100`}
-        ref={ref}
-        style={{color: 'var(--text)', whiteSpace: 'pre-line'}}
-      >
-        <Title>{moment.title}</Title>
-        <Hr />
-        <Subtitle>{moment.text}</Subtitle>
-
-      </HeroBox>
+      <div className="masonry-brick-100">
+        <h1
+          style={{fontSize: `${moment.text?.length < 80 ? '2rem' : '1.25rem'}`}}
+        >
+          {moment.text}
+        </h1>
+      </div>
     );
   }
 
@@ -115,8 +97,6 @@ const Timeline = () => {
         display={showcase}
         asset={assets[pickImg]}
         close={setShowcase}
-        prev={previous()}
-        next={next()}
       />
     </Main>
   );
