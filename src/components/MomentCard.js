@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
-import { Em } from "@components/Headings";
+import { Em, Text } from "@components/Headings";
 import { Card } from "@components/Boxes";
 import TagLink, { Tags } from "@components/TagLink";
-import { Link } from "react-router-dom";
-import GridGallery from "./GridGallery";
-import { Bubble } from "./Quote";
+import GridGallery from "@components/GridGallery";
 
-const Text = styled.div`
+const CardText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,20 +41,17 @@ const MomentCard = (props) => {
       <HeroImage>
         <GridGallery assets={assets} />
       </HeroImage>
-      <Text>
+      <CardText>
         <Heading>
           <Em>{new Date(moment.takenAt).toLocaleString()}</Em>
         </Heading>
 
-
-            <h1
-              style={{fontSize: `${moment.text?.length < 80 ? '2rem' : '1.25rem'}`}}
-            >
-              {moment.text}
-            </h1>
+        <Text length={moment.text?.length}>
+          {moment.text}
+        </Text>
 
         <Tags>{moment.tags && moment.tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.name} />)}</Tags>
-      </Text>
+      </CardText>
     </Card>
   );
 }

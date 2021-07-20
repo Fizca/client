@@ -15,7 +15,6 @@ const Quote = styled.div`
   /* Blockquote header */
   .blockquote h1 {
     overflow-wrap: break-word;
-    // word-wrap: break-word;
     hyphens: auto;
 
     position: relative; /* for pseudos */

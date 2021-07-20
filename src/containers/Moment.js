@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Em } from '@components/Headings';
+import { Em, Text } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
@@ -180,11 +180,9 @@ const Moment = () => {
 
       <Bubble>
         <div className='blockquote'>
-          <h1
-            style={{fontSize: `${text?.length < 80 ? '2rem' : '1.25rem'}`}}
-          >
+          <Text length={text?.length}>
             {text}
-          </h1>
+          </Text>
         </div>
       </Bubble>
 

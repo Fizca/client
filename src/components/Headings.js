@@ -71,3 +71,8 @@ export const Em = styled.div`
   font-size: 0.9rem;
   letter-spacing: initial;
 `;
+
+export const Text = styled.h1`
+  white-space: pre-line;
+  font-size: ${({length}) => length < 80 ? '2rem' : '1.25rem'}
+`;

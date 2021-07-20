@@ -1,13 +1,14 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { HeroBox, HeroTitle, Subtitle, Title, Hr } from '@components/Headings';
+import { Em, HeroBox, HeroTitle, Text, Title } from '@components/Headings';
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
 import usePageFetch from '@components/usePageFetch';
 import Spinner from '@components/Spinner';
 import Store from '@models/Store';
+import TagLink, { Tags }from '@components/TagLink';
 
 const Timeline = () => {
   const { tag } = useParams();
@@ -66,12 +67,14 @@ const Timeline = () => {
     }
 
     return (
-      <div className="masonry-brick-100">
-        <h1
-          style={{fontSize: `${moment.text?.length < 80 ? '2rem' : '1.25rem'}`}}
-        >
+      <div className="masonry-brick-100 flex-box flex-column corner" key={object.id}>
+        <Em>{new Date(moment.takenAt).toLocaleString()}</Em>
+
+        <Text length={moment.text.length}>
           {moment.text}
-        </h1>
+        </Text>
+
+        <Tags>{object.tags && object.tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.name} />)}</Tags>
       </div>
     );
   }
