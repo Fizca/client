@@ -98,7 +98,8 @@ const Timeline = () => {
 
       <Lightbox
         display={showcase}
-        asset={assets[pickImg]}
+        assets={assets}
+        index={pickImg}
         close={setShowcase}
       />
     </Main>
