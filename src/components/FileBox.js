@@ -41,7 +41,7 @@ const Thumbnail = styled.div`
     border-radius: 50%;
     border-style: solid;
     border-width: 1px;
-    border-color: var(--greenteal);
+    border-color: var(--success-dark);
     padding: 2px;
   }
 `;

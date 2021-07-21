@@ -2,10 +2,10 @@ import { observer } from 'mobx-react';
 import React, { useState, useRef, useEffect } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 
 import AutoTextArea from '@components/AutoTextArea';
 import { HeroBox, Subtitle } from '@components/Headings';
+import { IconBtn, IconRow } from "@components/Icon";
 import Image from '@components/Image';
 import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
@@ -14,11 +14,11 @@ import Store from '@models/Store';
 import { http, uploadAsset } from '@services/Backend';
 
 const MomentForm = (props) => {
-  const { moment = {} } = props;
+  const { moment = {}, close } = props;
   const [ files, setFiles ] = useState([]);
   const [ text, setText ] = useState(moment.text);
   const [ tags, setTags ] = useState(moment.tags?.map((e) => e.name) || []);
-  const [ takenAt, setTakenAt ] = useState(new Date(moment.takenAt) || new Date())
+  const [ takenAt, setTakenAt ] = useState(moment.takenAt ? new Date(moment.takenAt) : new Date())
   const [ uploading, setUploading ] = useState(0);
 
   const toastId = useRef(null);
@@ -92,6 +92,11 @@ const MomentForm = (props) => {
 
   return (
     <ModalContentBox className="flex-box flex-column gap-1">
+      <IconRow>
+        <IconBtn className="la la-save" onClick={handleSubmit} primary/>
+        <IconBtn className="la la-times" onClick={close} danger/>
+      </IconRow>
+
       <HeroBox>
         <Subtitle>Add to the memories of {Store.profile.nickname}</Subtitle>
       </HeroBox>
@@ -124,8 +129,6 @@ const MomentForm = (props) => {
           })
         }
       </div>
-
-      <button className="btn" onClick={handleSubmit}>Submit</button>
     </ModalContentBox>
   );
 };

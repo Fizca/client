@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { toast } from 'react-toastify';
 
 import { Em, Text } from '@components/Headings';
+import { IconBtn, IconRow } from "@components/Icon";
 import Image from "@components/Image";
 import Lightbox from '@components/Lightbox';
 import Main from '@components/Main';
@@ -12,50 +13,6 @@ import { Bubble } from '@components/Quote';
 import TagLink, { Tags }from '@components/TagLink';
 import MomentForm from "@containers/MomentForm";
 import { http } from '@services/Backend';
-
-const IconRow = styled.div`
-  display: flex;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-`;
-
-const IconBtn = styled.i`
-  cursor: pointer;
-
-  width: 3rem;
-  height: 3rem;
-  font-size: 2rem;
-  border-radius: 50%;
-  border-width: 0px;
-  border-style: solid;
-  border-color: var(--bg-accent);
-  padding: 5px;
-  margin: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: filter 300ms;
-  background-color: var(--bg-primary);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-
-  ${ ({primary}) => primary && `--color: var(--little-prince-coat-green);` }
-  ${ ({danger}) => danger && `--color: var(--highlight);` }
-
-  ${
-    ({primary, danger}) => {
-      if (primary || danger) {
-        return `
-          transition: all 200ms linear;
-          &:hover {
-            background-color: var(--color);
-            color: var(--bg);
-          }
-        `;
-      }
-    }
-  }
-`;
 
 const Container = styled.div`
   display: flex;
@@ -129,25 +86,12 @@ const Moment = () => {
     setShowcase(true);
   }
 
-  const isEditing = () => {
-    if (edit) {
-      return (
-        <IconRow>
-          <IconBtn className="la la-save" onClick={onSave} primary/>
-          <IconBtn className="la la-times" onClick={onCancel} danger/>
-        </IconRow>
-      )
-    }
-    return (
+  return (
+    <Main>
       <IconRow>
         <IconBtn className="la la-edit" onClick={() => setEdit(true)} />
       </IconRow>
-    );
-  }
 
-  return (
-    <Main>
-      { isEditing() }
       <Em>{new Date(moment.takenAt).toLocaleString()}</Em>
 
       <Bubble>
@@ -190,7 +134,7 @@ const Moment = () => {
       />
 
       <Modal showModal={edit} setShowModal={() => setEdit(false)} backgroundClose >
-        <MomentForm moment={moment} />
+        <MomentForm moment={moment} close={() => setEdit(false)} />
       </Modal>
     </Main>
   );

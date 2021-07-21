@@ -29,7 +29,7 @@ const Navigation = observer((props) => {
 
     return (
       <>
-        <DropdownItem onClick={() => setActiveComponent(<MomentForm />)}>
+        <DropdownItem onClick={() => setActiveComponent(<MomentForm close={() => setActiveComponent(null)}/>)}>
           <i className="las la-book-medical"></i>Add A Moment
         </DropdownItem>
         {/* <DropdownItem onClick={() => setActiveComponent(<VitalsForm />)}>

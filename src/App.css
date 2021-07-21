@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400|Playfair+Display:400,700,400italic|Libre+Baskerville:400,700,400italic|Muli:300,400|Open+Sans:400,300,700|Oswald:400,700|Raleway:400,100,300,700|Montserrat:400,700|Merriweather:400,300,300italic,400italic,700|Bree+Serif|Vollkorn:400italic,400,700|Abril+Fatface|Cardo:400,400italic');;
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400|Playfair+Display:400,700,400italic|Libre+Baskerville:400,700,400italic|Muli:300,400|Open+Sans:400,300,700|Oswald:400,700|Raleway:400,500,600,100,300,700|Montserrat:400,700|Merriweather:400,300,300italic,400italic,700|Bree+Serif|Vollkorn:400italic,400,700|Abril+Fatface|Cardo:400,400italic');;
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee&family=Bungee+Outline&family=Bungee+Shade&family=Cabin+Sketch&family=Catamaran:wght@100;400;500;600;700;800;900&family=Dela+Gothic+One&family=Finger+Paint&family=Monoton&family=Open+Sans&family=Vast+Shadow&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lemonada&family=Lobster&display=swap');
 
@@ -48,6 +48,7 @@
   --little-prince-coat-blue: #0039c8;
   --little-prince: #afd080;
   --little-prince-suite: #5fb37e;
+  --little-prince-suite-dark: #408d5c;
   --little-prince-coat-green: #71a493;
 
   /**
@@ -66,6 +67,9 @@
   --btn: #f8f9fa;
   --btn-highlight: #e2e6ea;
   --btn-disabled: #6c757d;
+
+  --success: var(--little-prince-suite);
+  --success-dark: var(--little-prince-suite-dark);
 
   --nav-size: 60px;
   --border: 1px solid var(--bg-accent);
@@ -431,7 +435,7 @@ a.link:hover {
 
 input,
 textarea {
-  font-family: var(--open-sans);
+  font-family: inherit;
   font-weight: 400;
   height: 2rem;
   padding: 0.5rem 1rem;
@@ -465,7 +469,7 @@ input[type=number]:focus,
 input[type=password]:focus,
 textarea:focus {
   outline: none;
-  border-bottom-color: var(--greenteal);
+  border-bottom-color: var(--success-dark);
   border-bottom-width: 3px;
 }
 
@@ -474,10 +478,29 @@ textarea:focus {
   background-color: var(--btn);
   border: var(--border);
   border-radius: var(--border-radius);
+
+  font-size: 1rem;
+  font-family: var(--Raleway);
+  font-weight: 700;
+  line-height: 1.5rem;
+  transition: all 150ms ease-in-out;
 }
 
 .btn:hover {
   background-color: var(--btn-highlight);
+}
+
+.btn.success {
+  color: var(--bg);
+  background-color: var(--success);
+}
+
+.btn.success:hover {
+  background-color: var(--success-dark);
+}
+
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
 }
 
 .react-datetime-picker__wrapper {
@@ -518,7 +541,7 @@ textarea:focus {
 
 .rs__control--is-focused {
   outline: none;
-  border-bottom: 2px solid var(--greenteal) !important;
+  border-bottom: 2px solid var(--success-dark) !important;
   box-shadow: none !important;
 }
 
