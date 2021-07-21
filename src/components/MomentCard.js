@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Em, Text } from "@components/Headings";
@@ -47,7 +48,7 @@ const MomentCard = (props) => {
         </Heading>
 
         <Text length={moment.text?.length}>
-          {moment.text}
+          <Link to={`/moments/${moment._id}`}>{moment.text}</Link>
         </Text>
 
         <Tags>{moment.tags && moment.tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.name} />)}</Tags>

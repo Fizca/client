@@ -9,6 +9,22 @@ import GalleryForm from "@containers/GalleryForm";
 import MomentForm from "@containers/MomentForm";
 import VitalsForm from "@containers/VitalsForm";
 
+import ff_standing from "../../public/ff_standing.svg"
+import ff_seating from "../../public/ff_seating.svg"
+import styled from "styled-components";
+
+const NavLogo = styled(NavItem)`
+  height: var(--nav-size);
+  width: var(--nav-size);
+  background-image: url("${ff_seating}");
+  background-size: contain;
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    background-image: url("${ff_standing}");
+  }
+`;
+
 const Navigation = observer((props) => {
   const [ activeComponent, setActiveComponent ] = useState(null);
 
@@ -50,7 +66,7 @@ const Navigation = observer((props) => {
     <header>
       <NavBar>
         <NavItem className="logo">
-          <Link className='nav-item' to='/'>FIZCA</Link>
+          <Link className='nav-item' to='/'><NavLogo /></Link>
         </NavItem>
         <NavItem>
           <Link className='nav-item icon-button' to="/"><i className="las la-book-open"></i></Link>

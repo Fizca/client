@@ -14,7 +14,7 @@ export const NavBar = (props) => {
 export const NavItem = (props) => {
   const { children, className } = props;
   return (
-    <li className={`nav-item ${{...className}}`}>
+    <li className={`nav-item ${className}`}>
       {children}
     </li>
   );

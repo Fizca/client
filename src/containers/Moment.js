@@ -108,23 +108,17 @@ const Moment = () => {
         }
       </Tags>
 
-      <Container>
+      <div className="masonry">
         {
-          moment.assets?.map((object, index) => {
+          moment.assets?.map((asset, index) => {
             return (
-              <ImgContainer
-                key={object._id}
-                onClick={() => showchaseImage(index)}
-              >
-                <Image
-                  className="scale-img"
-                  src={object.name} size="small"
-                />
-              </ImgContainer>
+              <div key={`asset-${index}`} className={`masonry-brick`} onClick={() => showchaseImage(index)}>
+                <Image src={asset.name} className='masonry-img scale-img' size='small' />
+              </div>
             );
           })
         }
-      </Container>
+      </div>
 
       <Lightbox
         display={showcase}

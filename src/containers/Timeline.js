@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { Em, HeroBox, HeroTitle, Text, Title } from '@components/Headings';
 import Image from "@components/Image";
@@ -71,7 +71,7 @@ const Timeline = () => {
         <Em>{new Date(moment.takenAt).toLocaleString()}</Em>
 
         <Text length={moment.text.length}>
-          {moment.text}
+          <Link to={`/moments/${moment._id}`}>{moment.text}</Link>
         </Text>
 
         <Tags>{object.tags && object.tags.map((tag, i) => <TagLink key={`t-${i}`} tag={tag.name} />)}</Tags>
