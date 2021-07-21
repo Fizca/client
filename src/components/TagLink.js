@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Tags = styled.div`
-  align-self: flex-end;
-
   display: flex;
-  align-items: end;
+  flex-wrap: wrap;
+
+  justify-content: flex-end;
+
   font-size: 1rem;
   letter-spacing: 0.2rem;
   font-weight: 300;

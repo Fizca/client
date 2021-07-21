@@ -5,59 +5,20 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 import AutoTextArea from '@components/AutoTextArea';
-import { HeroBox, Subtitle, Title } from '@components/Headings';
+import { HeroBox, Subtitle } from '@components/Headings';
+import Image from '@components/Image';
 import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
 import TagSelector from '@components/TagSelector';
 import Store from '@models/Store';
 import { http, uploadAsset } from '@services/Backend';
 
-const Textarea = styled.textarea`
-  height: ${(props) => `${props.height}rem;`}
-  resize: none;
-  outline: none;
-  cursor: text;
-  padding: 1rem 1rem;
-  border-bottom: 2px solid var(--bg-accent);
-  overflow-wrap: break-word;
-  overflow-y: scroll;
-
-  &:focus {
-    border-color: var(--accent);
-  }
-`;
-
-const clamp = (min, middle, max) => {
-  return Math.max(Math.min(max, middle), min);
-}
-
-const TArea = (props) => {
-  const {onChange, value, height, maxHeight} = props;
-
-  const textAreaRef = useRef(null);
-  const [calcHeight, setCalcHeight] = useState(height);
-
-
-  useEffect(() => {
-    const currentHeight = textAreaRef.current.scrollHeight;
-    const desireHeight = clamp(height, currentHeight/16, maxHeight);
-    console.log(textAreaRef);
-    console.log('--- ', currentHeight, height, maxHeight, 'chosen:', desireHeight);
-    setCalcHeight(desireHeight);
-  }, [value]);
-
-  return (
-    <Textarea onChange={onChange} value={value} height={calcHeight} ref={textAreaRef}/>
-  );
-}
-
 const MomentForm = (props) => {
   const { moment = {} } = props;
   const [ files, setFiles ] = useState([]);
-  const [ title, setTitle ] = useState(moment.title);
   const [ text, setText ] = useState(moment.text);
-  const [ tags, setTags ] = useState([]);
-  const [ takenAt, setTakenAt ] = useState(moment.takenAt || new Date())
+  const [ tags, setTags ] = useState(moment.tags?.map((e) => e.name) || []);
+  const [ takenAt, setTakenAt ] = useState(new Date(moment.takenAt) || new Date())
   const [ uploading, setUploading ] = useState(0);
 
   const toastId = useRef(null);
@@ -84,26 +45,41 @@ const MomentForm = (props) => {
     toastId.current = toast("Saving...", { autoClose: false });
 
     // Create the form data, and load the image uploads
-    const tagMap = tags.map((entry) => entry.value);
-    const moment = {
-      title,
+    let newMoment = {
       text,
-      tags: tagMap,
+      tags,
       profile: Store.profile.id,
+      takenAt,
     }
 
-    // Send the request upstream.
-    const newMoment = await http.post("/moments", moment)
-      .then((response) => {
-        toast(
-          `Created a new moment for ${Store.profile.nickname}!`,
-          {
-            type: toast.TYPE.SUCCESS,
-            autoClose: 3000,
-          }
-        );
-        return response.data;
-      });
+    if (moment._id) {
+      // Send the request upstream.
+      newMoment = await http.put(`/moments/${moment._id}`, newMoment)
+        .then((response) => {
+          toast(
+            `Updated this moment for ${Store.profile.nickname}!`,
+            {
+              type: toast.TYPE.SUCCESS,
+              autoClose: 3000,
+            }
+          );
+          return response.data;
+        });
+
+    } else {
+      // Send the request upstream.
+      newMoment = await http.post("/moments", newMoment)
+        .then((response) => {
+          toast(
+            `Created a new moment for ${Store.profile.nickname}!`,
+            {
+              type: toast.TYPE.SUCCESS,
+              autoClose: 3000,
+            }
+          );
+          return response.data;
+        });
+    }
 
     files.forEach((entry) => {
       uploadAsset(entry.file, tags, Store.profile.id, newMoment._id)
@@ -124,6 +100,7 @@ const MomentForm = (props) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="What adventures I had!"
+        required
       />
 
       <FileBox onChange={setFiles} />
@@ -135,6 +112,18 @@ const MomentForm = (props) => {
         onChange={setTakenAt}
         value={takenAt}
       />
+
+      <div className="masonry">
+        {
+          moment.assets?.map((asset, index) => {
+            return (
+              <div key={`asset-${index}`} className={`masonry-brick`}>
+                <Image src={asset.name} className='masonry-img scale-img' size='small' />
+              </div>
+            );
+          })
+        }
+      </div>
 
       <button className="btn" onClick={handleSubmit}>Submit</button>
     </ModalContentBox>
