@@ -21,7 +21,7 @@
   --greenteal: #45A29E;
   --darkteal: #334B4A;
   --brightfucsia: #9D0051;
-  --darkfucsia: #57002d;
+  --darkfucsia: #7a0140;
   --nearlyblack: #242526;
 
   /* Fonts */
@@ -42,6 +42,7 @@
   --fox-color-highlight: #ffac34;
   --fox-color-primary: #ff8c35;
   --fox-color-shadow: #d6601f;
+  --fox-color-shadow-dark: #ce4d07;
   --fox-color-white-primary: #e7ddce;
   --fox-color-white-secondary: #fff5e5;
 
@@ -58,7 +59,10 @@
   --text-highlight: var(--deepblue);
 
   --highlight: var(--brightfucsia);
+  --highlight-dark: var(--darkfucsia);
+
   --accent: var(--fox-color-shadow);
+  --accent-dark: var(--fox-color-shadow-dark);
 
   --bg: #FFFFFF;
   --bg-accent: #1f283325;
@@ -571,4 +575,69 @@ textarea:focus {
 .rs__option {
   text-align: start;
   font-size: 1rem !important;
+}
+
+/** Classes for the displayed toast **/
+.Toastify__toast {
+  color: initial;
+  background-color: var(--bg);
+  border-width: 1px;
+  /* border-left-width: 5px; */
+  border-style: solid;
+}
+.Toastify__toast--rtl {
+}
+.Toastify__toast--dark {
+}
+.Toastify__toast--default {
+}
+.Toastify__toast--info {
+}
+.Toastify__toast--success {
+  border-color: var(--success-dark);
+}
+.Toastify__toast--warning {
+  border-color: var(--accent-dark);
+}
+.Toastify__toast--error {
+  border-color: var(--highlight);
+}
+.Toastify__toast-body {
+}
+
+
+/** Classes for the close button. Better use your own closeButton **/
+.Toastify__close-button {
+  color: var(--btn-disabled);
+  padding: 3px;
+  width: 25px;
+  height: auto;
+}
+.Toastify__close-button--default {
+}
+.Toastify__close-button > svg {
+}
+.Toastify__close-button:hover, .Toastify__close-button:focus {
+  color: var(--bg);
+  background-color: var(--btn-disabled);
+  border-radius: 50%;
+}
+
+/** Classes for the progress bar **/
+.Toastify__progress-bar {
+  background-color: var(--bg-accent);
+  /* height: 7px; */
+  color: var(--bg-disabled);
+}
+.Toastify__progress-bar {
+  background-color: var(--bg-primary);
+}
+.Toastify__progress-bar--success {
+  background-color: var(--success);
+}
+.Toastify__progress-bar--error {
+  background-color: var(--highlight);
+}
+.Toastify__progress-bar--warning {
+  background-color: var(--accent);
 }

@@ -6,10 +6,10 @@ import Modal, {ModalWrapper} from '@components/Modal';
 import { useEffect, useState } from 'react';
 
 const Img = styled(Image)`
-  max-width: 600px;
+  max-width: 700px;
   min-width: 400px;
-  max-height: 100vh;
-  object-fit: contain;
+  max-height: 100%;
+  object-fit: cover;
   border-radius: var(--border-radius);
   position: absolute;
 `;

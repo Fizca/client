@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "@components/Image";
 import Lightbox from "@components/Lightbox";
 
-const Counter = styled(Link)`
+const Counter = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -98,7 +98,7 @@ const GridContainer = styled.div`
     position: relative;
   }
 
-  & img {
+  & .grid-img {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -133,7 +133,7 @@ const GridGallery = (props) => {
     const count = Math.max(assets.length - items.length, 0)
     if (isLast && count) {
       return (
-        <Counter to={`/moments/${asset.moment}`}>
+        <Counter>
           <span>+{count}</span>
         </Counter>
       );
@@ -155,7 +155,7 @@ const GridGallery = (props) => {
           const c = index == items.length - 1 ? 'last' : '';
           return (
             <div key={item._id} className={`${c}`} onClick={() => showcaseImage(index)}>
-              <Image src={item.name} size="medium" className='scale-img' />
+              <Image src={item.name} size="medium" className='grid-img scale-img' />
               { counter(c, item) }
             </div>
           )
