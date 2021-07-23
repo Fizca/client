@@ -57,7 +57,7 @@ export const NavDropdown = (props) => {
   }
 
   return (
-    <li className={`nav-item ${{...className}}`}>
+    <li className={`nav-item ${className}`}>
       <button className="icon-button" ref={buttonRef} onClick={() => setOpen((!open))}>
         {icon}
       </button>

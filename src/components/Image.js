@@ -1,19 +1,10 @@
-import { http } from '@services/Backend';
+import { serverUrl } from '@services/Backend';
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
 
 const Image = (props) => {
   const { src, size = 'large', ...rest } = props;
-  const [ source, setSource ] = useState(null);
 
-  useEffect(() => {
-    http(`/assets/url/${size}/${src}`)
-      .then((result) => {
-        setSource(result.data);
-      });
-  }, [src]);
-
-  return (<motion.img src={source} {...rest}/>);
+  return (<motion.img src={`${serverUrl}/assets/${size}/${src}`} {...rest}/>);
 }
 
 export default Image;

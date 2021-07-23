@@ -13,7 +13,7 @@ import ff_standing from "../../public/ff_standing.svg"
 import ff_seating from "../../public/ff_seating.svg"
 import styled from "styled-components";
 
-const NavLogo = styled(NavItem)`
+const NavLogo = styled.div`
   height: var(--nav-size);
   width: var(--nav-size);
   background-image: url("${ff_seating}");

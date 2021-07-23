@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { observable } from "mobx";
 
 import Profile from "@models/Profile";
@@ -14,29 +15,15 @@ class Store {
   @observable profiles = [];
   @observable profile;
 
-  setAccessToken(token) {
-    // Update the header to include the access token
-    http.defaults.headers.common['access_token'] = token;
-    window.localStorage.setItem('access_token', token);
-  }
-
-  getAccessToken() {
-    const token = window.localStorage.getItem('access_token');
-    http.defaults.headers.common['access_token'] = token;
-    return token;
-  }
-
   clearSession() {
     this.user = undefined
     this.profiles = [];
     this.profile = undefined;
 
-    window.localStorage.removeItem('access_token');
-    http.defaults.headers.common['access_token'] = undefined;
+    Cookies.remove('connect.sid')
   }
 
   async googleAuth(googleData) {
-    console.log(googleData);
     const body = { token: googleData.tokenId };
     const headers = { "Content-Type": "application/json" };
     return http.post("auth/google", body, { headers })
@@ -46,9 +33,8 @@ class Store {
   async init() {
     this.status = Loading;
 
-    const token = this.getAccessToken()
-    if (!token) {
-      console.log('No access token...');
+    if (!Cookies.get('connect.sid')) {
+      console.log('No session cookie...');
       this.clearSession();
       this.status = Ready;
       return;
