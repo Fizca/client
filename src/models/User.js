@@ -1,6 +1,6 @@
 import { observable } from "mobx";
 
-import { http } from "@services/Backend";
+import Http from "@services/Http";
 
 class User {
   @observable id;
@@ -19,7 +19,7 @@ class User {
   }
 
   static FetchUser(userId) {
-    return http(`/users/${userId}`)
+    return Http(`/users/${userId}`)
       .then((res) => {
         const { data } = res;
         return new User(data);
@@ -27,7 +27,7 @@ class User {
   }
 
   static Logout() {
-    return http(`/auth/logout`);
+    return Http(`/auth/logout`);
   }
 }
 

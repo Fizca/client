@@ -1,12 +1,10 @@
 import axios from 'axios';
 
-const _transport = axios.create({
+const Http = axios.create({
   baseURL: process.env.SERVER_URL,
   withCredentials: true
 });
 
-export const serverUrl = process.env.SERVER_URL;
-export const http = _transport;
 
 /**
  * Upload assets to the server
@@ -29,9 +27,12 @@ export const uploadAsset = (file, tags, profile, moment) => {
     formData.append('tags[]', tag.value);
   })
 
-  return _transport.post("/assets", formData, {
+  return Http.post("/assets", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 };
+
+export const serverUrl = process.env.SERVER_URL;
+export default Http;

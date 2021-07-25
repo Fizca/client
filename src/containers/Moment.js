@@ -12,7 +12,7 @@ import Modal from "@components/Modal";
 import { Bubble } from '@components/Quote';
 import TagLink, { Tags }from '@components/TagLink';
 import MomentForm from "@containers/MomentForm";
-import { http } from '@services/Backend';
+import Http from '@services/Http';
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const Moment = () => {
   const [edit, setEdit] = useState(false);
 
   useEffect(async () => {
-    const response = await http.get(`/moments/${id}`);
+    const response = await Http.get(`/moments/${id}`);
     setMoment(response.data);
   }, []);
 
@@ -62,10 +62,10 @@ const Moment = () => {
       takenAt,
     });
 
-    const response = await http.get(`/moments/${id}`);
+    const response = await Http.get(`/moments/${id}`);
 
     assets.map(async (asset) => {
-      await http.put(`/assets/${asset._id}`, {
+      await Http.put(`/assets/${asset._id}`, {
         tags: tags.map((entry) => entry.value),
       });
     });

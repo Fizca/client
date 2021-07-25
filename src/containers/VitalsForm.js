@@ -5,7 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 import { ModalContentBox } from '@components/Boxes';
 import { HeroBox, Subtitle, Title } from '@components/Headings';
 import Store from '@models/Store';
-import { http } from '@services/Backend';
+import Http from '@services/Http';
 
 const MomentForm = (props) => {
   const { vitals = {} } = props;
@@ -31,7 +31,7 @@ const MomentForm = (props) => {
     }
 
     // Send the request upstream.
-    return http.post("/vitals", data)
+    return Http.post("/vitals", data)
       .then((res) => {
         // Faking a quick 2 second delay to give a sense of working
         // and reseting the state for more uploads.

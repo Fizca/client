@@ -1,4 +1,4 @@
-import { http } from "@services/Backend";
+import Http from "@services/Http";
 
 class Profile {
   constructor(obj = {}) {
@@ -9,7 +9,7 @@ class Profile {
   }
 
   static FetchProfiles() {
-    return http(`/profiles/list`)
+    return Http(`/profiles/list`)
       .then((res) => {
         const { data } = res;
         return data.map((entry) => new Profile(entry));

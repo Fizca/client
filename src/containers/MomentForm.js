@@ -11,7 +11,7 @@ import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
 import TagSelector from '@components/TagSelector';
 import Store from '@models/Store';
-import { http, uploadAsset } from '@services/Backend';
+import http, { uploadAsset } from '@services/Http';
 
 const MomentForm = (props) => {
   const { moment = {}, close } = props;
@@ -54,7 +54,7 @@ const MomentForm = (props) => {
 
     if (moment._id) {
       // Send the request upstream.
-      newMoment = await http.put(`/moments/${moment._id}`, newMoment)
+      newMoment = await Http.put(`/moments/${moment._id}`, newMoment)
         .then((response) => {
           toast(
             `Updated this moment for ${Store.profile.nickname}!`,
@@ -68,7 +68,7 @@ const MomentForm = (props) => {
 
     } else {
       // Send the request upstream.
-      newMoment = await http.post("/moments", newMoment)
+      newMoment = await Http.post("/moments", newMoment)
         .then((response) => {
           toast(
             `Created a new moment for ${Store.profile.nickname}!`,

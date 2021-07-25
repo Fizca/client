@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
 
 import Store from '@models/Store';
-import { http } from '@services/Backend';
+import Http from '@services/Http';
 
 /**
  * Sanitizes and creates and object for the selection dropdown.
@@ -25,7 +25,7 @@ const TagSelector = (props) => {
   useEffect(() => {
     setValue(tags.map((entry) => createOption(entry)));
 
-    http(`/tags/profile/${Store.profile.id}`)
+    Http(`/tags/profile/${Store.profile.id}`)
       .then((response) => {
         const entries = response.data.tags.map((tag) => {
           return createOption(tag.name);

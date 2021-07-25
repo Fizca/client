@@ -11,6 +11,7 @@ function handleLogin(googleData) {
       Store.init();
     })
     .catch((e) => {
+      console.log(e);
       toast(
         <div>
           This account does not exist.<br />

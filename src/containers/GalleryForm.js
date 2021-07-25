@@ -6,7 +6,7 @@ import FileBox from '@components/FileBox';
 import { HeroBox, Subtitle, Title } from '@components/Headings';
 import Store from '@models/Store';
 import TagSelector from '@components/TagSelector';
-import { uploadAsset } from '@services/Backend';
+import { uploadAsset } from '@services/Http';
 
 const Uploads = (props) => {
   const [ files, setFiles ] = useState([]);

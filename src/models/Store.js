@@ -3,7 +3,7 @@ import { observable } from "mobx";
 
 import Profile from "@models/Profile";
 import User from '@models/User';
-import { http } from "@services/Backend";
+import Http from "@services/Http";
 
 const Empty = 'empty';
 const Loading = 'loading';
@@ -26,7 +26,7 @@ class Store {
   async googleAuth(googleData) {
     const body = { token: googleData.tokenId };
     const headers = { "Content-Type": "application/json" };
-    return http.post("auth/google", body, { headers })
+    return Http.post("auth/google", body, { headers })
       .then((res) => res.data);
   }
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-import { http } from '@services/Backend';
+import Http from '@services/Http';
 
 export default function usePageFetch(url, pageNumber) {
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ export default function usePageFetch(url, pageNumber) {
     setLoading(true)
     setError(false)
     let cancel
-    http({
+    Http({
       url,
       params: { page: pageNumber },
       cancelToken: new axios.CancelToken(c => cancel = c),
@@ -28,7 +28,7 @@ export default function usePageFetch(url, pageNumber) {
       setHasMore(data.objects.length > 0)
       setLoading(false)
     }).catch(e => {
-      if (http.isCancel(e)) return
+      if (Http.isCancel(e)) return
       setError(true)
     })
     return () => cancel()
