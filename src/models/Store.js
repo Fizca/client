@@ -26,7 +26,7 @@ class Store {
   async googleAuth(googleData) {
     const body = { token: googleData.tokenId };
     const headers = { "Content-Type": "application/json" };
-    return Http.post("auth/google", body, { headers })
+    return Http.post("/auth/google", body, { headers })
       .then((res) => res.data);
   }
 

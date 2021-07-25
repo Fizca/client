@@ -71,6 +71,7 @@ module.exports = {
   plugins: [
     new Dotenv({
       defaults: true,
+      systemvars: true,
     }),
     new HtmlWebPackPlugin({
       template: './public/index.html',

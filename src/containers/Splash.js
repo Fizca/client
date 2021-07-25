@@ -26,8 +26,6 @@ function handleLogin(googleData) {
 }
 
 const Splash = (props) => {
-
-
   return(
     <>
       <header></header>
