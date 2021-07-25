@@ -1,5 +1,6 @@
-import { http } from "@services/Backend";
 import { observable } from "mobx";
+
+import { http } from "@services/Backend";
 
 class User {
   @observable id;

@@ -1,5 +1,4 @@
 import { http } from "@services/Backend";
-import { computed, observable } from "mobx";
 
 class Profile {
   constructor(obj = {}) {

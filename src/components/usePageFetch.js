@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import { http } from '@services/Backend';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+import { http } from '@services/Backend';
 
 export default function usePageFetch(url, pageNumber) {
   const [loading, setLoading] = useState(true);

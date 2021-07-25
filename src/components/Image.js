@@ -1,5 +1,6 @@
-import { serverUrl } from '@services/Backend';
 import { motion } from 'framer-motion';
+
+import { serverUrl } from '@services/Backend';
 
 const Image = (props) => {
   const { src, size = 'large', ...rest } = props;
