@@ -1,15 +1,31 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
+import { toast } from 'react-toastify';
 
 import Quote from '@components/Quote';
 import Store from '@models/Store';
 
+function handleLogin(googleData) {
+  Store.googleAuth(googleData)
+    .then(() => {
+      Store.init();
+    })
+    .catch((e) => {
+      toast(
+        <div>
+          This account does not exist.<br />
+          Please contact the admin
+        </div>,
+        {
+          type: toast.TYPE.ERROR,
+          autoClose: false,
+        }
+      );
+    });
+}
+
 const Splash = (props) => {
-  const handleLogin = async (googleData) => {
-    const token = await Store.googleAuth(googleData);
-    Store.setAccessToken(token);
-    await Store.init();
-  }
+
 
   return(
     <>
