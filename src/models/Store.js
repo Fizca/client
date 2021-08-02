@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { observable } from "mobx";
 
 import Profile from "@models/Profile";
@@ -8,6 +7,7 @@ import Http from "@services/Http";
 const Empty = 'empty';
 const Loading = 'loading';
 const Ready = 'ready';
+const StorageKey = 'session-data';
 
 class Store {
   @observable status = Empty;
@@ -19,26 +19,18 @@ class Store {
     this.user = undefined
     this.profiles = [];
     this.profile = undefined;
-
-    Cookies.remove('connect.sid')
   }
 
   async googleAuth(googleData) {
+    console.log(googleData);
     const body = { token: googleData.tokenId };
     const headers = { "Content-Type": "application/json" };
-    return Http.post("/auth/google", body, { headers })
+    return Http.post("auth/google", body, { headers })
       .then((res) => res.data);
   }
 
   async init() {
     this.status = Loading;
-
-    if (!Cookies.get('connect.sid')) {
-      console.log('No session cookie...');
-      this.clearSession();
-      this.status = Ready;
-      return;
-    }
 
     try {
       await this.loadUser();

@@ -7,7 +7,7 @@ class User {
   @observable name;
 
   constructor(obj = {}) {
-    const { _id, google: {displayName, avatar}, role } = obj;
+    const { _id, google: {displayName}, avatar, role } = obj;
     this.id = _id;
     this.name = displayName;
     this.avatar = avatar;
