@@ -9,14 +9,15 @@ import GalleryForm from "@containers/GalleryForm";
 import MomentForm from "@containers/MomentForm";
 import VitalsForm from "@containers/VitalsForm";
 
-import ff_standing from "../../public/ff_standing.svg"
-import ff_seating from "../../public/ff_seating.svg"
+import ff_standing from "../../public/ff_standing.png"
+import ff_seating from "../../public/ff_seating.png"
 import styled from "styled-components";
 
 const NavLogo = styled.div`
   height: var(--nav-size);
   width: var(--nav-size);
   background-image: url("${ff_seating}");
+  background-repeat:no-repeat;
   background-size: contain;
   transition: all 300ms ease-in-out;
 
