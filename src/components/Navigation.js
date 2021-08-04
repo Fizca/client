@@ -2,6 +2,7 @@ import { useState } from "react";
 import { observer } from "mobx-react";
 import { Link, useHistory } from 'react-router-dom';
 import { NavBar, NavItem, NavDropdown, DropdownItem } from '@components/NavBar';
+import { GoogleLogout } from 'react-google-login';
 
 import Store from '@models/Store';
 import Modal from "@components/Modal";
@@ -32,6 +33,7 @@ const Navigation = observer((props) => {
   const history = useHistory();
 
   const logout = () => {
+    console.info('Logging user out')
     Store.clearUser()
       .then(() => {
         console.log('Successful log out');
@@ -80,9 +82,18 @@ const Navigation = observer((props) => {
         </NavItem> */}
         <NavDropdown icon={<div><img src={`${Store.user.avatar}`} /></div>}>
             {navByRole()}
-            <DropdownItem onClick={logout}>
-              <i className="las la-sign-out-alt"></i>Logout
+            <DropdownItem>
+              <GoogleLogout
+                className='menu'
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                buttonText="Logout"
+                onLogoutSuccess={logout}
+              >
+              </GoogleLogout>
             </DropdownItem>
+            {/* <DropdownItem onClick={logout}>
+              <i className="las la-sign-out-alt"></i>Logout
+            </DropdownItem> */}
         </NavDropdown>
       </NavBar>
 
