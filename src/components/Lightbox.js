@@ -12,6 +12,11 @@ const Img = styled(Image)`
   object-fit: cover;
   border-radius: var(--border-radius);
   position: absolute;
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    max-width: 100%;
+  }
 `;
 
 const ArrowDiv = styled(ModalWrapper)`
@@ -30,6 +35,19 @@ const ArrowDiv = styled(ModalWrapper)`
 
   & .las {
     font-size: 3rem;
+  }
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    margin: 0.25rem;
+    opacity: .7;
+    ${
+      (props) => props.right ? 'margin-left: auto;' : 'margin-right: auto;'
+    }
+
+    & .las {
+      padding: 0px;
+    }
   }
 `;
 const Arrow = ({onClick, active, icon, right}) => {

@@ -11,6 +11,12 @@ export const Tags = styled.div`
   letter-spacing: 0.2rem;
   font-weight: 300;
   text-transform: uppercase;
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    font-size: 0.8rem;
+    letter-spacing: 0rem;
+  }
 `;
 
 const Tag = styled(Link)`

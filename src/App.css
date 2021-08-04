@@ -129,9 +129,6 @@ header {
 .splash {
   position: relative;
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
   margin: 2rem;
   border: var(--border);
   background-color: var(--bg);
@@ -640,4 +637,11 @@ textarea:focus {
 }
 .Toastify__progress-bar--warning {
   background-color: var(--accent);
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  :root {
+    --width: 370px;
+  }
 }

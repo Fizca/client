@@ -49,38 +49,6 @@ const Moment = () => {
     setMoment(response.data);
   }, []);
 
-  const onCancel = () => {
-    loadMoment(originalMoment.current);
-    setEdit(false);
-  }
-
-  const onSave = async () => {
-    await http.put(`/moments/${id}`, {
-      title,
-      text,
-      tags: tags.map((entry) => entry.value),
-      takenAt,
-    });
-
-    const response = await Http.get(`/moments/${id}`);
-
-    assets.map(async (asset) => {
-      await Http.put(`/assets/${asset._id}`, {
-        tags: tags.map((entry) => entry.value),
-      });
-    });
-
-    // Load moment, and referrence for current moment.
-    loadMoment(response.data);
-    originalMoment.current = response.data;
-    setEdit(false);
-
-    toast(
-      'Updated this moment!',
-      { type: toast.TYPE.SUCCESS, autoClose: 3000, }
-    );
-  }
-
   const showchaseImage = (index) => {
     setPickImg(index);
     setShowcase(true);

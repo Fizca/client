@@ -33,6 +33,11 @@ export const HeroTitle = styled.span`
   font-weight: 500;
   color: #000;
   text-align: center;
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const Subtitle = styled.span`
@@ -75,4 +80,11 @@ export const Em = styled.div`
 export const Text = styled.h1`
   white-space: pre-line;
   font-size: ${({length}) => length < 80 ? '2rem' : '1.25rem'}
+  word-break: break-word;
+  hyphens: auto;
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    font-size: 1rem;
+  }
 `;

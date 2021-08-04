@@ -37,8 +37,13 @@ const Modal = ({ showModal, setShowModal, children }) => {
   }
 
   useEffect(() => {
-    const overflow = showModal ? 'hidden' : 'unset';
+    const overflow = showModal ? 'hidden' : '';
+    console.log('showing modal:', showModal, overflow)
     document.body.style.overflow = overflow;
+    return () => {
+      console.info('Unmounting modal');
+      document.body.style.overflow = '';
+    }
   }, [showModal]);
 
   return (

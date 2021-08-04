@@ -14,9 +14,6 @@ const Quote = styled.div`
 
   /* Blockquote header */
   .blockquote h1 {
-    overflow-wrap: break-word;
-    hyphens: auto;
-
     position: relative; /* for pseudos */
     color: var(--text);
     font-size: 2.8rem;
@@ -92,6 +89,9 @@ export const Bubble = styled(Quote)`
 
   /* Blockquote header */
   .blockquote h1 {
+    overflow-wrap: break-word;
+    hyphens: auto;
+
     text-align: left;
     white-space: pre-line;
 
