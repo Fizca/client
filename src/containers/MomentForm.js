@@ -11,7 +11,7 @@ import { ModalContentBox} from '@components/Boxes';
 import FileBox from '@components/FileBox';
 import TagSelector from '@components/TagSelector';
 import Store from '@models/Store';
-import http, { uploadAsset } from '@services/Http';
+import Http, { uploadAsset } from '@services/Http';
 
 const MomentForm = (props) => {
   const { moment = {}, close } = props;
