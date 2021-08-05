@@ -40,6 +40,7 @@ const MomentForm = (props) => {
   }, [uploading])
 
   const handleSubmit = async () => {
+    close && close();
     // Set the overlay to avoid double submissions
     setUploading(files.length);
     toastId.current = toast("Saving...", { autoClose: false });

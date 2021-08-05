@@ -85,6 +85,6 @@ export const Text = styled.h1`
 
   /* Smartphones (portrait and landscape) ----------- */
   @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-    font-size: 1rem;
+    font-size: ${({length}) => length < 40 ? '1.75rem' : '1.25rem'}
   }
 `;
