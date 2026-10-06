@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "@testing-library/jest-dom": "^5.11.4",
@@ -30,7 +31,7 @@
   "scripts": {
     "watch": "webpack-dev-server --progress",
     "start": "webpack-dev-server --config ./webpack.config.js",
-    "build": "webpack --mode production --config ./webpack.config.js",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode production --config ./webpack.config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
