@@ -85,7 +85,7 @@ const Navigation = observer((props) => {
             <DropdownItem>
               <GoogleLogout
                 className='menu'
-                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                clientId={import.meta.env.REACT_APP_GOOGLE_CLIENT_ID}
                 buttonText="Logout"
                 onLogoutSuccess={logout}
               >

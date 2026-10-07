@@ -41,7 +41,7 @@ const Splash = (props) => {
           </Quote>
           <div>
             <GoogleLogin
-                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                clientId={import.meta.env.REACT_APP_GOOGLE_CLIENT_ID}
                 buttonText="Log in with Google"
                 onSuccess={handleLogin}
                 onFailure={handleLogin}

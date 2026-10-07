@@ -3,7 +3,7 @@ import axios from 'axios';
 // SERVER_URL is an origin only (empty in production for same-origin calls through the
 // Cloudflare proxy, http://localhost:3001 in dev). The /api prefix is the client's
 // knowledge of the server route contract, so it lives here rather than in deploy config.
-const apiBase = `${process.env.SERVER_URL || ''}/api`;
+const apiBase = `${import.meta.env.SERVER_URL || ''}/api`;
 
 const Http = axios.create({
   baseURL: apiBase,
