@@ -1,12 +1,17 @@
-import { observable } from "mobx";
+import { observable, makeObservable } from "mobx";
 
 import Http from "@services/Http";
 
 class User {
-  @observable id;
-  @observable name;
+  id;
+  name;
 
   constructor(obj = {}) {
+    makeObservable(this, {
+      id: observable,
+      name: observable,
+    });
+
     const { _id, google: {displayName}, avatar, role } = obj;
     this.id = _id;
     this.name = displayName;

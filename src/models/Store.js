@@ -1,8 +1,13 @@
-import { observable } from "mobx";
+import { observable, configure, makeObservable } from "mobx";
 
 import Profile from "@models/Profile";
 import User from '@models/User';
 import Http from "@services/Http";
+
+// MobX 5 did not enforce actions. Preserve that lenient behavior so the
+// existing async flows that mutate observables after an await keep working
+// without warnings. Tightening this belongs to the later MobX cleanup.
+configure({ enforceActions: "never" });
 
 const Empty = 'empty';
 const Loading = 'loading';
@@ -10,10 +15,19 @@ const Ready = 'ready';
 const StorageKey = 'session-data';
 
 class Store {
-  @observable status = Empty;
-  @observable user;
-  @observable profiles = [];
-  @observable profile;
+  status = Empty;
+  user;
+  profiles = [];
+  profile;
+
+  constructor() {
+    makeObservable(this, {
+      status: observable,
+      user: observable,
+      profiles: observable,
+      profile: observable,
+    });
+  }
 
   clearSession() {
     this.user = undefined
