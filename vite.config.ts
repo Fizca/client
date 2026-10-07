@@ -19,9 +19,4 @@ export default defineConfig({
       '@public': path.resolve(__dirname, 'public'),
     },
   },
-  // esbuild does not parse JSX in .js files by default, and Vite's esbuild
-  // transform defaults to exclude: /\.js$/. Override both so .js files in src
-  // are parsed as JSX. This workaround goes away in Brick 3 (files become .tsx).
-  esbuild: { loader: 'jsx', include: /src\/.*\.js$/, exclude: [] },
-  optimizeDeps: { esbuildOptions: { loader: { '.js': 'jsx' } } },
 });
